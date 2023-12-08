@@ -10,21 +10,25 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+// use App\Http\Controllers\Auth\PhotoTrait;
+use App\Http\Controllers\Auth\PhotoTrait;
 use Illuminate\Support\Facades\Validator;
+// use App\Traits;
 
 class ProdukController extends Controller
 {
+    use PhotoTrait;
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
         //
-        $data['title']='Produk';
-        $data['page']='produk';
-        $data['menu']='index';
+        $data['title'] = 'Produk';
+        $data['page'] = 'produk';
+        $data['menu'] = 'index';
         $data['produks'] = Produk::all();
-        return view('admin.produk.index', $data);
+        return view('admin.produk.produk_index', $data);
     }
 
     /**
@@ -33,11 +37,17 @@ class ProdukController extends Controller
     public function create()
     {
         //
-        $data['title']='Produk';
-        $data['page']='produk';
-        $data['menu']='create';
-        $data['categories'] = Kategori::all();
-        return view('admin.produk.create', $data);
+        // $data['title'] = 'Produk';
+        // $data['page'] = 'produk';
+        // $data['menu'] = 'create';
+        // $data['categories'] = Kategori::all();
+        $data['model'] = new Produk;
+        $data['title'] = 'Tambah Produk Baru';
+        $data['route'] = 'produk.store';
+        $data['method'] = 'POST';
+        $data['kategoris'] = Kategori::pluck('nama', 'id');
+
+        return view('admin.produk.produk_form', $data);
     }
 
     /**
@@ -47,36 +57,37 @@ class ProdukController extends Controller
     {
         try {
             DB::beginTransaction();
-        $validator = Validator::make($request->all(),[
-            'foto'=>['required','image','mimes:png,jpg,gif,webp','max:1000'],
-            'nama'=>['required','string','max:50'],
-            'harga'=>['required'],
-            'stok'=>['required','numeric','min:1'],
-            'deskripsi'=>['required'],
-            'kategori_id'=>['required','numeric']
-        ]);
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator->errors())->withInput($request->all());
-        }
-        $data = $validator->validate();
-        $data['harga'] = str_replace(',', '',$request->harga);
-        if($request->hasFile('foto')){
-            $file = $request->file('foto');
-            $ext = $file->getClientOriginalExtension();
-            $filename = time(). '.' . $ext;
-            $path = $file->storeAs('produk', $filename);
-            $data['foto'] = $path;
-        }
-        Produk::create($data);
-        DB::commit();
-        return redirect()->route('produk.index')->with('success', 'Berhasil Simpan data');
+            $validator = Validator::make($request->all(), [
+                'foto' => ['required', 'image', 'mimes:png,jpg', 'max:1000'],
+                'nama' => ['required', 'string', 'max:50'],
+                'harga' => ['required'],
+                'stok' => ['required', 'numeric', 'min:1'],
+                'deskripsi' => ['required'],
+                'kategori_id' => ['required', 'numeric']
+            ]);
+            $kategori = Kategori::where('id', $request->kategori_id)->firstOrFail();
+            // dd($kategori->nama);
+            if ($validator->fails()) {
+                return redirect()->back()->withErrors($validator->errors())->withInput($request->all());
+            }
+            $data = $validator->validate();
+            $data['harga'] = str_replace(',', '', $request->harga);
+            if ($request->hasFile('foto')) {
+                // $file = $request->file('foto');
+                // // dd($file);
+                // $ext = $file->getClientOriginalExtension();
+                // $filename = time() . '.' . $ext;
+                // $path = $file->storeAs('public/produk', $filename);
+                $data['foto'] = $this->uploadPhoto($request, 'foto', 'public/produk/' . $kategori->nama);
+            }
+            Produk::create($data);
+            DB::commit();
+            return redirect()->route('produk.index')->with('success', 'Berhasil Simpan data');
         } catch (\Throwable $th) {
             DB::rollback();
             Log::debug($th->getMessage());
-            return redirect()->back()->with('error','Terjadi Masalah');
-
+            return redirect()->back()->with('error', 'Terjadi Masalah');
         }
-
     }
 
     /**
@@ -87,12 +98,13 @@ class ProdukController extends Controller
         //
         $data['title'] = 'Detail Produk';
         $data['produk'] = $produk;
+        $data['kategoris'] = Kategori::all();
         $data['kerajangs'] = null;
 
-            if(Auth::check()){
-                $data['kerajangs'] = auth()->user()->kerajangs;
-            }
-        return view('product-details', $data);
+        if (Auth::check()) {
+            $data['kerajangs'] = auth()->user()->kerajangs;
+        }
+        return view('front.detail', $data);
     }
 
     /**
@@ -101,12 +113,12 @@ class ProdukController extends Controller
     public function edit(Produk $produk)
     {
         //
-        $data['title']='Edit Produk';
-        $data['page']='produk';
-        $data['menu']='edit';
-        $data['categories'] = Kategori::all();
-        $data['produk'] = $produk;
-        return view('admin.produk.edit', $data);
+        $data['model'] = $produk;
+        $data['title'] = 'Edit Produk';
+        $data['route'] = ['produk.update', $produk->id];
+        $data['method'] = 'PUT';
+        $data['kategoris'] = Kategori::pluck('nama', 'id');
+        return view('admin.produk.produk_form', $data);
     }
 
     /**
@@ -117,39 +129,40 @@ class ProdukController extends Controller
         //
         try {
             DB::beginTransaction();
-        $validator = Validator::make($request->all(),[
-            'foto'=>['nullable','image','mimes:png,jpg,gif,webp','max:1000'],
-            'nama'=>['required','string','max:50'],
-            'harga'=>['required'],
-            'stok'=>['required','numeric'],
-            'deskripsi'=>['required'],
-            'kategori_id'=>['required','numeric']
-        ]);
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator->errors())->withInput($request->all());
-        }
-        $data = $validator->validate();
-        $data['harga'] = str_replace(',', '',$request->harga);
-        if($request->hasFile('foto')){
-            if ($produk->foto && Storage::exists($produk->foto)){
-                Storage::delete($produk->foto);
+            $validator = Validator::make($request->all(), [
+                'foto' => ['nullable', 'image', 'mimes:png,jpg,gif,webp', 'max:1000'],
+                'nama' => ['required', 'string', 'max:50'],
+                'harga' => ['required'],
+                'stok' => ['required', 'numeric'],
+                'deskripsi' => ['required'],
+                'kategori_id' => ['required', 'numeric']
+            ]);
+            $kategori = Kategori::where('id', $request->kategori_id)->firstOrFail();
+            if ($validator->fails()) {
+                return redirect()->back()->withErrors($validator->errors())->withInput($request->all());
             }
-            $file = $request->file('foto');
-            $ext = $file->getClientOriginalExtension();
-            $filename = time(). '.' . $ext;
-            $path = $file->storeAs('produk', $filename);
-            $data['foto'] = $path;
-        } else {
-            unset($data['foto']);
-        }
-        $produk->update($data);
-        DB::commit();
-        return redirect()->route('produk.index')->with('success', 'Berhasil Simpan data');
+            $data = $validator->validate();
+            $data['harga'] = str_replace(',', '', $request->harga);
+            if ($request->hasFile('foto')) {
+                // if ($produk->foto && Storage::exists($produk->foto)) {
+                //     Storage::delete($produk->foto);
+                // }
+                // $file = $request->file('foto');
+                // $ext = $file->getClientOriginalExtension();
+                // $filename = time() . '.' . $ext;
+                // $path = $file->storeAs('public/produk', $filename);
+                // $data['foto'] = $path;
+                $data['foto'] = $this->uploadPhoto($request, 'foto', 'public/produk/' . $kategori->nama, $produk->foto);
+            } else {
+                unset($data['foto']);
+            }
+            $produk->update($data);
+            DB::commit();
+            return redirect()->route('produk.index')->with('success', 'Berhasil Ubah data');
         } catch (\Throwable $th) {
             DB::rollback();
             Log::debug($th->getMessage());
-            return redirect()->back()->with('error','Terjadi Masalah');
-
+            return redirect()->back()->with('error', 'Terjadi Masalah');
         }
     }
 
@@ -161,18 +174,17 @@ class ProdukController extends Controller
         try {
             //code...
             DB::beginTransaction();
-            if ($produk->foto && Storage::exists($produk->foto)){
+            if ($produk->foto && Storage::exists($produk->foto)) {
                 Storage::delete($produk->foto);
             }
             $produk->delete();
             DB::commit();
-            return redirect()->back()->with('success','Berhasil di hapus !');
-
+            return redirect()->back()->with('success', 'Berhasil di hapus !');
         } catch (\Throwable $th) {
             //throw $th;
             DB::rollBack();
-            Log::debug('ProdukController::destroy()'.$th->getMessage());
-            return redirect()->back()->with('success','Terjadi Masalah');
+            Log::debug('ProdukController::destroy()' . $th->getMessage());
+            return redirect()->back()->with('success', 'Terjadi Masalah');
         }
     }
 }

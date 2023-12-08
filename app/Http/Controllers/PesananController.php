@@ -17,17 +17,20 @@ class PesananController extends Controller
 
     public function index()
     {
-        //
+
         $data['title'] = 'Pesanan';
         $data['page'] = 'pesanan';
         $data['menu'] = 'index';
         $data['pesanans'] = Pesanan::all()->groupBy('order_id');
-        // return dd($data['pesanans']);
+
         return view('admin.pesanan.index', $data);
     }
     public function tolak(Request $request)
     {
-        // return dd($request->all());
+
+
+
+
         try {
             DB::beginTransaction();
             if (empty($request->order_id) || !isset($request->order_id)) {
@@ -38,12 +41,37 @@ class PesananController extends Controller
             if ($pesanan->count() == 0) {
                 return abort(404);
             }
-            foreach ($pesanan as $pesan) {
+
+            foreach ($pesanan->get() as $pesan) {
+
+
                 Produk::find($pesan->produk_id)->tambahi_stok($pesan->kuantitas);
+
+
+                if ($pesan->status == 'pending') {
+                    $pesan->status = 'cancel';
+
+                    $pesan->save();
+                }
+                if ($pesan->status == 'success') {
+                    $pesan->status = 'tolak';
+
+                    $pesan->update();
+                }
             }
+
             $tranksaksi = Transaksi::where('order_id', $order_id);
-            $tranksaksi->update(['status' => 'cencel']);
-            $pesanan->update(['status' => 'tolak']);
+
+
+
+
+
+
+            $tranksaksi->update(['status' => 'cancel']);
+
+
+
+
             DB::commit();
             return redirect()->back()->with('success', 'pesanan berhasil ditolak');
         } catch (\Throwable $th) {
@@ -54,7 +82,7 @@ class PesananController extends Controller
     }
     public function terima(Request $request)
     {
-        // return dd($request->all());
+
         try {
             DB::beginTransaction();
             if (empty($request->order_id) || !isset($request->order_id)) {
@@ -80,7 +108,6 @@ class PesananController extends Controller
      */
     public function create()
     {
-        //
     }
 
     /**
@@ -88,7 +115,6 @@ class PesananController extends Controller
      */
     public function store(Request $request)
     {
-        //
     }
 
     /**
@@ -96,8 +122,8 @@ class PesananController extends Controller
      */
     public function show($order_id)
     {
-        //
-        // return dd($order_id);
+
+
         $pesanan = Pesanan::where('order_id', $order_id);
         if ($pesanan->count() == 0) {
             return abort(404);
@@ -115,7 +141,6 @@ class PesananController extends Controller
      */
     public function edit(Pesanan $pesanan)
     {
-        //
     }
 
     /**
@@ -123,7 +148,6 @@ class PesananController extends Controller
      */
     public function update(Request $request, Pesanan $pesanan)
     {
-        //
     }
 
     /**
@@ -131,6 +155,5 @@ class PesananController extends Controller
      */
     public function destroy(Pesanan $pesanan)
     {
-        //
     }
 }

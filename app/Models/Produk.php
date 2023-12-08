@@ -24,6 +24,15 @@ class Produk extends Model
     {
         $this->stok = $this->stok - $stok;
         $this->save();
+        // if ($this->stok - $stok >= 0) {
+        //     $this->stok = $this->stok - $stok;
+        //     $this->save();
+        // } else {
+        //     // Handle the case where the resulting stock is negative
+        //     // You can throw an exception, log an error, or take appropriate action
+        //     // return redirect()->back()->with('error', $this->nama . ' stok ini tidak mencukupi');
+        //     throw new \Exception('Not enough stock available.');
+        // }
     }
     public function tambahi_stok($stok)
     {

@@ -36,21 +36,21 @@ class PesananDikirimController extends Controller
         // return dd($request->all());
         try {
             DB::beginTransaction();
-            $validator = Validator::make($request->all(),[
-                'order_id'=>'required',
-                'resi'=>'required',
-                'expedisi'=>'required'
+            $validator = Validator::make($request->all(), [
+                'order_id' => 'required',
+                'resi' => 'required',
+                'expedisi' => 'required'
             ]);
-            if($validator->fails()){
+            if ($validator->fails()) {
                 return redirect()->back()->withErrors($validator->errors())->withInput($request->all());
             }
             $data = $validator->validated();
             PesananDikirim::create($data);
-            $pesanan = Pesanan::where('order_id', $request->order_id    );
-                if($pesanan->count() == 0){
-                    return redirect()->back()->with('erorr', 'Pesanan tidak ditemukan');
-                }
-                $pesanan->update(['status'=>'dikirim']);
+            $pesanan = Pesanan::where('order_id', $request->order_id);
+            if ($pesanan->count() == 0) {
+                return redirect()->back()->with('erorr', 'Pesanan tidak ditemukan');
+            }
+            $pesanan->update(['status' => 'dikirim']);
             Db::commit();
             return redirect()->back()->with('success', 'berhasil Dikirim');
         } catch (\Throwable $th) {
@@ -66,7 +66,6 @@ class PesananDikirimController extends Controller
      */
     public function show(PesananDikirim $pesananDikirim)
     {
-        //
     }
 
     /**

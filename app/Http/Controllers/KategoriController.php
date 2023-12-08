@@ -17,12 +17,12 @@ class KategoriController extends Controller
     public function index()
     {
         //
-        $data['title']='Kategori';
-        $data['page']='kategori';
+        $data['title'] = 'Kategori';
+        $data['page'] = 'kategori';
         $data['kategoris'] = Kategori::all();
 
 
-        return view('admin.kategori', $data);
+        return view('admin.kategori.index', $data);
     }
 
     /**
@@ -43,22 +43,22 @@ class KategoriController extends Controller
         try {
             //code...
             DB::beginTransaction();
-            $validator = Validator::make($request->all(),[
-                'nama'=>['required']
+            $validator = Validator::make($request->all(), [
+                'nama' => ['required']
             ]);
-            if($validator->fails()){
-                return FormHelper::response_json(false,'input tidak valid', $validator->errors(),401);
+            if ($validator->fails()) {
+                return FormHelper::response_json(false, 'input tidak valid', $validator->errors(), 401);
             }
             $data = $validator->validated();
             Kategori::create($data);
             DB::commit();
-            session()->flash('success','Simpan');
-            return FormHelper::response_json(true,'berhasil simpan data', route('kategori.index'),200);
+            session()->flash('success', 'Simpan');
+            return FormHelper::response_json(true, 'berhasil simpan data', route('kategori.index'), 200);
         } catch (\Throwable $th) {
             //throw $th;
             DB::rollBack();
-            Log::debug('KategoriController::store()'.$th->getMessage());
-            return FormHelper::response_json(false,'terjadi masalahh', $th->getMessage(),500);
+            Log::debug('KategoriController::store()' . $th->getMessage());
+            return FormHelper::response_json(false, 'terjadi masalahh', $th->getMessage(), 500);
         }
     }
 
@@ -88,22 +88,22 @@ class KategoriController extends Controller
         try {
             //code...
             DB::beginTransaction();
-            $validator = Validator::make($request->all(),[
-                'nama'=>['required']
+            $validator = Validator::make($request->all(), [
+                'nama' => ['required']
             ]);
-            if($validator->fails()){
-                return FormHelper::response_json(false,'input tidak valid', $validator->errors(),401);
+            if ($validator->fails()) {
+                return FormHelper::response_json(false, 'input tidak valid', $validator->errors(), 401);
             }
             $data = $validator->validated();
             $kategori->update($data);
             DB::commit();
-            session()->flash('success','Diubah');
-            return FormHelper::response_json(true,'berhasil simpan data', route('kategori.index'),200);
+            session()->flash('success', 'Diubah');
+            return FormHelper::response_json(true, 'berhasil simpan data', route('kategori.index'), 200);
         } catch (\Throwable $th) {
             //throw $th;
             DB::rollBack();
-            Log::debug('KategoriController::update()'.$th->getMessage());
-            return FormHelper::response_json(false,'terjadi masalahh', $th->getMessage(),500);
+            Log::debug('KategoriController::update()' . $th->getMessage());
+            return FormHelper::response_json(false, 'terjadi masalahh', $th->getMessage(), 500);
         }
     }
 
@@ -118,13 +118,12 @@ class KategoriController extends Controller
             DB::beginTransaction();
             $kategori->delete();
             DB::commit();
-            return redirect()->back()->with('success','Berhasil di hapus !');
-
+            return redirect()->back()->with('success', 'Berhasil di hapus !');
         } catch (\Throwable $th) {
             //throw $th;
             DB::rollBack();
-            Log::debug('KategoriController::destroy()'.$th->getMessage());
-            return redirect()->back()->with('success','Terjadi Masalah');
+            Log::debug('KategoriController::destroy()' . $th->getMessage());
+            return redirect()->back()->with('success', 'Terjadi Masalah');
         }
     }
 }

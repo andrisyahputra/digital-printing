@@ -18,8 +18,12 @@ class UserSender extends Seeder
         $user = User::create([
             'name' => 'Andrimc',
             'email' => 'andrimc1999@gmail.com',
+            'notelp' => '081278391690',
+            'nowa' => '081278391690',
+            'foto' => 'andri.jpg',
             'email_verified_at' => now(),
             'password' => Hash::make('123456789'),
+
         ]);
         $user->assignRole('Admin');
     }

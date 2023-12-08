@@ -20,7 +20,14 @@ class KerajangController extends Controller
      */
     public function index()
     {
-        //
+        if (auth()->user()->kerajangs->count() == 0) {
+            return redirect()->route('produk')->with('error', 'Keranjang Kosong, Silakan Belanja');
+        }
+        $data['title'] = env('APP_NAME');
+        $data['kerajangs'] = auth()->user()->kerajangs;
+
+
+        return view('front.keranjang', $data);
     }
 
     /**
@@ -63,6 +70,9 @@ class KerajangController extends Controller
 
     public function checkout()
     {
+        if (auth()->user()->kerajangs->count() == 0) {
+            return redirect()->route('produk')->with('error', 'Keranjang Kosong, Silakan Belanja');
+        }
         try {
             Config::$serverKey = env('MIDTRANS_API_KEY');
             Config::$isProduction = env('IS_PRODUCTION');
@@ -76,19 +86,46 @@ class KerajangController extends Controller
 
             $total_harga = 0;
             foreach ($kerajangs as $item) {
-                Pesanan::create([
-                    'order_id' => $order_id,
-                    'user_id' => $user_id,
-                    'produk_id' => $item->produk->id,
-                    'nama' => $item->produk->nama,
-                    'harga' => $item->produk->harga,
-                    'kuantitas' => $item->kuantitas,
-                    'total' => $item->produk->harga * $item->kuantitas
-                ]);
-                $item->produk->kurangi_stok($item->kuantitas);
-                $total_harga += $item->produk->harga * $item->kuantitas;
-                $item->delete();
+                // Pesanan::create([
+                //     'order_id' => $order_id,
+                //     'user_id' => $user_id,
+                //     'produk_id' => $item->produk->id,
+                //     'nama' => $item->produk->nama,
+                //     'harga' => $item->produk->harga,
+                //     'kuantitas' => $item->kuantitas,
+                //     'total' => $item->produk->harga * $item->kuantitas
+                // ]);
+                // $item->produk->kurangi_stok($item->kuantitas);
+                // $total_harga += $item->produk->harga * $item->kuantitas;
+                // $item->delete();
+                if ($item->produk->stok >= $item->kuantitas) {
+                    // Proceed with creating the order
+                    Pesanan::create([
+                        'order_id' => $order_id,
+                        'user_id' => $user_id,
+                        'produk_id' => $item->produk->id,
+                        'nama' => $item->produk->nama,
+                        'harga' => $item->produk->harga,
+                        'kuantitas' => $item->kuantitas,
+                        'total' => $item->produk->harga * $item->kuantitas
+                    ]);
+
+                    // Reduce stock
+                    $item->produk->kurangi_stok($item->kuantitas);
+
+                    // Update total harga
+                    $total_harga += $item->produk->harga * $item->kuantitas;
+
+                    // Remove item from the cart
+                    $item->delete();
+                } else {
+                    // If stock is less than quantity, cancel checkout for this item
+                    // You can handle this situation as needed, e.g., return an error response
+                    return redirect()->back()->with('error', $item->produk->nama . ' stok ini tidak mencukupi');
+                    // return response()->json(['error' => 'Not enough stock for ' . $item->produk->nama], 400);
+                }
             }
+
 
             Transaksi::create([
                 'order_id' => $order_id,
@@ -140,23 +177,24 @@ class KerajangController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(kerajang $kerajang)
+    public function destroy(kerajang $keranjang)
     {
         // return 'test';
-        // return dd($kerajang->id);
+        // return dd($keranjang->id);
         try {
             if (!Auth::check()) {
                 return redirect()->route('login');
             }
 
             DB::beginTransaction();
+            // dd($keranjang->user_id . ' & ' . auth()->user()->id);
 
             // Hanya pemilik keranjang yang bisa menghapusnya
-            if ($kerajang->user_id !== auth()->user()->id) {
+            if ($keranjang->user_id !== auth()->user()->id) {
                 return redirect()->back()->with('error', 'Anda tidak memiliki akses untuk menghapus keranjang ini.');
             }
 
-            $kerajang->delete();
+            $keranjang->delete();
             DB::commit();
             return redirect()->back()->with('success', 'Keranjang berhasil dihapus.');
         } catch (\Throwable $th) {

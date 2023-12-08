@@ -11,6 +11,6 @@ class AdminController extends Controller
         // return dd('admin');
         $data['title'] = 'Admin-Dashboard';
         $data['page'] = 'dashboard';
-        return view('admin.dashboard',$data);
+        return view('admin.dashboard.index',$data);
     }
 }
