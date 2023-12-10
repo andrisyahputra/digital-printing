@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Produk;
 use App\Models\Kategori;
+use App\Models\Kontak;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class indexController extends Controller
 {
@@ -74,5 +77,41 @@ class indexController extends Controller
 
 
         return view('front.produk', $data);
+    }
+
+    public function store(Request $request)
+    {
+        // return dd($request->all());
+        try {
+            DB::beginTransaction();
+            $validator = Validator::make($request->all(), [
+                'nama' => ['required', 'string', 'max:10'],
+                'email' => ['required', 'email'],
+                'nowa' => ['required', 'string',  'min:12', 'max:13'],
+                'pesan' => ['required'],
+            ]);
+            // $kategori = Kategori::where('id', $request->kategori_id)->firstOrFail();
+            // // dd($kategori->nama);
+            if ($validator->fails()) {
+                return redirect()->back()->withErrors($validator->errors())->withInput($request->all())->with('error', 'Maaf Pesan Gagal Dikirim');
+            }
+            $data = $validator->validate();
+            // $data['harga'] = str_replace(',', '', $request->harga);
+            // if ($request->hasFile('foto')) {
+            //     // $file = $request->file('foto');
+            //     // // dd($file);
+            //     // $ext = $file->getClientOriginalExtension();
+            //     // $filename = time() . '.' . $ext;
+            //     // $path = $file->storeAs('public/produk', $filename);
+            //     $data['foto'] = $this->uploadPhoto($request, 'foto', 'public/produk/' . $kategori->nama);
+            // }
+            Kontak::create($data);
+            DB::commit();
+            return redirect()->back()->with('success', 'Terimakasih Pesan Berhasil Dikirim');
+        } catch (\Throwable $th) {
+            DB::rollback();
+            Log::debug($th->getMessage());
+            return redirect()->back()->with('error', 'Terjadi Masalah');
+        }
     }
 }

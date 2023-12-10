@@ -63,6 +63,18 @@
             </div>
 
             <div class="mb-3 form-group row">
+                {!! Form::label('weight', 'Berat Produk', ['class' => 'col-sm-3 col-form-label']) !!}
+                <div class="col-sm-9">
+                    {!! Form::number('weight', null, [
+                        'class' => 'form-control',
+                        'placeholder' => 'Masukkan weight Produk',
+                    ]) !!}
+
+                    <span class="text-danger">{{ $errors->first('stok') }}</span>
+                </div>
+            </div>
+
+            <div class="mb-3 form-group row">
                 {!! Form::label('harga', 'Harga Produk', ['class' => 'col-sm-3 col-form-label']) !!}
                 <div class="col-sm-9">
                     <div class="input-group">

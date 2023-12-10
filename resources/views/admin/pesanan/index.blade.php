@@ -16,7 +16,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($pesanans as $index => $item)
+                        @foreach ($pesans as $index => $item)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $index }}</td>

@@ -3,15 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Kontak;
+use App\Models\Pesanan;
+use App\Models\Transaksi;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
+use App\Http\Controllers\Auth\PhotoTrait;
 use Illuminate\Validation\Rules\Password;
 use App\Http\Requests\ProfileUpdateRequest;
-use App\Http\Controllers\Auth\PhotoTrait;
 
 class ProfileController extends Controller
 {
@@ -21,11 +24,19 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): View
     {
-        return view('profile.profil_edit', [
-            'user' => $request->user(),
-            'title' => 'Edit Profil',
-            'page' => 'profil',
-        ]);
+        if (auth()->user()->hasRole('User')) {
+            $data['transaksi'] = auth()->user()->pesanans->sortByDesc('created_at')->groupBy('order_id')->take(2);
+            $data['totalTransaksi'] = auth()->user()->pesanans->groupBy('order_id')->count();
+        } else {
+            $data['transaksi'] = Pesanan::orderBy('created_at', 'desc')->get()->groupBy('order_id')->take(2);
+            $data['totalTransaksi'] = Pesanan::orderBy('created_at', 'desc')->get()->groupBy('order_id')->count();
+        }
+        $data['pesanans'] = Kontak::latest()->take(2)->get();
+        $data['totalPesanan'] = Kontak::count();
+        $data['user'] = $request->user();
+        $data['title'] = 'Edit Profil';
+        $data['page'] = 'profil';
+        return view('profile.profil_edit', $data);
     }
 
     /**

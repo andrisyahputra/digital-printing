@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kontak;
+use App\Models\Pesanan;
 use App\Models\Kategori;
+use App\Models\Transaksi;
 use App\Helper\FormHelper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -17,6 +20,10 @@ class KategoriController extends Controller
     public function index()
     {
         //
+        $data['pesanans'] = Kontak::latest()->take(2)->get();
+        $data['totalPesanan'] = Kontak::count();
+        $data['transaksi'] = Pesanan::orderBy('created_at', 'desc')->get()->groupBy('order_id')->take(2);
+        $data['totalTransaksi'] = Pesanan::orderBy('created_at', 'desc')->get()->groupBy('order_id')->count();
         $data['title'] = 'Kategori';
         $data['page'] = 'kategori';
         $data['kategoris'] = Kategori::all();

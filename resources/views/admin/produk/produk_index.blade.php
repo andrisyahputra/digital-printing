@@ -28,6 +28,7 @@
                                 <td>{{ format_rupiah($item->harga, true) }}</td>
                                 <td>berat</td>
                                 <td>{{ $item->stok }}</td>
+                                <td>{{ $item->weight }}</td>
                                 <td>{{ $item->created_at->translatedFormat('d-m-Y') }}</td>
                                 <td class="text-center">
                                     <a href="{{ Storage::url($item->foto) }}">

@@ -10,6 +10,7 @@ use App\Http\Controllers\PesananController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\KerajangController;
+use App\Http\Controllers\KontakController;
 use App\Http\Controllers\TransaksiController;
 use App\Http\Middleware\EnsureAuthDataKeranjang;
 use App\Http\Controllers\PesananDikirimController;
@@ -33,6 +34,7 @@ Route::get('logout', function () {
 Route::get('/', [indexController::class, 'index'])->name('home');
 Route::get('kontak', [indexController::class, 'kontak'])->name('kontak');
 Route::get('produk', [indexController::class, 'produk'])->name('produk');
+Route::post('/pesan-kontak', [indexController::class, 'store'])->name('pesan-kontak.store');
 Route::get('produk/{kategori}', [indexController::class, 'kategori'])->name('produk.kategori');
 Route::get('detail-produk/{produk}', [ProdukController::class, 'show'])->name('product-details');
 
@@ -72,21 +74,27 @@ Route::get('/dashboard', function () {
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'verified', 'role:Admin']], function () {
     Route::get('dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+    Route::get('/pesanan/cari', [PesananController::class, 'show'])->name('pesanan.cari');
+    // Route::get('/pesanan', [PesananController::class, 'index'])->name('pesanan.index');
+
+
     Route::resources([
         'kategori' => KategoriController::class,
         'produk' => ProdukController::class,
         'pesanan' => PesananController::class,
         'pesanan-dikirim' => PesananDikirimController::class,
-        'transaksi' => TransaksiController::class
+        'transaksi' => TransaksiController::class,
+        'kontak' => KontakController::class
     ]);
     Route::get('/tolak-pesanan', [PesananController::class, 'tolak'])->name('pesanan.tolak');
     Route::get('/terima-pesanan', [PesananController::class, 'terima'])->name('pesanan.terima');
 });
 
 Route::group(['prefix' => 'user', 'middleware' => ['auth', 'verified', 'role:User']], function () {
+    Route::get('/pesanan/cari', [UserController::class, 'show'])->name('pesanan.cari');
+    Route::get('pesanan-saya/{order_id}', [UserController::class, 'show'])->name('pesanan-saya.show');
     Route::get('dashboard', [UserController::class, 'dashboard'])->name('user.dashboard');
-    Route::get('pesanan-saya', [UserController::class, 'pesanan_Saya'])->name('pesanan-saya');
-    Route::get('pesanan-saya/{slug}', [UserController::class, 'show'])->name('pesanan-details');
+    Route::get('pesanan-saya', [UserController::class, 'index'])->name('pesanan-saya.index');
 });
 
 Route::middleware('auth')->group(function () {

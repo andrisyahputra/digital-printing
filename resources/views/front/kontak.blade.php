@@ -4,7 +4,7 @@
     <section class="page-produk">
         <div class="container">
             <ul class="breadcrumb">
-                <li><a href="index.php">Beranda</a></li>
+                <li><a href="{{ route('home') }}">Beranda</a></li>
                 <li>Kontak</li>
             </ul>
 
@@ -19,9 +19,20 @@
                         </div>
                     </div>
 
-                    <form method="post">
+                    <form method="post" action="{{ route('pesan-kontak.store') }}">
+                        @csrf
                         <div class="card">
                             <div class="card-body">
+                                @if (session('success'))
+                                    <div class="alert alert-success">
+                                        <h5 class="text-center">{{ session('success') }}</h5>
+                                    </div>
+                                @endif
+                                @if (session('error'))
+                                    <div class="alert alert-danger">
+                                        <h5 class="text-center">{{ session('error') }}</h5>
+                                    </div>
+                                @endif
 
                                 <div class="form-group row">
                                     <label for="" class="col-sm-4 col-form-label">
@@ -29,8 +40,18 @@
                                     </label>
                                     <div class="col-sm-8">
                                         <div class="mb-3">
-                                            <input type="text" class="form-control" name="nama"
-                                                placeholder="Masukkan Nama Lengkap Anda ." required>
+                                            <input type="text"
+                                                class="form-control @error('nama')
+                                                is-invalid
+                                            @enderror"
+                                                name="nama" placeholder="Masukkan Nama Lengkap Anda ."
+                                                value="{{ old('nama') }}" required>
+
+                                            @error('nama')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
@@ -41,8 +62,18 @@
                                     </label>
                                     <div class="col-sm-8">
                                         <div class="mb-3">
-                                            <input type="email" class="form-control" name="email"
-                                                placeholder="Masukkan Email  Anda ." required>
+                                            <input type="email"
+                                                class="form-control @error('email')
+                                                is-invalid
+                                            @enderror"
+                                                name="email" placeholder="Masukkan Email  Anda ."
+                                                value="{{ old('email') }}" required>
+
+                                            @error('email')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
@@ -53,8 +84,17 @@
                                     </label>
                                     <div class="col-sm-8">
                                         <div class="mb-3">
-                                            <input type="text" class="form-control" name="nowa"
-                                                placeholder="Masukkan Nomor WA Anda ." required>
+                                            <input type="text"
+                                                class="form-control @error('nowa')
+                                                is-invalid
+                                            @enderror"
+                                                name="nowa" placeholder="Masukkan Nomor WA Anda ."
+                                                value="{{ old('nowa') }}" required>
+                                            @error('nowa')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
@@ -65,13 +105,22 @@
                                     </label>
                                     <div class="col-sm-8">
                                         <div class="mb-3">
-                                            <textarea class="form-control" name="pesan" placeholder="Masukkan Pesan Anda ." required></textarea>
+                                            <textarea
+                                                class="form-control @error('pesan')
+                                                is-invalid
+                                            @enderror"
+                                                name="pesan" placeholder="Masukkan Pesan Anda ." required>{{ old('pesan') }}</textarea>
+                                            @error('pesan')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="text-right">
-                                    <button name="kirim" class="btn btn-primary">Kirim</button>
+                                    <button type="submit" class="btn btn-primary">Kirim</button>
                                 </div>
 
                             </div>

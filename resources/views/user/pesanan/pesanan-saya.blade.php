@@ -25,7 +25,7 @@
                                 <td>{{ $item->first()->created_at_id() }}</td>
                                 <td class="text-capitalize">{{ $item->first()->status }}</td>
                                 <td>
-                                    <a class="btn btn-primary" href="{{ route('pesanan-details', $index) }}"
+                                    <a class="btn btn-primary" href="{{ route('pesanan-saya.show', $index) }}"
                                         role="button">Detail</a>
                                 </td>
                             </tr>

@@ -15,6 +15,10 @@ class Pesanan extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+    public function produk()
+    {
+        return $this->belongsTo(Produk::class, 'produk_id');
+    }
     public function created_at_id()
     {
         return Carbon::parse($this->created_at)->locale('id')->isoFormat('dddd DD-MM-YYYY HH:mm');

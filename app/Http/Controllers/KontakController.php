@@ -7,7 +7,7 @@ use App\Models\Pesanan;
 use App\Models\Transaksi;
 use Illuminate\Http\Request;
 
-class TransaksiController extends Controller
+class KontakController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,16 +15,16 @@ class TransaksiController extends Controller
     public function index()
     {
         //
+        $data['title'] = 'Pesanan';
+        $data['page'] = 'pesanan';
+        $data['menu'] = 'index';
+        $data['pesans'] = Kontak::all();
         $data['pesanans'] = Kontak::latest()->take(2)->get();
         $data['totalPesanan'] = Kontak::count();
         $data['transaksi'] = Pesanan::orderBy('created_at', 'desc')->get()->groupBy('order_id')->take(2);
         $data['totalTransaksi'] = Pesanan::orderBy('created_at', 'desc')->get()->groupBy('order_id')->count();
-        $data['title'] = 'Transaksi';
-        $data['page'] = 'transaksi';
-        $data['menu'] = 'index';
-        $data['transaksis'] = Transaksi::all();
-        // return dd($data['pesanans']);
-        return view('admin.transaksi.index', $data);
+
+        return view('admin.pesan.index', $data);
     }
 
     /**
@@ -46,15 +46,23 @@ class TransaksiController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Transaksi $transaksi)
+    public function show(Kontak $kontak)
     {
-        //
+        $data['title'] = 'Lihat Pesanan';
+        $data['page'] = 'pesanan';
+        $data['menu'] = 'show';
+        $data['pesanans'] = Kontak::latest()->take(2)->get();
+        $data['totalPesanan'] = Kontak::count();
+        $data['transaksi'] = Pesanan::orderBy('created_at', 'desc')->get()->groupBy('order_id')->take(2);
+        $data['totalTransaksi'] = Pesanan::orderBy('created_at', 'desc')->get()->groupBy('order_id')->count();
+        $data['pesans'] = $kontak;
+        return view('admin.pesan.show', $data);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Transaksi $transaksi)
+    public function edit(Kontak $kontak)
     {
         //
     }
@@ -62,7 +70,7 @@ class TransaksiController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Transaksi $transaksi)
+    public function update(Request $request, Kontak $kontak)
     {
         //
     }
@@ -70,7 +78,7 @@ class TransaksiController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Transaksi $transaksi)
+    public function destroy(Kontak $kontak)
     {
         //
     }

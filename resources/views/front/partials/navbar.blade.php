@@ -92,14 +92,106 @@
                         <span>Total</span>
                         <span class="total-amount">Rp {{ number_format($total) }}</span>
                     </div>
-                    <a href="{{ route('keranjang.checkout') }}" class="btn animate">Checkout</a>
+                    {{-- <a href="{{ route('keranjang.checkout') }}" class="btn animate">Checkout</a> --}}
+                    <a href="#" class="btn animate" data-toggle="modal" data-target="#checkoutModal">Checkout</a>
+
+                    {{-- <button data-bs-toggle="modal" data-bs-target="#modalCheckout" class="btn animate">Checkout</button> --}}
                 </div>
             </div>
         @endif
     </div>
 
     <!--/ End Shopping Item -->
+    {{-- modal --}}
+
+
+
+
+    {{-- akhir mdoal --}}
 </nav>
+
+{{-- @push('modal') --}}
+<div class="modal fade" id="checkoutModal" tabindex="-1" role="dialog" aria-labelledby="checkoutModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="checkoutModalLabel">Pilih Alamat</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Isi modal di sini -->
+                <form action="" method="post">
+
+                    <div class="form-group row">
+                        <label for="alamat" class="col-sm-3 col-form-label"> Alamat Lengkap:</label>
+                        <div class="col-sm-9">
+                            <textarea type="text" class="form-control" name="alamat" placeholder="Masukkan alamat" id="alamat" required></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="provinsi" class="col-sm-3 col-form-label"> Provinsi :</label>
+                        <div class="col-sm-9">
+                            <select name="provinsi" id="provinsi" class="form-control" required>
+
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="distrik" class="col-sm-3 col-form-label"> Distrik :</label>
+                        <div class="col-sm-9">
+                            <select name="distrik" id="distrik" class="form-control" required>
+
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="ekspedisi" class="col-sm-3 col-form-label"> Ekspedisi :</label>
+                        <div class="col-sm-9">
+                            <select name="ekspedisi" id="ekspedisi" class="form-control" required>
+
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="paket" class="col-sm-3 col-form-label"> paket :</label>
+                        <div class="col-sm-9">
+                            <select name="paket" id="paket" class="form-control" required>
+
+                            </select>
+                        </div>
+                    </div>
+
+                    <input type="text" name="total_berat" class="form-control" value="<?= $subberat ?>" readonly>
+                    <input type="text" name="total_berat" class="form-control" value="120" readonly>
+                    <input type="text" name="nama_provinsi" class="form-control" readonly>
+                    <input type="text" name="nama_distrik" class="form-control" readonly>
+                    <input type="text" name="type_distrik" class="form-control" readonly>
+                    <input type="text" name="kode_pos" class="form-control" readonly>
+                    <input type="text" name="nama_ekspedisi" class="form-control" readonly>
+                    <input type="text" name="paket" class="form-control" readonly>
+                    <input type="text" name="ongkir" class="form-control" readonly>
+                    <input type="text" name="etd" class="form-control" readonly>
+
+                    <div class="text-right">
+                        <button name="checkout" class="btn-success">Checkout</button>
+                    </div>
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                <!-- Jika ingin langsung melakukan redirect saat tombol "Checkout" di dalam modal ditekan -->
+                <a href="{{ route('keranjang.checkout') }}" class="btn btn-primary">Lanjutkan ke Checkout</a>
+            </div>
+        </div>
+    </div>
+</div>
+{{-- @endpush --}}
 
 @push('js')
     <script>

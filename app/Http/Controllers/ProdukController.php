@@ -3,14 +3,17 @@
 namespace App\Http\Controllers;
 
 use Directory;
+use App\Models\Kontak;
 use App\Models\Produk;
+use App\Models\Pesanan;
 use App\Models\Kategori;
+use App\Models\Transaksi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+// use App\Http\Controllers\Auth\PhotoTrait;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-// use App\Http\Controllers\Auth\PhotoTrait;
 use App\Http\Controllers\Auth\PhotoTrait;
 use Illuminate\Support\Facades\Validator;
 // use App\Traits;
@@ -24,6 +27,10 @@ class ProdukController extends Controller
     public function index()
     {
         //
+        $data['pesanans'] = Kontak::latest()->take(2)->get();
+        $data['totalPesanan'] = Kontak::count();
+        $data['transaksi'] = Pesanan::orderBy('created_at', 'desc')->get()->groupBy('order_id')->take(2);
+        $data['totalTransaksi'] = Pesanan::orderBy('created_at', 'desc')->get()->groupBy('order_id')->count();
         $data['title'] = 'Produk';
         $data['page'] = 'produk';
         $data['menu'] = 'index';
@@ -41,6 +48,10 @@ class ProdukController extends Controller
         // $data['page'] = 'produk';
         // $data['menu'] = 'create';
         // $data['categories'] = Kategori::all();
+        $data['pesanans'] = Kontak::latest()->take(2)->get();
+        $data['totalPesanan'] = Kontak::count();
+        $data['transaksi'] = Pesanan::orderBy('created_at', 'desc')->get()->groupBy('order_id')->take(2);
+        $data['totalTransaksi'] = Pesanan::orderBy('created_at', 'desc')->get()->groupBy('order_id')->count();
         $data['model'] = new Produk;
         $data['title'] = 'Tambah Produk Baru';
         $data['route'] = 'produk.store';
@@ -96,6 +107,10 @@ class ProdukController extends Controller
     public function show(Produk $produk)
     {
         //
+        $data['pesanans'] = Kontak::latest()->take(2)->get();
+        $data['totalPesanan'] = Kontak::count();
+        $data['transaksi'] = Pesanan::orderBy('created_at', 'desc')->get()->groupBy('order_id')->take(2);
+        $data['totalTransaksi'] = Pesanan::orderBy('created_at', 'desc')->get()->groupBy('order_id')->count();
         $data['title'] = 'Detail Produk';
         $data['produk'] = $produk;
         $data['kategoris'] = Kategori::all();
@@ -113,6 +128,10 @@ class ProdukController extends Controller
     public function edit(Produk $produk)
     {
         //
+        $data['pesanans'] = Kontak::latest()->take(2)->get();
+        $data['totalPesanan'] = Kontak::count();
+        $data['transaksi'] = Pesanan::orderBy('created_at', 'desc')->get()->groupBy('order_id')->take(2);
+        $data['totalTransaksi'] = Pesanan::orderBy('created_at', 'desc')->get()->groupBy('order_id')->count();
         $data['model'] = $produk;
         $data['title'] = 'Edit Produk';
         $data['route'] = ['produk.update', $produk->id];

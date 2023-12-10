@@ -41,6 +41,9 @@
 
     {{-- swwet alert --}}
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script src="{{ asset('achart/js/apexcharts.min.js') }}"></script>
+    <script src="{{ asset('achart/css/apexcharts.min.css') }}"></script>
     @stack('js')
 
     <script>

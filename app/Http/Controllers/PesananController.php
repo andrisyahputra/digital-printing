@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kontak;
 use App\Models\Produk;
 use App\Models\Pesanan;
 use App\Models\Transaksi;
@@ -17,14 +18,22 @@ class PesananController extends Controller
 
     public function index()
     {
-
+        $data['pesanans'] = Kontak::latest()->take(2)->get();
+        $data['totalPesanan'] = Kontak::count();
+        $data['transaksi'] = Pesanan::orderBy('created_at', 'desc')->get()->groupBy('order_id')->take(2);
+        $data['totalTransaksi'] = Pesanan::orderBy('created_at', 'desc')->get()->groupBy('order_id')->count();
         $data['title'] = 'Pesanan';
         $data['page'] = 'pesanan';
         $data['menu'] = 'index';
-        $data['pesanans'] = Pesanan::all()->groupBy('order_id');
+        $data['pesans'] = Pesanan::all()->groupBy('order_id');
+        // $data['pesans'] = Pesanan::all()->groupBy($request->input('order_id'));
+        // $data['pesans'] = DB::table('pesanans')->when($request->input('search'), function ($query, $search) {
+        //     $query->where('nama', 'like', '%' . $search . '%');
+        // })->get();
 
         return view('admin.pesanan.index', $data);
     }
+
     public function tolak(Request $request)
     {
 
@@ -120,21 +129,51 @@ class PesananController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($order_id)
+    public function show(Request $request, $order_id = null)
     {
-
+        // dd($request->order_id);
+        $order_id = $order_id ?: $request->input('order_id');
 
         $pesanan = Pesanan::where('order_id', $order_id);
-        if ($pesanan->count() == 0) {
-            return abort(404);
-        }
+        // if ($pesanan->count() == 0) {
+        //     return abort(404);
+        // }
+
         $data['title'] = 'Detail Pesanan';
         $data['page'] = 'pesanan';
         $data['menu'] = 'show';
-        $data['pesanans'] = $pesanan->get();
-        $data['subtotal'] = $pesanan->sum('total');
+        $data['pesanans'] = Kontak::latest()->take(2)->get();
+        $data['totalPesanan'] = Kontak::count();
+        $data['transaksi'] = Pesanan::orderBy('created_at', 'desc')->get()->groupBy('order_id')->take(2);
+        $data['totalTransaksi'] = Pesanan::orderBy('created_at', 'desc')->get()->groupBy('order_id')->count();
+        if ($pesanan->count() != 0) {
+            $data['pesans'] = $pesanan->get();
+            $data['subtotal'] = $pesanan->sum('total');
+        } else {
+            $data['pesans'] = null;
+        }
+
         return view('admin.pesanan.show', $data);
     }
+    public function cari(Request $request)
+    {
+        // $pesanan = Pesanan::where('order_id', $request->order_id);
+        // // $pesanan = Pesanan::where('order_id', Request->input('order_id'));
+        // if ($pesanan->count() == 0) {
+        //     return abort(404);
+        // }
+        // $data['title'] = 'Detail Pesanan';
+        // $data['page'] = 'pesanan';
+        // $data['menu'] = 'show';
+        // $data['pesanans'] = Kontak::latest()->take(2)->get();
+        // $data['totalPesanan'] = Kontak::count();
+        // $data['transaksi'] = Pesanan::orderBy('created_at', 'desc')->get()->groupBy('order_id')->take(2);
+        // $data['totalTransaksi'] = Pesanan::orderBy('created_at', 'desc')->get()->groupBy('order_id')->count();
+        // $data['pesans'] = $pesanan->get();
+        // $data['subtotal'] = $pesanan->sum('total');
+        // return view('admin.pesanan.show', $data);
+    }
+
 
     /**
      * Show the form for editing the specified resource.
