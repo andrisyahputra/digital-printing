@@ -51,11 +51,11 @@
             </div>
 
             <div class="mb-3 form-group row">
-                {!! Form::label('stok', 'Stok Produk', ['class' => 'col-sm-3 col-form-label']) !!}
+                {!! Form::label('stok', 'Stok Produk Berapa Gram', ['class' => 'col-sm-3 col-form-label']) !!}
                 <div class="col-sm-9">
                     {!! Form::number('stok', null, [
                         'class' => 'form-control',
-                        'placeholder' => 'Masukkan stok Produk',
+                        'placeholder' => 'Masukkan Berat Produk',
                     ]) !!}
 
                     <span class="text-danger">{{ $errors->first('stok') }}</span>

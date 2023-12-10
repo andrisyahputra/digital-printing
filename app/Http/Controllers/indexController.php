@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kontak;
 use App\Models\Produk;
 use App\Models\Kategori;
-use App\Models\Kontak;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Validator;
 
 class indexController extends Controller
@@ -16,6 +17,12 @@ class indexController extends Controller
     //
     public function index()
     {
+        // $response = Http::withHeaders([
+        //     'key' => 'd2bb878d91c40259cf6d56680055ca35',
+        // ])->get('https://api.rajaongkir.com/starter/province');
+        // // dd($response->json());
+        // $data['provinsi'] = $response['rajaongkir']['results'];
+
         $data['title'] = env('APP_NAME');
         $data['kategoris'] = Kategori::all();
         $data['produks'] = Produk::all();
@@ -24,6 +31,7 @@ class indexController extends Controller
         if (Auth::check()) {
             $data['kerajangs'] = auth()->user()->kerajangs;
         }
+
 
 
         return view('front.index', $data);

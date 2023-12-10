@@ -14,6 +14,7 @@ use App\Http\Controllers\KontakController;
 use App\Http\Controllers\TransaksiController;
 use App\Http\Middleware\EnsureAuthDataKeranjang;
 use App\Http\Controllers\PesananDikirimController;
+use App\Http\Controllers\RajaOngkirController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,6 +38,16 @@ Route::get('produk', [indexController::class, 'produk'])->name('produk');
 Route::post('/pesan-kontak', [indexController::class, 'store'])->name('pesan-kontak.store');
 Route::get('produk/{kategori}', [indexController::class, 'kategori'])->name('produk.kategori');
 Route::get('detail-produk/{produk}', [ProdukController::class, 'show'])->name('product-details');
+
+// raja ongkir
+Route::get('/data-provinsi', [RajaOngkirController::class, 'getProvinsi'])->name('data.provinsi');
+Route::get('/data-distrik', [RajaOngkirController::class, 'getDataDistrik'])->name('data.distrik');
+Route::get('/data-ekspedisi', [RajaOngkirController::class, 'getDataEkspedisi'])->name('data.ekspedisi');
+Route::post('/', [RajaOngkirController::class, 'getDataPaket'])->name('data.paket');
+
+// Route::get('/cek-ongkir', [RajaOngkirController::class, 'index']);
+// Route::post('/cek-ongkir', [RajaOngkirController::class, 'cekOngkir']);
+
 
 Route::middleware(EnsureAuthDataKeranjang::class)->group(
     function () {
@@ -73,6 +84,7 @@ Route::get('/dashboard', function () {
 
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'verified', 'role:Admin']], function () {
+    Route::post('/cek-ongkir', [AdminController::class, 'cekOngkir']);
     Route::get('dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('/pesanan/cari', [PesananController::class, 'show'])->name('pesanan.cari');
     // Route::get('/pesanan', [PesananController::class, 'index'])->name('pesanan.index');

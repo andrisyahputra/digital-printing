@@ -93,7 +93,7 @@
                         <span class="total-amount">Rp {{ number_format($total) }}</span>
                     </div>
                     {{-- <a href="{{ route('keranjang.checkout') }}" class="btn animate">Checkout</a> --}}
-                    <a href="#" class="btn animate" data-toggle="modal" data-target="#checkoutModal">Checkout</a>
+                    <a href="#" class="btn animate" onclick="modal('#rajaongkir')">Checkout</a>
 
                     {{-- <button data-bs-toggle="modal" data-bs-target="#modalCheckout" class="btn animate">Checkout</button> --}}
                 </div>
@@ -111,7 +111,7 @@
 </nav>
 
 {{-- @push('modal') --}}
-<div class="modal fade" id="checkoutModal" tabindex="-1" role="dialog" aria-labelledby="checkoutModalLabel"
+<div class="modal fade" id="rajaongkir" tabindex="-1" role="dialog" aria-labelledby="checkoutModalLabel"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -135,6 +135,7 @@
                     <div class="form-group row">
                         <label for="provinsi" class="col-sm-3 col-form-label"> Provinsi :</label>
                         <div class="col-sm-9">
+                            <div id="dataProvinsiUrl" data-url="{{ route('data.provinsi') }}"></div>
                             <select name="provinsi" id="provinsi" class="form-control" required>
 
                             </select>
@@ -143,6 +144,7 @@
                     <div class="form-group row">
                         <label for="distrik" class="col-sm-3 col-form-label"> Distrik :</label>
                         <div class="col-sm-9">
+                            <div id="dataDistrikUrl" data-url="{{ route('data.distrik') }}"></div>
                             <select name="distrik" id="distrik" class="form-control" required>
 
                             </select>
@@ -151,6 +153,7 @@
                     <div class="form-group row">
                         <label for="ekspedisi" class="col-sm-3 col-form-label"> Ekspedisi :</label>
                         <div class="col-sm-9">
+                            <div id="dataEkspedisiUrl" data-url="{{ route('data.ekspedisi') }}"></div>
                             <select name="ekspedisi" id="ekspedisi" class="form-control" required>
 
                             </select>
@@ -160,14 +163,15 @@
                     <div class="form-group row">
                         <label for="paket" class="col-sm-3 col-form-label"> paket :</label>
                         <div class="col-sm-9">
+                            <div id="dataPaketUrl" data-url="{{ route('data.paket') }}"></div>
                             <select name="paket" id="paket" class="form-control" required>
 
                             </select>
                         </div>
                     </div>
 
-                    <input type="text" name="total_berat" class="form-control" value="<?= $subberat ?>" readonly>
-                    <input type="text" name="total_berat" class="form-control" value="120" readonly>
+                    {{-- <input type="text" name="total_berat" class="form-control" value="<= $subberat ?>" readonly> --}}
+                    <input type="text" name="total_berat" class="form-control" value="20000" readonly>
                     <input type="text" name="nama_provinsi" class="form-control" readonly>
                     <input type="text" name="nama_distrik" class="form-control" readonly>
                     <input type="text" name="type_distrik" class="form-control" readonly>

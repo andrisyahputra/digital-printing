@@ -119,6 +119,16 @@
     <script src="{{ asset('asset/alertifyjs') }}/alertify.min.js"></script>
     <script src="{{ asset('asset') }}/js/loader.js"></script>
 
+
+    <script src="{{ asset('js/rajaongkir.js') }}" defer></script>
+
+    {{--  --}}
+    <!-- Tambahkan baris ini di bagian head file HTML Anda -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    {{--  --}}
+
+
     @stack('js')
     <script>
         $('.tutup').on('click', function() {

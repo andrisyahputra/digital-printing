@@ -14,14 +14,15 @@ class ProdukSeeder extends Seeder
     public function run(): void
     {
         //
-        for ($i=1; $i < 10; $i++) {
+        for ($i = 1; $i < 10; $i++) {
             Produk::create([
-                'foto'=>'produk/example.jpg',
-                'nama'=>'Example ' . $i,
-                'harga'=> 10000,
-                'deskripsi'=>'Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat suscipit facere, recusandae omnis nihil sint culpa. Cumque consequatur maxime mollitia nisi porro delectus commodi hic!',
+                'foto' => 'produk/example.jpg',
+                'nama' => 'Example ' . $i,
+                'harga' => 10000,
+                'deskripsi' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat suscipit facere, recusandae omnis nihil sint culpa. Cumque consequatur maxime mollitia nisi porro delectus commodi hic!',
                 'stok' => 200,
-                'kategori_id'=>$i
+                'weight' => 1000,
+                'kategori_id' => $i
             ]);
         }
         // $table->string('foto');

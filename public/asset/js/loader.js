@@ -1,9 +1,13 @@
 window.addEventListener("load", () => {
-  const loader = document.querySelector(".loader");
+    const loader = document.querySelector(".loader");
 
-  loader.classList.add("loader-hidden");
+    if (loader) {
+        loader.classList.add("loader-hidden");
 
-  loader.addEventListener("transitionend", () => {
-    document.body.removeChild("loader");
-  });
+        loader.addEventListener("transitionend", () => {
+            if (document.body.contains(loader)) {
+                document.body.removeChild(loader);
+            }
+        });
+    }
 });
