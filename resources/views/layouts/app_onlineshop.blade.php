@@ -28,6 +28,11 @@
     <link rel="stylesheet" href="{{ asset('asset/alertifyjs') }}/css/themes/bootstrap.min.css" />
 
     <link rel="stylesheet" href="{{ asset('asset') }}/css/loader.css" />
+
+    {{-- midtrans --}}
+    <script type="text/javascript" src="https://app.sandbox.midtrans.com/snap/snap.js"
+        data-client-key="{{ env('MIDTRANS_API_KEY') }}"></script>
+    {{-- midtrans --}}
     @stack('css')
 
 </head>
@@ -131,6 +136,9 @@
 
     @stack('js')
     <script>
+        // akhir midtrans
+
+
         $('.tutup').on('click', function() {
             // Find the closest modal and hide it
             $(this).closest('#keranjang').modal('hide');

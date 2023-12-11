@@ -1,4 +1,3 @@
-{{-- @dd($alamatUser->provinsi) --}}
 <nav class="navbar sticky-top">
     <a href="/" class="navbar-logo">Toko<span>Online</span></a>
     <div class="navbar-menu">
@@ -58,7 +57,10 @@
 
     <div class="cart">
         @if (Auth::check())
+
             <div class="shopping-item p-2">
+
+
                 <div class="dropdown-cart-header d-flex justify-content-between ">
                     <span>{{ $kerajangs->count() }} Items</span>
                     {{-- <a href="{{ route('keranjang') }}">View Cart</a> --}}
@@ -94,6 +96,7 @@
                         <span class="total-amount">Rp {{ number_format($total) }}</span>
                     </div>
                     {{-- <a href="{{ route('keranjang.checkout') }}" class="btn animate">Checkout</a> --}}
+
                     <a href="#" class="btn animate" onclick="modal('#rajaongkir')">Checkout</a>
 
                     {{-- <button data-bs-toggle="modal" data-bs-target="#modalCheckout" class="btn animate">Checkout</button> --}}
@@ -117,7 +120,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="checkoutModalLabel">Pilih Alamat</h5>
+                    <h5 class="modal-title" id="checkoutModalLabel">Pilih Alamat Tujuan</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -226,33 +229,88 @@
                         <button id="toggleButton" type="button" class="btn btn-info">
                             Ubah Alamat
                         </button>
+
                         <button class="btn btn-primary" type="submit" id="btnUbah">Simpan Alamat</button>
-                        <a href="{{ route('keranjang.checkout') }}" id="btnCheckout" class="btn btn-primary">Lanjutkan
-                            ke Checkout</a>
+                        @if (auth()->user()->kerajangs->count() == 0)
+                            <a href="{{ route('produk') }}" class="btn btn-primary" id="btnCheckoutNull">Keranjang
+                                Kosong Silakan Belanja</a>
+                        @else
+                            <div onclick="payment('{{ route('keranjang.checkout') }}')" id="btnCheckout"
+                                class="btn btn-primary">Lanjutkan ke Checkout</div>
+                        @endif
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                        <!-- Jika ingin langsung melakukan redirect saat tombol "Checkout" di dalam modal ditekan -->
-                        {{-- {{-- <a href="{{ route('keranjang.checkout') }}" class="btn btn-info">Ganti Alamat</a> --}}
-                    </div>
-                    </form>
                 @endif
             </div>
+            </form>
         </div>
+    </div>
     </div>
     {{-- @endpush --}}
 @endauth
 
 @push('js')
     <script>
+        // midtrans
+        // var payment = document
+        //     .getElementById("btnCheckout")
+        //     .getAttribute("data-url");
+
+
+        // var payButton = document.getElementById('btnCheckout');
+        // payButton.addEventListener('click', function() async {
+
+        //     try {
+        //         const response = await fetch(payment, {
+        //             method: 'get',
+        //         });
+        //         const token = await.response.text();
+        //         console.log(token);
+        //         // window.snap.pay('TRANSACTION_TOKEN_HERE');
+        //     } catch (error) {
+        //         console.log(error.message);
+        //     }
+
+
+        // });
+
+
         $(document).ready(function() {
             $("#btnUbah").toggleClass("d-none");
             $("#contentToToggle").toggleClass("d-none");
             $("#toggleButton").click(function() {
+                $("#btnCheckoutNull").toggleClass("d-none");
                 $("#btnCheckout").toggleClass("d-none");
                 $("#btnUbah").toggleClass("d-none");
                 $("#contentToToggle").toggleClass("d-none");
                 $("#textareaAlamat").toggleClass("d-none");
             });
         });
+
+        function payment(url) {
+            const tombol = document.getElementById("btnCheckout");
+            const originalContent = tombol.innerHTML; // Store the original content
+
+            $.ajax({
+                url: url,
+                type: "get",
+                beforeSend: function() {
+                    $("#btnCheckout").replaceWith(
+                        '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Melakukan Pembayaran'
+                    );
+                },
+                success: function(response) {
+                    window.snap.pay(response['token']);
+                },
+                error: function(response) {
+                    console.log(response);
+                },
+                complete: function() {
+                    // Replace the spinner with the original content
+                    tombol.replaceWith(originalContent);
+                }
+            });
+        }
+
 
         function confirmLogout() {
             alertify.confirm("Logout", "Yakin Ingin Keluar?",

@@ -142,7 +142,8 @@ class KerajangController extends Controller
 
 
             $response = \Midtrans\Snap::createTransaction($params);
-            return redirect($response->redirect_url);
+            // return redirect($response->redirect_url);
+            return $response;
         } catch (\Exception $e) {
             Log::error($e->getMessage());
             return redirect()->back()->with('error', 'Terjadi Masalah.');
