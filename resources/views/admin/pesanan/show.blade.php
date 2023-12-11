@@ -19,8 +19,8 @@
                         <li>Alamat Lengkap :
                             {{ $pesans->first()->pembeli->alamat->alamat_users }}
                         </li>
-                        <li>Provinsi {{ provinsi($pesans->first()->pembeli->alamat->provinsi) }}</li>
-                        <li>kota {{ distrik($pesans->first()->pembeli->alamat->kota) }}</li>
+                        <li>Provinsi : {{ provinsi($pesans->first()->pembeli->alamat->provinsi) }}</li>
+                        <li>kota : {{ distrik($pesans->first()->pembeli->alamat->kota) }}</li>
                         <li>Tanggal : {{ $pesans->first()->created_at->translatedFormat('H:i d-m-Y') }}</li>
                         <li>Status : {{ ucwords($pesans->first()->status) }}</li>
                     </ul>
@@ -98,6 +98,20 @@
                                     <h4 class="text-success">Pesanan Dikirim !</h4>
                                     <h5>NO Resi : {{ $pesans->first()->dikirim()->resi }}</h5>
                                     <h5>Expedisi : {{ ucfirst($pesans->first()->dikirim()->expedisi) }}</h5>
+                                    <h5>Paket Dikirim : {{ ucwords($pesans->first()->dikirim()->paket) }}</h5>
+                                </div>
+                            @break
+
+                            @case('diterima')
+                                <div>
+                                    <h4 class="text-success text-center">Bukti Pembelian </h4>
+                                    <br>
+                                    <a href="#" data-toggle="modal" data-target="#photoModal"
+                                        data-photo="{{ Storage::url($pesans->first()->diterima()->foto) }}">
+                                        <img alt="{{ $pesans->first()->diterima()->foto }}"
+                                            src="{{ Storage::url($pesans->first()->diterima()->foto) }}" width="300"
+                                            class="img-fluid">
+                                    </a>
                                 </div>
                             @break
 
@@ -145,7 +159,7 @@
                             <label for="expedisi" class="form-label">Expedisi</label>
 
                             <div id="dataEkspedisiUrl" data-url="{{ route('data.ekspedisi') }}"></div>
-                            <select name="ekspedisi" id="ekspedisi" class="form-control" required>
+                            <select name="expedisi" id="ekspedisi" class="form-control" required>
                             </select>
                             @error('expedisi')
                                 <div class="text-danger">{{ $message }}</div>
@@ -153,11 +167,11 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="expedisi" class="form-label">Paket</label>
+                            <label for="paket" class="form-label">Paket</label>
                             <div id="dataPaketUrl" data-url="{{ route('data.paket') }}"></div>
                             <select name="paket" id="paket" class="form-control" required>
                             </select>
-                            @error('expedisi')
+                            @error('paket')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
@@ -174,7 +188,7 @@
         <div class="modal-dialog modal-sm" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="photoModalLabel">Photo Pesanan</h5>
+                    <h5 class="modal-title" id="photoModalLabel">Photo Detail</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>

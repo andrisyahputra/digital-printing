@@ -15,6 +15,7 @@ use App\Http\Controllers\KontakController;
 use App\Http\Controllers\TransaksiController;
 use App\Http\Middleware\EnsureAuthDataKeranjang;
 use App\Http\Controllers\PesananDikirimController;
+use App\Http\Controllers\PesananDiterimaController;
 use App\Http\Controllers\RajaOngkirController;
 
 /*
@@ -109,6 +110,7 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth', 'verified', 'role:Use
     Route::get('pesanan-saya/{order_id}', [UserController::class, 'show'])->name('pesanan-saya.show');
     Route::get('dashboard', [UserController::class, 'dashboard'])->name('user.dashboard');
     Route::get('pesanan-saya', [UserController::class, 'index'])->name('pesanan-saya.index');
+    Route::post('/terima-diterima', [PesananDiterimaController::class, 'store'])->name('pesanan.diterima');
 });
 
 Route::middleware('auth')->group(function () {

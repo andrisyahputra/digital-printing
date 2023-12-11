@@ -28,7 +28,15 @@ class Pesanan extends Model
         $pk = PesananDikirim::firstWhere('order_id', $this->order_id);
         return (object) [
             'resi' => $pk->resi,
-            'expedisi' => $pk->expedisi
+            'expedisi' => $pk->expedisi,
+            'paket' => $pk->paket
+        ];
+    }
+    public function diterima()
+    {
+        $pk = PesananDiterima::firstWhere('order_id', $this->order_id);
+        return (object) [
+            'foto' => $pk->foto,
         ];
     }
 

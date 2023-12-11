@@ -11,6 +11,14 @@
 
     <title>SB Admin 2 - Dashboard</title>
 
+    <style>
+        .bg-diterima {
+            background-color: lime;
+            /* Warna hijau untuk latar belakang success */
+            color: #000000;
+            /* Warna teks putih untuk kontras */
+        }
+    </style>
 
     @include('partials.css_dashboard')
 
@@ -144,6 +152,9 @@
                         @case('success')
                            bg-success
                         @break
+                        @case('diterima')
+                           bg-diterima
+                        @break
 
                         @case('diproses')
                             bg-primary
@@ -154,7 +165,7 @@
                         @break
 
                         @case('cancel')
-                            bg-danger
+                            bg-dark
                         @break
 
                         @case('tolak')
@@ -168,7 +179,7 @@
                                             <div class="small text-gray-500">
                                                 {{ $item->first()->created_at_id() }}</div>
                                             Total Barang {{ $item->count() }} <br>
-                                            .
+                                            Status <b><u>{{ $item->first()->status }}</u></b>
                                         </div>
                                     </a>
 @empty

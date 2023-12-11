@@ -36,10 +36,6 @@ class PesananController extends Controller
 
     public function tolak(Request $request)
     {
-
-
-
-
         try {
             DB::beginTransaction();
             if (empty($request->order_id) || !isset($request->order_id)) {
@@ -50,37 +46,19 @@ class PesananController extends Controller
             if ($pesanan->count() == 0) {
                 return abort(404);
             }
-
             foreach ($pesanan->get() as $pesan) {
-
-
                 Produk::find($pesan->produk_id)->tambahi_stok($pesan->kuantitas);
-
-
                 if ($pesan->status == 'pending') {
                     $pesan->status = 'cancel';
-
                     $pesan->save();
                 }
                 if ($pesan->status == 'success') {
                     $pesan->status = 'tolak';
-
                     $pesan->update();
                 }
             }
-
             $tranksaksi = Transaksi::where('order_id', $order_id);
-
-
-
-
-
-
             $tranksaksi->update(['status' => 'cancel']);
-
-
-
-
             DB::commit();
             return redirect()->back()->with('success', 'pesanan berhasil ditolak');
         } catch (\Throwable $th) {

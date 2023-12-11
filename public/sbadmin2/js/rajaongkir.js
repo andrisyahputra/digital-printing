@@ -48,12 +48,12 @@ $(document).ready(function () {
         type: "get",
         url: dataEkspedisiUrl,
         success: function (data_ekspedisi) {
-            $("select[name=ekspedisi]").html(data_ekspedisi["data_ekspedisi"]);
+            $("select[name=expedisi]").html(data_ekspedisi["data_ekspedisi"]);
         },
     });
 
-    $("select[name=ekspedisi]").on("change", function () {
-        var nama_ekspedisi = $("select[name=ekspedisi]").val();
+    $("select[name=expedisi]").on("change", function () {
+        var nama_ekspedisi = $("select[name=expedisi]").val();
         // var data_distrik = $("option:selected", "select[name=distrik]").attr(
         //     "id_distrik"
         // );

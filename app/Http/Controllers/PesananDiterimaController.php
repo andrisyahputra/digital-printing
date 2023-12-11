@@ -4,13 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\Pesanan;
 use Illuminate\Http\Request;
-use App\Models\PesananDikirim;
+use App\Models\PesananDiterima;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\Auth\PhotoTrait;
 use Illuminate\Support\Facades\Validator;
 
-class PesananDikirimController extends Controller
+class PesananDiterimaController extends Controller
 {
+    use PhotoTrait;
     /**
      * Display a listing of the resource.
      */
@@ -37,27 +39,30 @@ class PesananDikirimController extends Controller
         try {
             DB::beginTransaction();
             $validator = Validator::make($request->all(), [
-                'order_id' => 'required',
-                'resi' => 'required',
-                'expedisi' => 'required',
-                'paket' => 'required'
+                'foto' => ['required', 'image', 'mimes:png,jpg', 'max:1000'],
+                'pesanan_id' => ['required', 'string'],
+                'order_id' => ['required'],
             ]);
             if ($validator->fails()) {
                 return redirect()->back()->withErrors($validator->errors())->withInput($request->all());
             }
-            $data = $validator->validated();
-            PesananDikirim::create($data);
+            $data = $validator->validate();
+            if ($request->hasFile('foto')) {
+                $data['foto'] = $this->uploadPhoto($request, 'foto', 'public/produk/bukti');
+            }
+            $data['user_id'] = auth()->user()->id;
+            // dd($data);
+            PesananDiterima::create($data);
             $pesanan = Pesanan::where('order_id', $request->order_id);
             if ($pesanan->count() == 0) {
                 return redirect()->back()->with('erorr', 'Pesanan tidak ditemukan');
             }
-            $pesanan->update(['status' => 'dikirim']);
-            Db::commit();
-            return redirect()->back()->with('success', 'berhasil Dikirim');
+            $pesanan->update(['status' => 'diterima']);
+            DB::commit();
+            return redirect()->route('pesanan-saya.show', $data['order_id'])->with('success', 'Berhasil Dikirim');
         } catch (\Throwable $th) {
-            //throw $th;
             DB::rollback();
-            Log::error($th);
+            Log::debug($th->getMessage());
             return redirect()->back()->with('error', 'Terjadi Masalah');
         }
     }
@@ -65,14 +70,15 @@ class PesananDikirimController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(PesananDikirim $pesananDikirim)
+    public function show(PesananDiterima $pesananDiterima)
     {
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(PesananDikirim $pesananDikirim)
+    public function edit(PesananDiterima $pesananDiterima)
     {
         //
     }
@@ -80,7 +86,7 @@ class PesananDikirimController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, PesananDikirim $pesananDikirim)
+    public function update(Request $request, PesananDiterima $pesananDiterima)
     {
         //
     }
@@ -88,7 +94,7 @@ class PesananDikirimController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(PesananDikirim $pesananDikirim)
+    public function destroy(PesananDiterima $pesananDiterima)
     {
         //
     }
