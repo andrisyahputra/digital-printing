@@ -44,6 +44,7 @@
 
     <script src="{{ asset('achart/js/apexcharts.min.js') }}"></script>
     <script src="{{ asset('achart/css/apexcharts.min.css') }}"></script>
+    <script src="{{ asset('sbadmin2/js/rajaongkir.js') }}"></script>
     @stack('js')
 
     <script>

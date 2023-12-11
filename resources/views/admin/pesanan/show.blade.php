@@ -16,7 +16,11 @@
                     <h5>Order id : {{ $pesans->first()->order_id }}</h5>
                     <ul class="p-0" style="list-style: none">
                         <li>Pembeli : {{ ucwords($pesans->first()->pembeli->name) }}</li>
-                        <li>Alamat : {{ $pesans->first()->pembeli->alamat }}</li>
+                        <li>Alamat Lengkap :
+                            {{ $pesans->first()->pembeli->alamat->alamat_users }}
+                        </li>
+                        <li>Provinsi {{ provinsi($pesans->first()->pembeli->alamat->provinsi) }}</li>
+                        <li>kota {{ $pesans->first()->pembeli->alamat->kota }}</li>
                         <li>Tanggal : {{ $pesans->first()->created_at->translatedFormat('H:i d-m-Y') }}</li>
                         <li>Status : {{ ucwords($pesans->first()->status) }}</li>
                     </ul>
@@ -28,6 +32,7 @@
                                     <th class="text-nowrap">Produk</th>
                                     <th class="text-nowrap">Harga</th>
                                     <th class="text-nowrap">Kuantitas</th>
+                                    <th class="text-nowrap">Berat Produk</th>
                                     <th class="text-nowrap">Foto Produk</th>
                                     <th class="text-nowrap">Total</th>
                                 </tr>
@@ -40,6 +45,7 @@
                                         <td>{{ $item->nama }}</td>
                                         <td>{{ number_format($item->harga) }}</td>
                                         <td>{{ $item->kuantitas }}</td>
+                                        <td>{{ $item->kuantitas * $item->produk->weight }}</td>
                                         <td>{{ number_format($item->total) }}</td>
                                         <td class="text-center">
                                             <a href="#" data-toggle="modal" data-target="#photoModal"
