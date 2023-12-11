@@ -25,7 +25,7 @@ class RajaOngkirController extends Controller
 
             $options = '<option selected disabled>Pilih Provinsi</option>';
             foreach ($data_provinsi as $key => $value) {
-                $options .= "<option value='" . $value['province_id'] . "' id_provinsi='" . $value["province_id"] . "'>";
+                $options .= "<option name='provinsi' value='" . $value['province_id'] . "' id_provinsi='" . $value["province_id"] . "'>";
                 $options .= $value["province"];
                 $options .= "</option>";
                 // }
@@ -66,7 +66,7 @@ class RajaOngkirController extends Controller
             $array_response = json_decode($response, true);
             $data_distrik = $array_response["rajaongkir"]["results"];
 
-            $options = '<option selected disabled>Pilih Distrik</option>';
+            $options = '<option selected disabled>Pilih Kota</option>';
 
             foreach ($data_distrik as $key => $value) {
                 $options .= "<option

@@ -1,3 +1,4 @@
+{{-- @dd($alamatUser->provinsi) --}}
 <nav class="navbar sticky-top">
     <a href="/" class="navbar-logo">Toko<span>Online</span></a>
     <div class="navbar-menu">
@@ -109,96 +110,150 @@
 
     {{-- akhir mdoal --}}
 </nav>
+@auth
+    {{-- @push('modal') --}}
+    <div class="modal fade" id="rajaongkir" tabindex="-1" role="dialog" aria-labelledby="checkoutModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="checkoutModalLabel">Pilih Alamat</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
 
-{{-- @push('modal') --}}
-<div class="modal fade" id="rajaongkir" tabindex="-1" role="dialog" aria-labelledby="checkoutModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="checkoutModalLabel">Pilih Alamat</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <!-- Isi modal di sini -->
-                <form action="" method="post">
 
-                    <div class="form-group row">
-                        <label for="alamat" class="col-sm-3 col-form-label"> Alamat Lengkap:</label>
-                        <div class="col-sm-9">
-                            <textarea type="text" class="form-control" name="alamat" placeholder="Masukkan alamat" id="alamat" required></textarea>
+
+                @if (auth()->user()->alamat == null)
+                    <div class="modal-body">
+                        <!-- Isi modal di sini -->
+                        <form action="{{ route('alamat.store') }}" method="post">
+                            @csrf
+                            <div class="form-group row">
+                                <label for="alamat" class="col-sm-3 col-form-label"> Alamat Lengkap:</label>
+                                <div class="col-sm-9">
+                                    <textarea type="text" class="form-control" name="alamat_users"
+                                        placeholder="Masukkan alamat @error('alamat')
+                                    is-invalid
+                                @enderror"
+                                        id="alamat" required></textarea>
+                                    @error('alamat')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="provinsi" class="col-sm-3 col-form-label"> Provinsi :</label>
+                                <div class="col-sm-9">
+                                    <div id="dataProvinsiUrl" data-url="{{ route('data.provinsi') }}"></div>
+                                    <select name="provinsi" id="provinsi" class="form-control" required>
+
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="distrik" class="col-sm-3 col-form-label"> Kota :</label>
+                                <div class="col-sm-9">
+                                    <div id="dataDistrikUrl" data-url="{{ route('data.distrik') }}"></div>
+                                    <select name="distrik" id="distrik" class="form-control" required>
+
+                                    </select>
+                                </div>
+                            </div>
+
+                    </div>
+                    <div class="modal-footer">
+
+                        <button class="btn btn-primary" type="submit">Simpan Alamat</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                        <!-- Jika ingin langsung melakukan redirect saat tombol "Checkout" di dalam modal ditekan -->
+                        {{-- {{-- <a href="{{ route('keranjang.checkout') }}" class="btn btn-info">Ganti Alamat</a> --}}
+                    </div>
+                    </form>
+                @else
+                    <div class="modal-body">
+                        <textarea id="textareaAlamat" class="form-control" readonly>{{ 'Alama Lengkap ' . $alamatUser->alamat_users . ' Provinsi ' . provinsi($alamatUser->provinsi) . ' Kota ' . $alamatUser->kota }} </textarea>
+
+                        <div id="contentToToggle">
+                            <form action="{{ route('alamat.update', $alamatUser->id) }}" method="post">
+                                @csrf
+                                @method('put')
+                                <div class="form-group row">
+                                    <label for="alamat" class="col-sm-3 col-form-label"> Alamat Lengkap:</label>
+                                    <div class="col-sm-9">
+                                        <textarea type="text" class="form-control" name="alamat_users"
+                                            placeholder="Masukkan alamat @error('alamat')
+                                    is-invalid
+                                @enderror"
+                                            id="alamat" required>{{ $alamatUser->alamat_users }}</textarea>
+                                        @error('alamat')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="provinsi" class="col-sm-3 col-form-label"> Provinsi :</label>
+                                    <div class="col-sm-9">
+                                        <div id="dataProvinsiUrl" data-url="{{ route('data.provinsi') }}"></div>
+                                        <select name="provinsi" id="provinsi" class="form-control" required>
+
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="distrik" class="col-sm-3 col-form-label"> Kota :</label>
+                                    <div class="col-sm-9">
+                                        <div id="dataDistrikUrl" data-url="{{ route('data.distrik') }}"></div>
+                                        <select name="distrik" id="distrik" class="form-control" required>
+
+                                        </select>
+                                    </div>
+                                </div>
+
                         </div>
+
+
                     </div>
-
-                    <div class="form-group row">
-                        <label for="provinsi" class="col-sm-3 col-form-label"> Provinsi :</label>
-                        <div class="col-sm-9">
-                            <div id="dataProvinsiUrl" data-url="{{ route('data.provinsi') }}"></div>
-                            <select name="provinsi" id="provinsi" class="form-control" required>
-
-                            </select>
-                        </div>
+                    {{-- </div> --}}
+                    <div class="modal-footer">
+                        <button id="toggleButton" type="button" class="btn btn-info">
+                            Ubah Alamat
+                        </button>
+                        <button class="btn btn-primary" type="submit" id="btnUbah">Simpan Alamat</button>
+                        <a href="{{ route('keranjang.checkout') }}" id="btnCheckout" class="btn btn-primary">Lanjutkan
+                            ke Checkout</a>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                        <!-- Jika ingin langsung melakukan redirect saat tombol "Checkout" di dalam modal ditekan -->
+                        {{-- {{-- <a href="{{ route('keranjang.checkout') }}" class="btn btn-info">Ganti Alamat</a> --}}
                     </div>
-                    <div class="form-group row">
-                        <label for="distrik" class="col-sm-3 col-form-label"> Distrik :</label>
-                        <div class="col-sm-9">
-                            <div id="dataDistrikUrl" data-url="{{ route('data.distrik') }}"></div>
-                            <select name="distrik" id="distrik" class="form-control" required>
-
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="ekspedisi" class="col-sm-3 col-form-label"> Ekspedisi :</label>
-                        <div class="col-sm-9">
-                            <div id="dataEkspedisiUrl" data-url="{{ route('data.ekspedisi') }}"></div>
-                            <select name="ekspedisi" id="ekspedisi" class="form-control" required>
-
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="paket" class="col-sm-3 col-form-label"> paket :</label>
-                        <div class="col-sm-9">
-                            <div id="dataPaketUrl" data-url="{{ route('data.paket') }}"></div>
-                            <select name="paket" id="paket" class="form-control" required>
-
-                            </select>
-                        </div>
-                    </div>
-
-                    {{-- <input type="text" name="total_berat" class="form-control" value="<= $subberat ?>" readonly> --}}
-                    <input type="text" name="total_berat" class="form-control" value="20000" readonly>
-                    <input type="text" name="nama_provinsi" class="form-control" readonly>
-                    <input type="text" name="nama_distrik" class="form-control" readonly>
-                    <input type="text" name="type_distrik" class="form-control" readonly>
-                    <input type="text" name="kode_pos" class="form-control" readonly>
-                    <input type="text" name="nama_ekspedisi" class="form-control" readonly>
-                    <input type="text" name="paket" class="form-control" readonly>
-                    <input type="text" name="ongkir" class="form-control" readonly>
-                    <input type="text" name="etd" class="form-control" readonly>
-
-                    <div class="text-right">
-                        <button name="checkout" class="btn-success">Checkout</button>
-                    </div>
-                </form>
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                <!-- Jika ingin langsung melakukan redirect saat tombol "Checkout" di dalam modal ditekan -->
-                <a href="{{ route('keranjang.checkout') }}" class="btn btn-primary">Lanjutkan ke Checkout</a>
+                    </form>
+                @endif
             </div>
         </div>
     </div>
-</div>
-{{-- @endpush --}}
+    {{-- @endpush --}}
+@endauth
 
 @push('js')
     <script>
+        $(document).ready(function() {
+            $("#btnUbah").toggleClass("d-none");
+            $("#contentToToggle").toggleClass("d-none");
+            $("#toggleButton").click(function() {
+                $("#btnCheckout").toggleClass("d-none");
+                $("#btnUbah").toggleClass("d-none");
+                $("#contentToToggle").toggleClass("d-none");
+                $("#textareaAlamat").toggleClass("d-none");
+            });
+        });
+
         function confirmLogout() {
             alertify.confirm("Logout", "Yakin Ingin Keluar?",
                 function() {

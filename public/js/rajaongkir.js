@@ -13,13 +13,13 @@ var dataDistrikUrl = document
     .getElementById("dataDistrikUrl")
     .getAttribute("data-url");
 
-var dataPaketUrl = document
-    .getElementById("dataPaketUrl")
-    .getAttribute("data-url");
+// var dataPaketUrl = document
+//     .getElementById("dataPaketUrl")
+//     .getAttribute("data-url");
 
-var dataEkspedisiUrl = document
-    .getElementById("dataEkspedisiUrl")
-    .getAttribute("data-url");
+// var dataEkspedisiUrl = document
+//     .getElementById("dataEkspedisiUrl")
+//     .getAttribute("data-url");
 
 $(document).ready(function () {
     // console.log("URL: {{ route('data.provinsi') }}");
@@ -44,51 +44,51 @@ $(document).ready(function () {
         });
     });
 
-    $.ajax({
-        type: "get",
-        url: dataEkspedisiUrl,
-        success: function (data_ekspedisi) {
-            $("select[name=ekspedisi]").html(data_ekspedisi["data_ekspedisi"]);
-        },
-    });
-    $("select[name=ekspedisi]").on("change", function () {
-        var nama_ekspedisi = $("select[name=ekspedisi]").val();
-        var data_distrik = $("option:selected", "select[name=distrik]").attr(
-            "id_distrik"
-        );
-        var total_berat = $("input[name=total_berat]").val();
+    // $.ajax({
+    //     type: "get",
+    //     url: dataEkspedisiUrl,
+    //     success: function (data_ekspedisi) {
+    //         $("select[name=ekspedisi]").html(data_ekspedisi["data_ekspedisi"]);
+    //     },
+    // });
+    // $("select[name=ekspedisi]").on("change", function () {
+    //     var nama_ekspedisi = $("select[name=ekspedisi]").val();
+    //     var data_distrik = $("option:selected", "select[name=distrik]").attr(
+    //         "id_distrik"
+    //     );
+    //     var total_berat = $("input[name=total_berat]").val();
 
-        axios
-            .post(dataPaketUrl, {
-                ekspedisi: nama_ekspedisi,
-                distrik: data_distrik,
-                berat: total_berat,
-            })
-            .then(function (response) {
-                $("select[name=paket]").html(response.data.data_paket);
-                $("input[name=nama_ekspedisi]").val(nama_ekspedisi);
-            })
-            .catch(function (error) {
-                console.error(error);
-            });
-    });
+    //     axios
+    //         .post(dataPaketUrl, {
+    //             ekspedisi: nama_ekspedisi,
+    //             distrik: data_distrik,
+    //             berat: total_berat,
+    //         })
+    //         .then(function (response) {
+    //             $("select[name=paket]").html(response.data.data_paket);
+    //             $("input[name=nama_ekspedisi]").val(nama_ekspedisi);
+    //         })
+    //         .catch(function (error) {
+    //             console.error(error);
+    //         });
+    // });
 
-    $("select[name=distrik]").on("change", function () {
-        var prof = $("option:selected", this).attr("nama_provinsi");
-        var dist = $("option:selected", this).attr("nama_distrik");
-        var type = $("option:selected", this).attr("type_distrik");
-        var pos = $("option:selected", this).attr("kode_pos");
-        $("input[name=nama_provinsi]").val(prof);
-        $("input[name=nama_distrik]").val(dist);
-        $("input[name=type_distrik]").val(type);
-        $("input[name=kode_pos]").val(pos);
-    });
-    $("select[name=paket]").on("change", function () {
-        var paket = $("option:selected", this).attr("paket");
-        var ongkir = $("option:selected", this).attr("ongkir");
-        var etd = $("option:selected", this).attr("etd");
-        $("input[name=paket]").val(paket);
-        $("input[name=ongkir]").val(ongkir);
-        $("input[name=etd]").val(etd);
-    });
+    // $("select[name=distrik]").on("change", function () {
+    //     var prof = $("option:selected", this).attr("nama_provinsi");
+    //     var dist = $("option:selected", this).attr("nama_distrik");
+    //     var type = $("option:selected", this).attr("type_distrik");
+    //     var pos = $("option:selected", this).attr("kode_pos");
+    //     $("input[name=nama_provinsi]").val(prof);
+    //     $("input[name=nama_distrik]").val(dist);
+    //     $("input[name=type_distrik]").val(type);
+    //     $("input[name=kode_pos]").val(pos);
+    // });
+    // $("select[name=paket]").on("change", function () {
+    //     var paket = $("option:selected", this).attr("paket");
+    //     var ongkir = $("option:selected", this).attr("ongkir");
+    //     var etd = $("option:selected", this).attr("etd");
+    //     $("input[name=paket]").val(paket);
+    //     $("input[name=ongkir]").val(ongkir);
+    //     $("input[name=etd]").val(etd);
+    // });
 });

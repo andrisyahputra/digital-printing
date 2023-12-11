@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AlamatUser;
 use App\Models\Kontak;
 use App\Models\Produk;
 use App\Models\Kategori;
@@ -22,7 +23,11 @@ class indexController extends Controller
         // ])->get('https://api.rajaongkir.com/starter/province');
         // // dd($response->json());
         // $data['provinsi'] = $response['rajaongkir']['results'];
-
+        // $alamatUser = auth()->user()->alamat;
+        // if ($masjid == null) {
+        //     $masjid = new Masjid;
+        // }
+        // $data['alamatUser'] = $alamatUser ?? null;
         $data['title'] = env('APP_NAME');
         $data['kategoris'] = Kategori::all();
         $data['produks'] = Produk::all();
@@ -30,6 +35,7 @@ class indexController extends Controller
 
         if (Auth::check()) {
             $data['kerajangs'] = auth()->user()->kerajangs;
+            $data['alamatUser'] = auth()->user()->alamat;
         }
 
 
@@ -43,6 +49,7 @@ class indexController extends Controller
 
         if (Auth::check()) {
             $data['kerajangs'] = auth()->user()->kerajangs;
+            $data['alamatUser'] = auth()->user()->alamat;
         }
 
 
@@ -62,6 +69,7 @@ class indexController extends Controller
 
         if (Auth::check()) {
             $data['kerajangs'] = auth()->user()->kerajangs;
+            $data['alamatUser'] = auth()->user()->alamat;
         }
 
 
@@ -81,6 +89,7 @@ class indexController extends Controller
 
         if (Auth::check()) {
             $data['kerajangs'] = auth()->user()->kerajangs;
+            $data['alamatUser'] = auth()->user()->alamat;
         }
 
 

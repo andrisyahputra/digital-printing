@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AlamatUserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
@@ -55,16 +56,17 @@ Route::middleware(EnsureAuthDataKeranjang::class)->group(
         // Route::get('keranjang', [KerajangController::class, 'index'])->name('kerajang.index');
         Route::get('checkout-keranjang', [KerajangController::class, 'checkout'])->name('keranjang.checkout');
         Route::resources([
-            'keranjang' => KerajangController::class
+            'keranjang' => KerajangController::class,
+            // 'alamat' => AlamatUserController::class,
         ]);
     }
 );
 
 Route::group(['middleware' => ['auth']], function () {
 
-    // Route::resources([
-    //     'keranjang' => KerajangController::class
-    // ]);
+    Route::resources([
+        'alamat' => AlamatUserController::class,
+    ]);
     // Route::get('keranjang', [indexController::class, 'index'])->name('keranjang.index');
 
 });
