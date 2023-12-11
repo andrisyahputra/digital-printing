@@ -20,7 +20,7 @@
                             {{ $pesans->first()->pembeli->alamat->alamat_users }}
                         </li>
                         <li>Provinsi {{ provinsi($pesans->first()->pembeli->alamat->provinsi) }}</li>
-                        <li>kota {{ $pesans->first()->pembeli->alamat->kota }}</li>
+                        <li>kota {{ distrik($pesans->first()->pembeli->alamat->kota) }}</li>
                         <li>Tanggal : {{ $pesans->first()->created_at->translatedFormat('H:i d-m-Y') }}</li>
                         <li>Status : {{ ucwords($pesans->first()->status) }}</li>
                     </ul>
@@ -39,7 +39,13 @@
                             </thead>
                             <tbody>
                                 {{-- @dd($pesans) --}}
+                                @php
+                                    $totalBerat = 0;
+                                @endphp
                                 @foreach ($pesans as $item)
+                                    @php
+                                        $totalBerat += $item->kuantitas * $item->produk->weight;
+                                    @endphp
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $item->nama }}</td>
@@ -61,6 +67,7 @@
                         </table>
                     </div>
                     <div class="d-flex justify-content-end mt-3">
+                        {{-- <h4>Sub Berat {{ $totalBerat }}</h4> --}}
                         <h4>Sub Total : Rp {{ number_format($subtotal) }}</h4>
                     </div>
                     <div class="d-flex justify-content-end mt-3 gap-3">
@@ -121,6 +128,9 @@
                 <div class="modal-body">
                     <form method="post" action="{{ route('pesanan-dikirim.store') }}">
                         @csrf
+                        {{-- <input type="hidden" id="total_berat" value="{{ $totalBerat }}"> --}}
+                        <input type="hidden" id="total_berat" value="{{ $totalBerat }}">
+                        <input type="hidden" id="iddistrik" value="{{ $pesans->first()->pembeli->alamat->kota }}">
                         <input type="hidden" name="order_id" value="{{ $pesans->first()->order_id }}">
                         <div class="mb-3">
                             <label for="resi" class="form-label">Nomor Resi</label>
@@ -130,15 +140,22 @@
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
+
                         <div class="mb-3">
                             <label for="expedisi" class="form-label">Expedisi</label>
-                            <select class="form-control  @error('expedisi') is-invalid @enderror" name="expedisi"
-                                id="expedisi">
-                                <option value="jnt" {{ old('expedisi') == 'jnt' ? 'selected' : '' }}>JNT</option>
-                                <option value="sicepat" {{ old('expedisi') == 'sicepat' ? 'selected' : '' }}>Sicepat
-                                </option>
-                                <option value="pos" {{ old('expedisi') == 'pos' ? 'selected' : '' }}>POS</option>
-                                <option value="jne" {{ old('expedisi') == 'jne' ? 'selected' : '' }}>JNE</option>
+
+                            <div id="dataEkspedisiUrl" data-url="{{ route('data.ekspedisi') }}"></div>
+                            <select name="ekspedisi" id="ekspedisi" class="form-control" required>
+                            </select>
+                            @error('expedisi')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="expedisi" class="form-label">Paket</label>
+                            <div id="dataPaketUrl" data-url="{{ route('data.paket') }}"></div>
+                            <select name="paket" id="paket" class="form-control" required>
                             </select>
                             @error('expedisi')
                                 <div class="text-danger">{{ $message }}</div>

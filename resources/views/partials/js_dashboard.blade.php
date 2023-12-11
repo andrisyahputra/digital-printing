@@ -45,6 +45,11 @@
     <script src="{{ asset('achart/js/apexcharts.min.js') }}"></script>
     <script src="{{ asset('achart/css/apexcharts.min.css') }}"></script>
     <script src="{{ asset('sbadmin2/js/rajaongkir.js') }}"></script>
+    {{--  --}}
+    <!-- Tambahkan baris ini di bagian head file HTML Anda raja ongkir -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    {{--  --}}
     @stack('js')
 
     <script>

@@ -70,6 +70,7 @@ class RajaOngkirController extends Controller
 
             foreach ($data_distrik as $key => $value) {
                 $options .= "<option
+                    value='" . $value["city_id"] . "'
                     id_distrik='" . $value["city_id"] . "'
                     nama_provinsi='" . $value["province"] . "'
                     nama_distrik='" . $value["city_name"] . "'

@@ -179,7 +179,7 @@
                     </form>
                 @else
                     <div class="modal-body">
-                        <textarea id="textareaAlamat" class="form-control" readonly>{{ 'Alama Lengkap ' . $alamatUser->alamat_users . ' Provinsi ' . provinsi($alamatUser->provinsi) . ' Kota ' . $alamatUser->kota }} </textarea>
+                        <textarea id="textareaAlamat" class="form-control" readonly>{{ 'Alama Lengkap ' . $alamatUser->alamat_users . ' Provinsi ' . provinsi($alamatUser->provinsi) . ' Kota ' . distrik($alamatUser->kota) }} </textarea>
 
                         <div id="contentToToggle">
                             <form action="{{ route('alamat.update', $alamatUser->id) }}" method="post">
