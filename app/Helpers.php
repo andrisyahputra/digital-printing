@@ -1,6 +1,6 @@
 <?php
 
-function format_rupiah($nominal, $prefix = false)
+function FormatRupiah($nominal, $prefix = false)
 {
     if ($prefix) {
         return "Rp. " . number_format($nominal, 0, ',', '.');

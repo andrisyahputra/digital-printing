@@ -2,13 +2,25 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\ConvertContentImageBase64ToUrl;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Produk extends Model
 {
     use HasFactory;
+    use ConvertContentImageBase64ToUrl;
     protected $guarded = ['id'];
+
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($model) {
+            $model->removeOldImages($model->attributes['deskripsi']);
+        });
+    }
 
     public function kategori()
     {

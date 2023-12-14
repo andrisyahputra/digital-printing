@@ -25,7 +25,7 @@
                                 <td width="50">{{ $loop->iteration }}</td>
                                 <td>{{ $item->kategori->nama }}</td>
                                 <td>{{ $item->nama }}</td>
-                                <td>{{ format_rupiah($item->harga, true) }}</td>
+                                <td>{{ FormatRupiah($item->harga, true) }}</td>
                                 <td>berat</td>
                                 <td>{{ $item->stok }}</td>
                                 <td>{{ $item->weight }} Gram</td>

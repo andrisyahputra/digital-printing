@@ -14,13 +14,14 @@ class KategoriSeeder extends Seeder
     public function run(): void
     {
         //
-        for ($i = 1; $i < 10; $i++) {
-            Kategori::create([
-                'nama' => 'Sepatu ' . $i,
-            ]);
-        }
+        // for ($i = 1; $i < 10; $i++) {
         //     Kategori::create([
-        //         'nama' => 'Stiker',
+        //         'nama' => 'Sepatu ' . $i,
         //     ]);
+        // }
+        Kategori::create(['nama' => 'Stiker']);
+        Kategori::create(['nama' => 'Spanduk']);
+        Kategori::create(['nama' => 'Kartu Nama']);
+        Kategori::create(['nama' => 'Brosur']);
     }
 }

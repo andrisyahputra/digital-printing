@@ -126,6 +126,11 @@ class PesananController extends Controller
         $data['totalTransaksi'] = Pesanan::orderBy('created_at', 'desc')->get()->groupBy('order_id')->count();
         if ($pesanan->count() != 0) {
             $data['pesans'] = $pesanan->get();
+            $data['pesansStiker'] = Pesanan::where('order_id', $order_id)->where('kategori_id', 1)->get();
+            $data['pesansSpanduk'] = Pesanan::where('order_id', $order_id)->where('kategori_id', 2)->get();
+            $data['pesansKartuNama'] = Pesanan::where('order_id', $order_id)->where('kategori_id', 3)->get();
+            $data['pesansBrosur'] = Pesanan::where('order_id', $order_id)->where('kategori_id', 4)->get();
+            $data['pesansProduk'] = Pesanan::where('order_id', $order_id)->where('kategori_id', '>=', 5)->get();
             $data['subtotal'] = $pesanan->sum('total');
         } else {
             $data['pesans'] = null;

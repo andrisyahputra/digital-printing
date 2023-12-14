@@ -16,11 +16,13 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Auth\PhotoTrait;
 use Illuminate\Support\Facades\Validator;
+use App\Traits\ConvertContentImageBase64ToUrl;
 // use App\Traits;
 
 class ProdukController extends Controller
 {
     use PhotoTrait;
+    use ConvertContentImageBase64ToUrl;
     /**
      * Display a listing of the resource.
      */
@@ -73,6 +75,7 @@ class ProdukController extends Controller
                 'nama' => ['required', 'string', 'max:50'],
                 'harga' => ['required'],
                 'stok' => ['required', 'numeric', 'min:1'],
+                'weight' => ['required', 'numeric'],
                 'deskripsi' => ['required'],
                 'kategori_id' => ['required', 'numeric']
             ]);
@@ -91,6 +94,7 @@ class ProdukController extends Controller
                 // $path = $file->storeAs('public/produk', $filename);
                 $data['foto'] = $this->uploadPhoto($request, 'foto', 'public/produk/' . $kategori->nama);
             }
+            $data['deskripsi'] = $this->convertBase64ImagesToUrls($data['deskripsi'], $kategori->nama);
             Produk::create($data);
             DB::commit();
             return redirect()->route('produk.index')->with('success', 'Berhasil Simpan data');
@@ -118,6 +122,7 @@ class ProdukController extends Controller
 
         if (Auth::check()) {
             $data['kerajangs'] = auth()->user()->kerajangs;
+            $data['alamatUser'] = auth()->user()->alamat;
         }
         return view('front.detail', $data);
     }
@@ -153,6 +158,7 @@ class ProdukController extends Controller
                 'nama' => ['required', 'string', 'max:50'],
                 'harga' => ['required'],
                 'stok' => ['required', 'numeric'],
+                'weight' => ['required', 'numeric'],
                 'deskripsi' => ['required'],
                 'kategori_id' => ['required', 'numeric']
             ]);
@@ -174,6 +180,19 @@ class ProdukController extends Controller
                 $data['foto'] = $this->uploadPhoto($request, 'foto', 'public/produk/' . $kategori->nama, $produk->foto);
             } else {
                 unset($data['foto']);
+            }
+            if ($request->has('deskripsi')) {
+                // Get the original content before the update
+                $originalContent = $produk->deskripsi;
+
+                // Update the record
+                $data['deskripsi'] = $this->convertBase64ImagesToUrls($data['deskripsi'], $kategori->nama);
+                $produk->update($data);
+
+                // Remove old images
+                $this->removeOldImages($originalContent);
+            } else {
+                unset($data['deskripsi']);
             }
             $produk->update($data);
             DB::commit();

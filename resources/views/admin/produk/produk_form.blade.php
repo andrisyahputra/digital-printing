@@ -43,7 +43,6 @@
                     @endisset
                     {!! Form::file('foto', [
                         'class' => 'form-control',
-                        'required',
                     ]) !!}
 
                     <span class="text-danger">{{ $errors->first('foto') }}</span>
@@ -51,7 +50,7 @@
             </div>
 
             <div class="mb-3 form-group row">
-                {!! Form::label('stok', 'Stok Produk Berapa Gram', ['class' => 'col-sm-3 col-form-label']) !!}
+                {!! Form::label('stok', 'Stok Produk', ['class' => 'col-sm-3 col-form-label']) !!}
                 <div class="col-sm-9">
                     {!! Form::number('stok', null, [
                         'class' => 'form-control',
@@ -63,7 +62,7 @@
             </div>
 
             <div class="mb-3 form-group row">
-                {!! Form::label('weight', 'Berat Produk', ['class' => 'col-sm-3 col-form-label']) !!}
+                {!! Form::label('weight', 'Berat Produk Berapa Gram', ['class' => 'col-sm-3 col-form-label']) !!}
                 <div class="col-sm-9">
                     {!! Form::number('weight', null, [
                         'class' => 'form-control',
@@ -94,6 +93,7 @@
                     {!! Form::textarea('deskripsi', null, [
                         'class' => 'form-control',
                         'placeholder' => 'Masukkan Deskripsi Produk',
+                        'id' => 'summernote',
                     ]) !!}
 
                     <span class="text-danger">{{ $errors->first('deskripsi') }}</span>

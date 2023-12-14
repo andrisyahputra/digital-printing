@@ -51,6 +51,11 @@ class UserController extends Controller
         $data['menu'] = 'show';
         if ($pesanan->count() != 0) {
             $data['pesanans'] = $pesanan;
+            $data['pesanansStiker'] = auth()->user()->pesanans->where('order_id', $order_id)->where('kategori_id', 1);
+            $data['pesanansSpanduk'] = auth()->user()->pesanans->where('order_id', $order_id)->where('kategori_id', 2);
+            $data['pesanansKartuNama'] = auth()->user()->pesanans->where('order_id', $order_id)->where('kategori_id', 3);
+            $data['pesanansBrosur'] = auth()->user()->pesanans->where('order_id', $order_id)->where('kategori_id', 4);
+            $data['pesanansProduk'] = auth()->user()->pesanans->where('order_id', $order_id)->where('kategori_id', '>=', 5);
             $data['subtotal'] = $pesanan->sum('total');
         } else {
             $data['pesanans'] = null;

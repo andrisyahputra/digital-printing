@@ -63,35 +63,11 @@
 
 
 
-    <!-- Modal -->
-    <div class="modal fade" id="keranjang" tabindex="-1" role="dialog" aria-labelledby="modalTitleId"
-        aria-hidden="true">
-
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <form method="post" action="{{ route('keranjang.store') }}">
-                    @csrf
-                    <div class="modal-body">
-                        <input type="hidden" name="produk_id" id="produk_id" value="">
-                        <div class="container-fluid">
-                            <div class="mb-3">
-                                <div class="d-flex justify-content-between">
-                                    <label for="kuantitas" class="form-label">Jumlah</label>
-                                    <label for="kuantitas" class="form-label" id="num_qty"></label>
-                                </div>
-                                <input type="number" class="form-control" name="kuantitas" id="kuantitas"
-                                    placeholder="Masukan jumlah kuantitas" value="1">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary tutup">Close</button>
-                        <button type="submit" class="btn btn-primary">Save</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+    @include('front.modal-pesanan.modal_brosur')
+    @include('front.modal-pesanan.modal_kartu_nama')
+    @include('front.modal-pesanan.modal_produk')
+    @include('front.modal-pesanan.modal_spanduk')
+    @include('front.modal-pesanan.modal_stiker')
 
     {{-- laoding --}}
     <div class="loader"></div>
@@ -144,15 +120,7 @@
             $(this).closest('#keranjang').modal('hide');
         });
 
-        function add_card(produk_id, stok) {
-            let modal = $('#keranjang')
-            // let hide = $('#keranjang')
-            modal.find('#produk_id').val(produk_id)
-            modal.find('#num_qty').text('Tersedia ' + stok)
-            modal.find('input[name="kuantitas"]').attr('max', stok)
-            // modal.find('tutup').modal('hide');
-            modal.modal('show')
-        }
+
         $(document).ready(function() {
             // Mengaktifkan tab dengan menggunakan jQuery
             $("#myTabs a").on("click", function(e) {

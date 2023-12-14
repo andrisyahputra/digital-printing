@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Pesanan extends Model
@@ -38,6 +39,15 @@ class Pesanan extends Model
         return (object) [
             'foto' => $pk->foto,
         ];
+    }
+    /**
+     * Get all of the foto_pesanans for the Pesanan
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function foto_pesanans(): HasMany
+    {
+        return $this->hasMany(FotoPesanan::class, 'pesanan_id');
     }
 
     // public

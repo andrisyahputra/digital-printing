@@ -68,7 +68,7 @@
                                             Pendapatan Bulan ini</div>
                                         <div class="h3 mb-0 font-weight-bold text-gray-800">
                                             {{-- @dd($dataTotalBulan) --}}
-                                            {{ format_rupiah(end($dataTotalBulan), true) }}</div>
+                                            {{ FormatRupiah(end($dataTotalBulan), true) }}</div>
                                     </div>
                                     <div class="col-auto">
                                         <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -84,7 +84,7 @@
                                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                             Pendapatan Hari ini</div>
                                         <div class="h3 mb-0 font-weight-bold text-gray-800">
-                                            {{ format_rupiah($pendapatanHariIni, true) }}</div>
+                                            {{ FormatRupiah($pendapatanHariIni, true) }}</div>
                                     </div>
                                     <div class="col-auto">
                                         <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>

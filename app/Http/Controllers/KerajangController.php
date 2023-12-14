@@ -7,14 +7,18 @@ use App\Models\Produk;
 use App\Models\Pesanan;
 use App\Models\kerajang;
 use App\Models\Transaksi;
+use App\Models\FotoPesanan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use App\Http\Controllers\Auth\PhotoTrait;
 use Illuminate\Support\Facades\Validator;
 
 class KerajangController extends Controller
 {
+    use PhotoTrait;
     /**
      * Display a listing of the resource.
      */
@@ -25,6 +29,13 @@ class KerajangController extends Controller
         }
         $data['title'] = env('APP_NAME');
         $data['kerajangs'] = auth()->user()->kerajangs;
+        $data['alamatUser'] = auth()->user()->alamat;
+
+        $data['kerajangsStiker'] = auth()->user()->kerajangs->where('kategori_id', 1);
+        $data['kerajangsSpanduk'] = auth()->user()->kerajangs->where('kategori_id', 2);
+        $data['kerajangsKartuNama'] = auth()->user()->kerajangs->where('kategori_id', 3);
+        $data['kerajangsBrosur'] = auth()->user()->kerajangs->where('kategori_id', 4);
+        $data['kerajangsProduk'] = auth()->user()->kerajangs->where('kategori_id', '>=', 5);
 
 
         return view('front.keranjang', $data);
@@ -49,14 +60,27 @@ class KerajangController extends Controller
             DB::beginTransaction();
             $validator = Validator::make($request->all(), [
                 'produk_id' => ['required', 'numeric'],
-                'kuantitas' => ['required', 'numeric', 'min:1']
+                'kuantitas' => ['required', 'numeric', 'min:1'],
+                // 'totalHarga' => ['required', 'numeric', 'min:1']
+                'panjang' => ['nullable', 'numeric'],
+                'lebar' => ['nullable', 'numeric'],
+                'kertas' => ['nullable', 'string'],
+                'foto' => ['nullable', 'image', 'mimes:png,jpg', 'max:1000'],
+                'keterangan' => ['nullable', 'max:30'],
+                // 'kuantitas' => ['required', 'numeric', 'min:1']
             ]);
+            $produk = Produk::where('id', $request->produk_id)->firstOrFail();
+            // dd($validator->errors())->withInput($request->all());
             if ($validator->fails()) {
-                return redirect()->back()->withErrors($validator->errors())->withInput($request->all());
+                return redirect()->back()->withErrors($validator->errors())->withInput($request->all())->with('error', 'Terjadi Masalah');
             }
+
             $data = $validator->validate();
             $data['user_id'] = auth()->user()->id;
-
+            $data['kategori_id'] = $produk->kategori_id;
+            if ($request->hasFile('foto')) {
+                $data['foto'] = $this->uploadPhoto($request, 'foto', 'public/keranjang/' . $produk->nama);
+            }
             kerajang::create($data);
             DB::commit();
             return redirect()->back()->with('success', 'Berhasil Simpan di Keranjang');
@@ -98,25 +122,135 @@ class KerajangController extends Controller
                 // $item->produk->kurangi_stok($item->kuantitas);
                 // $total_harga += $item->produk->harga * $item->kuantitas;
                 // $item->delete();
+                if ($item->foto) {
+                    // Upload foto untuk keranjang
+                    // Pindahkan foto ke folder pesanan
+                    $pesananFotoPath = $this->movePhotoToOrderFolder($item->foto, 'public/pesanan/' . $item->produk->nama);
+                }
+
                 if ($item->produk->stok >= $item->kuantitas) {
                     // Proceed with creating the order
-                    Pesanan::create([
-                        'order_id' => $order_id,
-                        'user_id' => $user_id,
-                        'produk_id' => $item->produk->id,
-                        'nama' => $item->produk->nama,
-                        'harga' => $item->produk->harga,
-                        'kuantitas' => $item->kuantitas,
-                        'total' => $item->produk->harga * $item->kuantitas
-                    ]);
+                    switch ($item->kategori_id) {
+                        case 1:
+                            //stiker
+                            $pesanan = Pesanan::create([
+                                'order_id' => $order_id,
+                                'user_id' => $user_id,
+                                'produk_id' => $item->produk->id,
+                                'kategori_id' => $item->kategori_id,
+                                'nama' => $item->produk->nama,
+                                'harga' => $item->produk->harga,
+                                'kuantitas' => $item->kuantitas,
+                                'panjang' => $item->panjang,
+                                'lebar' => $item->lebar,
+                                'keterangan' => $item->keterangan,
+                                'total' =>  floatval($item->panjang) * floatval($item->lebar) * $item->produk->harga * $item->kuantitas,
+                            ]);
+                            FotoPesanan::create([
+                                'user_id' => $user_id,
+                                'pesanan_id' => $pesanan->id,
+                                'foto' => $pesananFotoPath
+                            ]);
+                            break;
+                        case 2:
+                            //sapnduk
+                            $pesanan = Pesanan::create([
+                                'order_id' => $order_id,
+                                'user_id' => $user_id,
+                                'produk_id' => $item->produk->id,
+                                'kategori_id' => $item->kategori_id,
+                                'nama' => $item->produk->nama,
+                                'harga' => $item->produk->harga,
+                                'kuantitas' => $item->kuantitas,
+                                'panjang' => $item->panjang,
+                                'lebar' => $item->lebar,
+                                'keterangan' => $item->keterangan,
+                                'total' =>  floatval($item->panjang) * floatval($item->lebar) * $item->produk->harga * $item->kuantitas,
+                            ]);
+                            FotoPesanan::create([
+                                'user_id' => $user_id,
+                                'pesanan_id' => $pesanan->id,
+                                'foto' => $pesananFotoPath
+                            ]);
+                            break;
+                        case 3:
+                            //kartu nama
+                            $pesanan = Pesanan::create([
+                                'order_id' => $order_id,
+                                'user_id' => $user_id,
+                                'produk_id' => $item->produk->id,
+                                'kategori_id' => $item->kategori_id,
+                                'nama' => $item->produk->nama,
+                                'harga' => $item->produk->harga,
+                                'kuantitas' => $item->kuantitas,
+                                'keterangan' => $item->keterangan,
+                                'total' =>   $item->produk->harga * $item->kuantitas,
+                            ]);
+                            FotoPesanan::create([
+                                'user_id' => $user_id,
+                                'pesanan_id' => $pesanan->id,
+                                'foto' => $pesananFotoPath
+                            ]);
+                            break;
+                        case 4:
+                            //brosur
+                            $pesanan = Pesanan::create([
+                                'order_id' => $order_id,
+                                'user_id' => $user_id,
+                                'produk_id' => $item->produk->id,
+                                'kategori_id' => $item->kategori_id,
+                                'nama' => $item->produk->nama,
+                                'harga' => $item->produk->harga,
+                                'kuantitas' => $item->kuantitas,
+                                'kertas' => $item->kertas,
+                                'keterangan' => $item->keterangan,
+                                'total' =>   $item->produk->harga * $item->kuantitas,
+                            ]);
+                            FotoPesanan::create([
+                                'user_id' => $user_id,
+                                'pesanan_id' => $pesanan->id,
+                                'foto' => $pesananFotoPath
+                            ]);
+                            break;
+
+                        default:
+                            Pesanan::create([
+                                'order_id' => $order_id,
+                                'user_id' => $user_id,
+                                'produk_id' => $item->produk->id,
+                                'kategori_id' => $item->kategori_id,
+                                'nama' => $item->produk->nama,
+                                'harga' => $item->produk->harga,
+                                'kuantitas' => $item->kuantitas,
+                                'total' => $item->produk->harga * $item->kuantitas
+                            ]);
+                            break;
+                    }
+
 
                     // Reduce stock
                     $item->produk->kurangi_stok($item->kuantitas);
 
                     // Update total harga
-                    $total_harga += $item->produk->harga * $item->kuantitas;
+                    if ($item->kategori_id == '1' || $item->kategori_id == '2') {
+                        //stiker
+                        //                 var luas = parseFloat(panjang) * parseFloat(lebar);
+                        // var total = luas * jumlah * harga;
+                        $luas = floatval($item->panjang) * floatval($item->lebar);
+                        $totalSekarang = $luas * $item->produk->harga * $item->kuantitas;
+                        $total_harga += $totalSekarang;
+                        // } elseif ($item->kategori_id == '2') {
+                        // } elseif ($item->kategori_id == '3') {
+                        // } elseif ($item->kategori_id == '4') {
+                    } else {
+                        $total_harga += $item->produk->harga * $item->kuantitas;
+                    }
+                    // $total_harga += $item->produk->harga * $item->kuantitas;
 
                     // Remove item from the cart
+                    if ($item->foto && Storage::exists($item->foto)) {
+                        Storage::delete($item->foto);
+                    }
                     $item->delete();
                 } else {
                     // If stock is less than quantity, cancel checkout for this item

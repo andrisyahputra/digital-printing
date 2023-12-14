@@ -72,7 +72,19 @@
                     @endphp
                     @foreach ($kerajangs as $item)
                         @php
-                            $total += $item->produk->harga * $item->kuantitas;
+                            if ($item->kategori_id == '1' || $item->kategori_id == '2') {
+                                //stiker
+                                //                 var luas = parseFloat(panjang) * parseFloat(lebar);
+                                // var total = luas * jumlah * harga;
+                                $luas = floatval($item->panjang) * floatval($item->lebar);
+                                $totalSekarang = $luas * $item->produk->harga * $item->kuantitas;
+                                $total += $totalSekarang;
+                                // } elseif ($item->kategori_id == '2') {
+                                // } elseif ($item->kategori_id == '3') {
+                                // } elseif ($item->kategori_id == '4') {
+                            } else {
+                                $total += $item->produk->harga * $item->kuantitas;
+                            }
                         @endphp
 
                         <li>
@@ -81,12 +93,61 @@
                                 @method('delete')
                                 <button class="remove" title="Remove this item">X</button>
                             </form>
-                            <a class="cart-img" href="#"><img src="{{ Storage::url($item->produk->foto) }}"
-                                    alt="{{ $item->produk->foto }}"></a>
-                            <h4><a href="#">{{ $item->produk->nama }}</a>
-                            </h4>
-                            <p class="quantity">{{ $item->kuantitas }}x - <span class="amount">Rp
-                                    {{ number_format($item->produk->harga * $item->kuantitas) }}</span></p>
+                            @switch($item->kategori_id)
+                                @case(1)
+                                @case(2)
+                                    <a class="cart-img" href="#"><img src="{{ Storage::url($item->produk->foto) }}"
+                                            alt="{{ $item->produk->foto }}"></a> <a class="cart-img" href="#"><img
+                                            src="{{ Storage::url($item->foto) }}" alt="{{ $item->foto }}"
+                                            width="50"></a>
+                                    <h4><a href="#">{{ $item->produk->nama }}</a>
+                                    </h4>
+
+                                    <p class="quantity">{{ $item->kuantitas }}x = Panjang {{ $item->panjang }} & Lebar
+                                        {{ $item->lebar }}
+                                        <br>
+                                        <span class="amount">Rp {{ number_format($totalSekarang) }}
+                                        </span>
+                                    </p>
+                                @break
+
+                                @case(3)
+                                    <a class="cart-img" href="#"><img src="{{ Storage::url($item->produk->foto) }}"
+                                            alt="{{ $item->produk->foto }}"></a> <a class="cart-img" href="#">
+                                        <img src="{{ Storage::url($item->foto) }}" alt="{{ $item->foto }}"
+                                            width="50"></a>
+                                    <h4><a href="#">{{ $item->produk->nama }}</a>
+                                    </h4>
+                                    <p class="quantity">{{ $item->kuantitas }}x - <span class="amount">Rp
+                                            {{ number_format($item->produk->harga * $item->kuantitas) }}
+                                        </span></p>
+                                @break
+
+                                @case(4)
+                                    <a class="cart-img" href="#"><img src="{{ Storage::url($item->produk->foto) }}"
+                                            alt="{{ $item->produk->foto }}"></a> <a class="cart-img" href="#">
+                                        <img src="{{ Storage::url($item->foto) }}" alt="{{ $item->foto }}"
+                                            width="50"></a>
+                                    <h4><a href="#">{{ $item->produk->nama }}</a>
+                                    </h4>
+                                    <p class="quantity">{{ $item->kuantitas }}x - Kertas <b><u>{{ $item->kertas }}</u></b>
+                                        <br>
+                                        <span class="amount">Rp
+                                            {{ number_format($item->produk->harga * $item->kuantitas) }}
+                                        </span>
+                                    </p>
+                                @break
+
+                                @default
+                                    <a class="cart-img" href="#"><img src="{{ Storage::url($item->produk->foto) }}"
+                                            alt="{{ $item->produk->foto }}"></a>
+                                    <h4><a href="#">{{ $item->produk->nama }}</a>
+                                    </h4>
+                                    <p class="quantity">{{ $item->kuantitas }}x - <span class="amount">Rp
+                                            {{ number_format($item->produk->harga * $item->kuantitas) }}
+                                        </span></p>
+                            @endswitch
+
                         </li>
                     @endforeach
                 </ul>

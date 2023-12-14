@@ -46,6 +46,13 @@
     <script src="{{ asset('achart/css/apexcharts.min.css') }}"></script>
     <script src="{{ asset('sbadmin2/js/rajaongkir.js') }}"></script>
     {{--  --}}
+
+    {{-- summernote --}}
+    <link href="{{ asset('sm') }}/summernote-bs4.css" rel="stylesheet">
+    <script src="{{ asset('sm') }}/summernote-bs4.js"></script>
+    {{-- summernote --}}
+
+
     <!-- Tambahkan baris ini di bagian head file HTML Anda raja ongkir -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
@@ -55,6 +62,10 @@
     <script>
         $(document).ready(function() {
             $('#tables').DataTable();
+            $('#summernote').summernote({
+                tabsize: 2,
+                height: 200
+            });
         });
 
         function logout(form_id) {

@@ -23,17 +23,21 @@
                             <td width="1%">{{ $loop->iteration }}</td>
                             <td class="text-nowrap">{{ $item->nama }}</td>
                             <td class="text-nowrap text-center" width="150">
-                                <div class="d-flex justify-content-between">
+                                <div class="row d-flex justify-content-center ">
 
-                                    <button class="btn btn-sm btn-warning"
-                                        onclick="edit_category('{{ route('kategori.update', $item->id) }}','{{ json_encode($item) }}')">Edit</button>
-                                    <form action="{{ route('kategori.destroy', $item->id) }}" method="post"
-                                        id="dalete_form{{ $item->id }}">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="button" class="btn btn-sm btn-danger"
-                                            onclick="hapus_data('#dalete_form{{ $item->id }}')">Hapus</button>
-                                    </form>
+                                    @if ($item->id >= 5)
+                                        <button class="btn btn-sm btn-warning m-1"
+                                            onclick="edit_category('{{ route('kategori.update', $item->id) }}','{{ json_encode($item) }}')">Edit</button>
+                                        <form action="{{ route('kategori.destroy', $item->id) }}" method="post"
+                                            id="dalete_form{{ $item->id }}">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="button" class="btn btn-sm btn-danger m-1"
+                                                onclick="hapus_data('#dalete_form{{ $item->id }}')">Hapus</button>
+                                        </form>
+                                    @else
+                                        Tidak Bisa Di Hapus Dan Diubah
+                                    @endif
                                 </div>
 
 
