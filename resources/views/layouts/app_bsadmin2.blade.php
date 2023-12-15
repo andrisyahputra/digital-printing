@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Dashboard</title>
+    <title>{{ config('app.name', 'Laravel') }} - Dashboard</title>
 
     <style>
         .bg-diterima {
@@ -37,7 +37,7 @@
                 <div class="sidebar-brand-icon">
                     <i class="fas fa-store-alt"></i>
                 </div>
-                <div class="sidebar-brand-text mx-2">Toko Online</div>
+                <div class="sidebar-brand-text mx-2">{{ config('app.name', 'Laravel') }} Online</div>
             </a>
 
             <!-- Divider -->

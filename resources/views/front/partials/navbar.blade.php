@@ -1,9 +1,9 @@
 <nav class="navbar sticky-top">
-    <a href="/" class="navbar-logo">Toko<span>Online</span></a>
+    <a href="/" class="navbar-logo">{{ config('app.name', 'Laravel') }} <span>Online</span></a>
     <div class="navbar-menu">
         <a href="/">Beranda</a>
         <a href="{{ route('produk') }}">Produk</a>
-        <a href="#">Tentang Kami</a>
+        {{-- <a href="#">Tentang Kami</a> --}}
         <a href="{{ route('kontak') }}">Kontak</a>
     </div>
 
@@ -360,7 +360,7 @@
                     );
                 },
                 success: function(response) {
-                    window.snap.pay(response['token']);
+                    window.snap.pay(response);
                 },
                 error: function(response) {
                     console.log(response);

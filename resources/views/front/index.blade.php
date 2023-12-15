@@ -9,7 +9,7 @@
             <div class="item">
                 <img src="asset/foto/slider/slider1.jpg" alt="slider1.jpg">
                 <main class="content">
-                    <h1>Toko <span>Online</span></h1>
+                    <h1>{{ config('app.name', 'Laravel') }} <span>Online</span></h1>
                     <p>
                         Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odio, ad repudiandae. At ullam
                         odio voluptates.
@@ -21,7 +21,7 @@
             <div class="item">
                 <img src="asset/foto/slider/slider2.jpg" alt="slider2.jpg">
                 <main class="content">
-                    <h1>Toko <span>Online</span></h1>
+                    <h1>{{ config('app.name', 'Laravel') }} <span>Online</span></h1>
                     <p>
                         Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odio, ad repudiandae. At ullam
                         odio voluptates.
@@ -33,7 +33,7 @@
             <div class="item">
                 <img src="asset/foto/slider/slider3.jpg" alt="slider3.jpg">
                 <main class="content">
-                    <h1>Toko <span>Online</span></h1>
+                    <h1>{{ config('app.name', 'Laravel') }} <span>Online</span></h1>
                     <p>
                         Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odio, ad repudiandae. At ullam
                         odio voluptates.
@@ -241,6 +241,4 @@
         </div>
     </section>
     <!-- kontak akhir-->
-
-
 @endsection

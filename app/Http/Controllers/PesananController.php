@@ -124,6 +124,7 @@ class PesananController extends Controller
         $data['totalPesanan'] = Kontak::count();
         $data['transaksi'] = Pesanan::orderBy('created_at', 'desc')->get()->groupBy('order_id')->take(2);
         $data['totalTransaksi'] = Pesanan::orderBy('created_at', 'desc')->get()->groupBy('order_id')->count();
+        // $data['transaksi'] = Transaksi::where('order_id', $order_id)->firstOrFails();
         if ($pesanan->count() != 0) {
             $data['pesans'] = $pesanan->get();
             $data['pesansStiker'] = Pesanan::where('order_id', $order_id)->where('kategori_id', 1)->get();

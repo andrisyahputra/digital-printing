@@ -76,232 +76,240 @@
 
                     @if ($pesanansStiker->count() >= 1)
                         <h5>Pesanan Stiker</h5>
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th class="text-nowrap" style="width: 20px">No</th>
-                                    <th class="text-nowrap">Produk</th>
-                                    <th class="text-nowrap">Harga</th>
-                                    <th class="text-nowrap">Kuantitas</th>
-                                    <th class="text-nowrap">Keterangan</th>
-                                    <th class="text-nowrap">Panjang</th>
-                                    <th class="text-nowrap">Lebar</th>
-                                    <th class="text-nowrap">Foto Pesanan</th>
-                                    <th class="text-nowrap">Berat Produk</th>
-                                    <th class="text-nowrap">Total</th>
-                                    <th class="text-nowrap">Foto Produk</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {{-- @dd($pesanans) --}}
-
-                                @foreach ($pesanansStiker as $item)
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
                                     <tr>
-                                        <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $item->nama }}</td>
-                                        <td>{{ number_format($item->harga) }}</td>
-                                        <td>{{ $item->kuantitas }}</td>
-                                        <td>{{ $item->keterangan }}</td>
-                                        <td>{{ $item->panjang }} Meter</td>
-                                        <td>{{ $item->lebar }} Meter</td>
-                                        <td>
-                                            {{-- @dd($item->foto_pesanans) --}}
-                                            @foreach ($item->foto_pesanans as $itemFoto)
-                                                <a href="#" class="m-1" data-toggle="modal"
-                                                    data-target="#photoModal"
-                                                    data-photo="{{ Storage::url($itemFoto->foto) }}">
-                                                    <img alt="{{ $itemFoto->foto }}"
-                                                        src="{{ Storage::url($itemFoto->foto) }}" width="100"
+                                        <th class="text-nowrap" style="width: 20px">No</th>
+                                        <th class="text-nowrap">Produk</th>
+                                        <th class="text-nowrap">Harga</th>
+                                        <th class="text-nowrap">Kuantitas</th>
+                                        <th class="text-nowrap">Keterangan</th>
+                                        <th class="text-nowrap">Panjang</th>
+                                        <th class="text-nowrap">Lebar</th>
+                                        <th class="text-nowrap">Foto Pesanan</th>
+                                        <th class="text-nowrap">Berat Produk</th>
+                                        <th class="text-nowrap">Total</th>
+                                        <th class="text-nowrap">Foto Produk</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{-- @dd($pesanans) --}}
+
+                                    @foreach ($pesanansStiker as $item)
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $item->nama }}</td>
+                                            <td>{{ number_format($item->harga) }}</td>
+                                            <td>{{ $item->kuantitas }}</td>
+                                            <td>{{ $item->keterangan }}</td>
+                                            <td>{{ $item->panjang }} Meter</td>
+                                            <td>{{ $item->lebar }} Meter</td>
+                                            <td>
+                                                {{-- @dd($item->foto_pesanans) --}}
+                                                @foreach ($item->foto_pesanans as $itemFoto)
+                                                    <a href="#" class="m-1" data-toggle="modal"
+                                                        data-target="#photoModal"
+                                                        data-photo="{{ Storage::url($itemFoto->foto) }}">
+                                                        <img alt="{{ $itemFoto->foto }}"
+                                                            src="{{ Storage::url($itemFoto->foto) }}" width="100"
+                                                            class="img-fluid">
+                                                    </a>
+                                                @endforeach
+                                            </td>
+                                            <td>{{ floatval($item->panjang) * floatval($item->lebar) * $item->kuantitas * $item->produk->weight }}
+                                            </td>
+                                            <td>{{ number_format($item->total) }}</td>
+                                            <td class="text-center">
+                                                <a href="#" data-toggle="modal" data-target="#photoModal"
+                                                    data-photo="{{ Storage::url($item->produk->foto) }}">
+                                                    <img alt="{{ $item->produk->foto }}"
+                                                        src="{{ Storage::url($item->produk->foto) }}" width="100"
                                                         class="img-fluid">
                                                 </a>
-                                            @endforeach
-                                        </td>
-                                        <td>{{ floatval($item->panjang) * floatval($item->lebar) * $item->kuantitas * $item->produk->weight }}
-                                        </td>
-                                        <td>{{ number_format($item->total) }}</td>
-                                        <td class="text-center">
-                                            <a href="#" data-toggle="modal" data-target="#photoModal"
-                                                data-photo="{{ Storage::url($item->produk->foto) }}">
-                                                <img alt="{{ $item->produk->foto }}"
-                                                    src="{{ Storage::url($item->produk->foto) }}" width="100"
-                                                    class="img-fluid">
-                                            </a>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     @endif
 
                     @if ($pesanansSpanduk->count() >= 1)
                         <h5>Pesanan Spanduk</h5>
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th class="text-nowrap" style="width: 20px">No</th>
-                                    <th class="text-nowrap">Produk</th>
-                                    <th class="text-nowrap">Harga</th>
-                                    <th class="text-nowrap">Kuantitas</th>
-                                    <th class="text-nowrap">Keterangan</th>
-                                    <th class="text-nowrap">Panjang</th>
-                                    <th class="text-nowrap">Lebar</th>
-                                    <th class="text-nowrap">Foto Pesanan</th>
-                                    <th class="text-nowrap">Berat Produk</th>
-                                    <th class="text-nowrap">Total</th>
-                                    <th class="text-nowrap">Foto Produk</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {{-- @dd($pesanans) --}}
-
-                                @foreach ($pesanansSpanduk as $item)
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
                                     <tr>
-                                        <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $item->nama }}</td>
-                                        <td>{{ number_format($item->harga) }}</td>
-                                        <td>{{ $item->kuantitas }}</td>
-                                        <td>{{ $item->keterangan }}</td>
-                                        <td>{{ $item->panjang }} Meter</td>
-                                        <td>{{ $item->lebar }} Meter</td>
-                                        <td>
-                                            {{-- @dd($item->foto_pesanans) --}}
-                                            @foreach ($item->foto_pesanans as $itemFoto)
-                                                <a href="#" class="m-1" data-toggle="modal"
-                                                    data-target="#photoModal"
-                                                    data-photo="{{ Storage::url($itemFoto->foto) }}">
-                                                    <img alt="{{ $itemFoto->foto }}"
-                                                        src="{{ Storage::url($itemFoto->foto) }}" width="100"
+                                        <th class="text-nowrap" style="width: 20px">No</th>
+                                        <th class="text-nowrap">Produk</th>
+                                        <th class="text-nowrap">Harga</th>
+                                        <th class="text-nowrap">Kuantitas</th>
+                                        <th class="text-nowrap">Keterangan</th>
+                                        <th class="text-nowrap">Panjang</th>
+                                        <th class="text-nowrap">Lebar</th>
+                                        <th class="text-nowrap">Foto Pesanan</th>
+                                        <th class="text-nowrap">Berat Produk</th>
+                                        <th class="text-nowrap">Total</th>
+                                        <th class="text-nowrap">Foto Produk</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{-- @dd($pesanans) --}}
+
+                                    @foreach ($pesanansSpanduk as $item)
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $item->nama }}</td>
+                                            <td>{{ number_format($item->harga) }}</td>
+                                            <td>{{ $item->kuantitas }}</td>
+                                            <td>{{ $item->keterangan }}</td>
+                                            <td>{{ $item->panjang }} Meter</td>
+                                            <td>{{ $item->lebar }} Meter</td>
+                                            <td>
+                                                {{-- @dd($item->foto_pesanans) --}}
+                                                @foreach ($item->foto_pesanans as $itemFoto)
+                                                    <a href="#" class="m-1" data-toggle="modal"
+                                                        data-target="#photoModal"
+                                                        data-photo="{{ Storage::url($itemFoto->foto) }}">
+                                                        <img alt="{{ $itemFoto->foto }}"
+                                                            src="{{ Storage::url($itemFoto->foto) }}" width="100"
+                                                            class="img-fluid">
+                                                    </a>
+                                                @endforeach
+                                            </td>
+                                            <td>{{ floatval($item->panjang) * floatval($item->lebar) * $item->kuantitas * $item->produk->weight }}
+                                            </td>
+                                            <td>{{ number_format($item->total) }}</td>
+                                            <td class="text-center">
+                                                <a href="#" data-toggle="modal" data-target="#photoModal"
+                                                    data-photo="{{ Storage::url($item->produk->foto) }}">
+                                                    <img alt="{{ $item->produk->foto }}"
+                                                        src="{{ Storage::url($item->produk->foto) }}" width="100"
                                                         class="img-fluid">
                                                 </a>
-                                            @endforeach
-                                        </td>
-                                        <td>{{ floatval($item->panjang) * floatval($item->lebar) * $item->kuantitas * $item->produk->weight }}
-                                        </td>
-                                        <td>{{ number_format($item->total) }}</td>
-                                        <td class="text-center">
-                                            <a href="#" data-toggle="modal" data-target="#photoModal"
-                                                data-photo="{{ Storage::url($item->produk->foto) }}">
-                                                <img alt="{{ $item->produk->foto }}"
-                                                    src="{{ Storage::url($item->produk->foto) }}" width="100"
-                                                    class="img-fluid">
-                                            </a>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     @endif
 
                     @if ($pesanansKartuNama->count() >= 1)
                         <h5>Pesanan Kartu Nama</h5>
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th class="text-nowrap" style="width: 20px">No</th>
-                                    <th class="text-nowrap">Produk</th>
-                                    <th class="text-nowrap">Harga</th>
-                                    <th class="text-nowrap">Kuantitas</th>
-                                    <th class="text-nowrap">Keterangan</th>
-                                    <th class="text-nowrap">Foto Pesanan</th>
-                                    <th class="text-nowrap">Berat Produk</th>
-                                    <th class="text-nowrap">Total</th>
-                                    <th class="text-nowrap">Foto Produk</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {{-- @dd($pesanans) --}}
-
-                                @foreach ($pesanansSpanduk as $item)
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
                                     <tr>
-                                        <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $item->nama }}</td>
-                                        <td>{{ number_format($item->harga) }}</td>
-                                        <td>{{ $item->kuantitas }} Kotak</td>
-                                        <td>{{ $item->keterangan }}</td>
-                                        <td>
-                                            {{-- @dd($item->foto_pesanans) --}}
-                                            @foreach ($item->foto_pesanans as $itemFoto)
-                                                <a href="#" class="m-1" data-toggle="modal"
-                                                    data-target="#photoModal"
-                                                    data-photo="{{ Storage::url($itemFoto->foto) }}">
-                                                    <img alt="{{ $itemFoto->foto }}"
-                                                        src="{{ Storage::url($itemFoto->foto) }}" width="100"
+                                        <th class="text-nowrap" style="width: 20px">No</th>
+                                        <th class="text-nowrap">Produk</th>
+                                        <th class="text-nowrap">Harga</th>
+                                        <th class="text-nowrap">Kuantitas</th>
+                                        <th class="text-nowrap">Keterangan</th>
+                                        <th class="text-nowrap">Foto Pesanan</th>
+                                        <th class="text-nowrap">Berat Produk</th>
+                                        <th class="text-nowrap">Total</th>
+                                        <th class="text-nowrap">Foto Produk</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{-- @dd($pesanans) --}}
+
+                                    @foreach ($pesanansSpanduk as $item)
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $item->nama }}</td>
+                                            <td>{{ number_format($item->harga) }}</td>
+                                            <td>{{ $item->kuantitas }} Kotak</td>
+                                            <td>{{ $item->keterangan }}</td>
+                                            <td>
+                                                {{-- @dd($item->foto_pesanans) --}}
+                                                @foreach ($item->foto_pesanans as $itemFoto)
+                                                    <a href="#" class="m-1" data-toggle="modal"
+                                                        data-target="#photoModal"
+                                                        data-photo="{{ Storage::url($itemFoto->foto) }}">
+                                                        <img alt="{{ $itemFoto->foto }}"
+                                                            src="{{ Storage::url($itemFoto->foto) }}" width="100"
+                                                            class="img-fluid">
+                                                    </a>
+                                                @endforeach
+                                            </td>
+                                            <td>{{ floatval($item->panjang) * floatval($item->lebar) * $item->kuantitas * $item->produk->weight }}
+                                            </td>
+                                            <td>{{ number_format($item->total) }}</td>
+                                            <td class="text-center">
+                                                <a href="#" data-toggle="modal" data-target="#photoModal"
+                                                    data-photo="{{ Storage::url($item->produk->foto) }}">
+                                                    <img alt="{{ $item->produk->foto }}"
+                                                        src="{{ Storage::url($item->produk->foto) }}" width="100"
                                                         class="img-fluid">
                                                 </a>
-                                            @endforeach
-                                        </td>
-                                        <td>{{ floatval($item->panjang) * floatval($item->lebar) * $item->kuantitas * $item->produk->weight }}
-                                        </td>
-                                        <td>{{ number_format($item->total) }}</td>
-                                        <td class="text-center">
-                                            <a href="#" data-toggle="modal" data-target="#photoModal"
-                                                data-photo="{{ Storage::url($item->produk->foto) }}">
-                                                <img alt="{{ $item->produk->foto }}"
-                                                    src="{{ Storage::url($item->produk->foto) }}" width="100"
-                                                    class="img-fluid">
-                                            </a>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     @endif
 
                     @if ($pesanansBrosur->count() >= 1)
                         <h5>Pesanan Brosur</h5>
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th class="text-nowrap" style="width: 20px">No</th>
-                                    <th class="text-nowrap">Produk</th>
-                                    <th class="text-nowrap">Harga</th>
-                                    <th class="text-nowrap">Kuantitas</th>
-                                    <th class="text-nowrap">Kertas</th>
-                                    <th class="text-nowrap">Keterangan</th>
-                                    <th class="text-nowrap">Foto Pesanan</th>
-                                    <th class="text-nowrap">Berat Produk</th>
-                                    <th class="text-nowrap">Total</th>
-                                    <th class="text-nowrap">Foto Produk</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {{-- @dd($pesanans) --}}
-
-                                @foreach ($pesanansSpanduk as $item)
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
                                     <tr>
-                                        <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $item->nama }}</td>
-                                        <td>{{ number_format($item->harga) }}</td>
-                                        <td>{{ $item->kuantitas }} Per Rim</td>
-                                        <td>{{ $item->kertas }}</td>
-                                        <td>{{ $item->keterangan }}</td>
-                                        <td>
-                                            {{-- @dd($item->foto_pesanans) --}}
-                                            @foreach ($item->foto_pesanans as $itemFoto)
-                                                <a href="#" class="m-1" data-toggle="modal"
-                                                    data-target="#photoModal"
-                                                    data-photo="{{ Storage::url($itemFoto->foto) }}">
-                                                    <img alt="{{ $itemFoto->foto }}"
-                                                        src="{{ Storage::url($itemFoto->foto) }}" width="100"
+                                        <th class="text-nowrap" style="width: 20px">No</th>
+                                        <th class="text-nowrap">Produk</th>
+                                        <th class="text-nowrap">Harga</th>
+                                        <th class="text-nowrap">Kuantitas</th>
+                                        <th class="text-nowrap">Kertas</th>
+                                        <th class="text-nowrap">Keterangan</th>
+                                        <th class="text-nowrap">Foto Pesanan</th>
+                                        <th class="text-nowrap">Berat Produk</th>
+                                        <th class="text-nowrap">Total</th>
+                                        <th class="text-nowrap">Foto Produk</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{-- @dd($pesanans) --}}
+
+                                    @foreach ($pesanansSpanduk as $item)
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $item->nama }}</td>
+                                            <td>{{ number_format($item->harga) }}</td>
+                                            <td>{{ $item->kuantitas }} Per Rim</td>
+                                            <td>{{ $item->kertas }}</td>
+                                            <td>{{ $item->keterangan }}</td>
+                                            <td>
+                                                {{-- @dd($item->foto_pesanans) --}}
+                                                @foreach ($item->foto_pesanans as $itemFoto)
+                                                    <a href="#" class="m-1" data-toggle="modal"
+                                                        data-target="#photoModal"
+                                                        data-photo="{{ Storage::url($itemFoto->foto) }}">
+                                                        <img alt="{{ $itemFoto->foto }}"
+                                                            src="{{ Storage::url($itemFoto->foto) }}" width="100"
+                                                            class="img-fluid">
+                                                    </a>
+                                                @endforeach
+                                            </td>
+                                            <td>{{ floatval($item->panjang) * floatval($item->lebar) * $item->kuantitas * $item->produk->weight }}
+                                            </td>
+                                            <td>{{ number_format($item->total) }}</td>
+                                            <td class="text-center">
+                                                <a href="#" data-toggle="modal" data-target="#photoModal"
+                                                    data-photo="{{ Storage::url($item->produk->foto) }}">
+                                                    <img alt="{{ $item->produk->foto }}"
+                                                        src="{{ Storage::url($item->produk->foto) }}" width="100"
                                                         class="img-fluid">
                                                 </a>
-                                            @endforeach
-                                        </td>
-                                        <td>{{ floatval($item->panjang) * floatval($item->lebar) * $item->kuantitas * $item->produk->weight }}
-                                        </td>
-                                        <td>{{ number_format($item->total) }}</td>
-                                        <td class="text-center">
-                                            <a href="#" data-toggle="modal" data-target="#photoModal"
-                                                data-photo="{{ Storage::url($item->produk->foto) }}">
-                                                <img alt="{{ $item->produk->foto }}"
-                                                    src="{{ Storage::url($item->produk->foto) }}" width="100"
-                                                    class="img-fluid">
-                                            </a>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     @endif
 
 
@@ -312,10 +320,14 @@
                         @switch($pesanans->first()->status)
                             @case('pending')
                                 <div class="text-right">
-                                    <button class="btn btn-danger "
+                                    <button class="btn btn-danger m-1"
                                         onclick="tolak_pesanan('{{ route('pesanan.tolak', ['order_id' => $pesanans->first()->order_id]) }}')">Batal
                                         Pesan</button>
+                                    <a href="{{ $pesanans->first()->tranksaksi()->url_payment }}"
+                                        class="btn btn-success m-1">Bayar</a>
                                     <br>
+
+
                                     <h4 class="text-warning">Pembeli Belum Melakukan Pembayaran !</h4>
                                 </div>
                             @break

@@ -13,7 +13,7 @@
                         <div class="col-lg-12">
                             <div class="px-5 pb-5 pt-1">
                                 <div class="text-center">
-                                    <img src="https://xsgames.co/randomusers/avatar.php?g=male&1" alt="logo.png"
+                                    <img src="{{ asset('icon/digital_printing.png') }}" alt="logo.png"
                                         class="img-fluid rounded-circle" width="132" height="132">
                                 </div>
                                 <div class="text-center">
@@ -53,6 +53,9 @@
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                             @enderror
+                                        </div>
+                                        <div class="col-md-12 text-center">
+                                            <a class="small" href="{{ route('password.request') }}">Lupa Password?</a>
                                         </div>
                                     </div>
 

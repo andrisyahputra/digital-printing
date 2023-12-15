@@ -1,22 +1,24 @@
 <?php
 
-use App\Http\Controllers\AlamatUserController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\indexController;
+use App\Http\Controllers\KontakController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\PesananController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\KerajangController;
-use App\Http\Controllers\KontakController;
 use App\Http\Controllers\TransaksiController;
+use App\Http\Controllers\AlamatUserController;
+use App\Http\Controllers\RajaOngkirController;
 use App\Http\Middleware\EnsureAuthDataKeranjang;
 use App\Http\Controllers\PesananDikirimController;
 use App\Http\Controllers\PesananDiterimaController;
-use App\Http\Controllers\RajaOngkirController;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,20 +53,20 @@ Route::post('/', [RajaOngkirController::class, 'getDataPaket'])->name('data.pake
 // Route::post('/cek-ongkir', [RajaOngkirController::class, 'cekOngkir']);
 
 
-Route::middleware(EnsureAuthDataKeranjang::class)->group(
-    function () {
 
-        // Route::get('keranjang', [KerajangController::class, 'index'])->name('kerajang.index');
-        Route::get('checkout-keranjang', [KerajangController::class, 'checkout'])->name('keranjang.checkout');
-        Route::resources([
-            'keranjang' => KerajangController::class,
-            // 'alamat' => AlamatUserController::class,
-        ]);
-    }
-);
 
-Route::group(['middleware' => ['auth']], function () {
+Route::group(['middleware' => ['auth', 'verified']], function () {
+    Route::middleware(EnsureAuthDataKeranjang::class)->group(
+        function () {
 
+            // Route::get('keranjang', [KerajangController::class, 'index'])->name('kerajang.index');
+            Route::get('checkout-keranjang', [KerajangController::class, 'checkout'])->name('keranjang.checkout');
+            Route::resources([
+                'keranjang' => KerajangController::class,
+                // 'alamat' => AlamatUserController::class,
+            ]);
+        }
+    );
     Route::resources([
         'alamat' => AlamatUserController::class,
     ]);
@@ -92,7 +94,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'verified', 'role:Ad
     Route::get('/pesanan/cari', [PesananController::class, 'show'])->name('pesanan.cari');
     // Route::get('/pesanan', [PesananController::class, 'index'])->name('pesanan.index');
 
-
     Route::resources([
         'kategori' => KategoriController::class,
         'produk' => ProdukController::class,
@@ -118,5 +119,24 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+// Route::get('/email/verify', function () {
+//     // return view('auth.verif_adminkit');
+//     $data['kerajangs'] = null;
+//     return view('auth.verifyemail_onlineshop', $data);
+// })->middleware('auth')->name('verification.notice');
+
+// Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+//     $request->fulfill();
+
+//     return redirect('/home');
+// })->middleware(['auth', 'signed'])->name('verification.verify');
+
+Route::post('/email/verification-notification', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+
+    return back()->with('message', 'Verification link sent!');
+})->middleware(['auth', 'throttle:6,1'])->name('verification.resend');
+
 
 require __DIR__ . '/auth.php';

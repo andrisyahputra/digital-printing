@@ -261,11 +261,7 @@ class KerajangController extends Controller
             }
 
 
-            Transaksi::create([
-                'order_id' => $order_id,
-                'pembeli' => auth()->user()->name,
-                'harga' => $total_harga
-            ]);
+
 
             $params = [
                 'transaction_details' => [
@@ -276,8 +272,14 @@ class KerajangController extends Controller
 
 
             $response = \Midtrans\Snap::createTransaction($params);
+            Transaksi::create([
+                'order_id' => $order_id,
+                'pembeli' => auth()->user()->name,
+                'harga' => $total_harga,
+                'url_payment' => $response->redirect_url
+            ]);
             // return redirect($response->redirect_url);
-            return $response;
+            return $response->token;
         } catch (\Exception $e) {
             Log::error($e->getMessage());
             return redirect()->back()->with('error', 'Terjadi Masalah.');

@@ -17,8 +17,8 @@
             <div class="col-md-9 detail-produk">
 
                 <div class="row">
-                    <div class="col-6">
-                        <div id="owl-nav"></div>
+                    <div class="col-md-6">
+                        {{-- <div id="owl-nav"></div> --}}
                         <div class="owl-carousel owl-theme">
 
                             {{-- <php foreach ($produkfoto as $key => $value) : ?> --}}

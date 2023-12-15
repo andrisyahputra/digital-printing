@@ -4,8 +4,8 @@
          <div class="row">
              <div class="col-md-3">
                  <h4 class="widget-title-sm">Tentang Kami</h4>
-                 <p>Rahmatika Digital Printing melayani : digital printing , seperti cetak spanduk, sticker, banner,
-                     poster, dan baliho.</p>
+                 <p>Digital Printing Online melayani : digital printing , seperti cetak spanduk, sticker, banner,
+                     poster, baliho, dan produk-produk lainnya</p>
                  <ul class="footer-social">
                      <a href="#"><i class="fab fa-facebook"></i></a>
                      <a href="#"><i class="fab fa-twitter"></i></i></a>
@@ -15,7 +15,7 @@
              </div>
              <div class="col-md-3">
                  <h4 class="widget-title-sm">Alamat</h4>
-                 <p>Jl. Bonjol No.42, Pd. Karya, Pd. Aren, Bintaro - Tangerang Selatan (15225).</p>
+                 <p>Toko Sekitaran Kota Binjai</p>
              </div>
              <div class="col-md-3">
                  <h4 class="widget-title-sm">Kontak</h4>

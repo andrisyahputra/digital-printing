@@ -9,43 +9,46 @@
 
     <div class="card shadow bg-white mt-3">
         <div class="card-body">
-            <table class="table table-bordered table-hover table-striped" id="tables">
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th class="text-nowrap">Nama</th>
-                        <th class="text-nowrap">Opsi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($kategoris as $item)
+            <div class="table-responsive">
+
+                <table class="table table-bordered table-hover table-striped" id="tables">
+                    <thead>
                         <tr>
-                            <td width="1%">{{ $loop->iteration }}</td>
-                            <td class="text-nowrap">{{ $item->nama }}</td>
-                            <td class="text-nowrap text-center" width="150">
-                                <div class="row d-flex justify-content-center ">
-
-                                    @if ($item->id >= 5)
-                                        <button class="btn btn-sm btn-warning m-1"
-                                            onclick="edit_category('{{ route('kategori.update', $item->id) }}','{{ json_encode($item) }}')">Edit</button>
-                                        <form action="{{ route('kategori.destroy', $item->id) }}" method="post"
-                                            id="dalete_form{{ $item->id }}">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="button" class="btn btn-sm btn-danger m-1"
-                                                onclick="hapus_data('#dalete_form{{ $item->id }}')">Hapus</button>
-                                        </form>
-                                    @else
-                                        Tidak Bisa Di Hapus Dan Diubah
-                                    @endif
-                                </div>
-
-
-                            </td>
+                            <th>No</th>
+                            <th class="text-nowrap">Nama</th>
+                            <th class="text-nowrap">Opsi</th>
                         </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        @foreach ($kategoris as $item)
+                            <tr>
+                                <td width="1%">{{ $loop->iteration }}</td>
+                                <td class="text-nowrap">{{ $item->nama }}</td>
+                                <td class="text-nowrap text-center" width="150">
+                                    <div class="row d-flex justify-content-center ">
+
+                                        @if ($item->id >= 5)
+                                            <button class="btn btn-sm btn-warning m-1"
+                                                onclick="edit_category('{{ route('kategori.update', $item->id) }}','{{ json_encode($item) }}')">Edit</button>
+                                            <form action="{{ route('kategori.destroy', $item->id) }}" method="post"
+                                                id="dalete_form{{ $item->id }}">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="button" class="btn btn-sm btn-danger m-1"
+                                                    onclick="hapus_data('#dalete_form{{ $item->id }}')">Hapus</button>
+                                            </form>
+                                        @else
+                                            Tidak Bisa Di Hapus Dan Diubah
+                                        @endif
+                                    </div>
+
+
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 @endsection

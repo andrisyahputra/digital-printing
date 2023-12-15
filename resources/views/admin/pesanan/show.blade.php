@@ -331,9 +331,12 @@
                         @switch($pesans->first()->status)
                             @case('pending')
                                 <div class="text-right">
-                                    <button class="btn btn-danger "
+                                    <button class="btn btn-danger m-1"
                                         onclick="tolak_pesanan('{{ route('pesanan.tolak', ['order_id' => $pesans->first()->order_id]) }}')">Tolak</button>
+                                        <a href="{{$pesans->first()->tranksaksi()->url_payment}}" class="btn btn-success m-1">Bayar</a>
                                     <br>
+
+                                    {{-- @dd($pesans->first()->tranksaksi()->token_payment) --}}
                                     <h4 class="text-warning">Pembeli Belum Melakukan Pembayaran !</h4>
                                 </div>
                             @break
@@ -461,6 +464,7 @@
 
 @push('js')
     <script>
+
         $(document).ready(function() {
             $('#photoModal').on('show.bs.modal', function(event) {
                 var button = $(event.relatedTarget);

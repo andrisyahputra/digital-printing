@@ -6,3 +6,8 @@
     rel="stylesheet">
 
 <link href="{{ asset('sbadmin2') }}/css/sb-admin-2.min.css" rel="stylesheet">
+
+{{-- midtrans --}}
+<script type="text/javascript" src="https://app.sandbox.midtrans.com/snap/snap.js"
+    data-client-key="{{ env('MIDTRANS_API_KEY') }}"></script>
+{{-- midtrans --}}

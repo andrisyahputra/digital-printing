@@ -43,8 +43,8 @@
         <span>Pesan Pelanggan</span></a>
 </li>
 
-<li class="nav-item ">
+{{-- <li class="nav-item ">
     <a class="nav-link" href="$">
         <i class="fas fa-fw fa-tachometer-alt"></i>
         <span>Pengaturan</span></a>
-</li>
+</li> --}}

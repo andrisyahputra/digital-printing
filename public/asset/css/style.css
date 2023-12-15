@@ -797,6 +797,9 @@ footer .footer-social a:hover {
     #btn-menu {
         display: inline-block;
     }
+    .navbar .navbar-logo {
+        font-size: 1.2rem;
+    }
     .navbar .navbar-menu {
         position: absolute;
         top: 100%;
@@ -846,15 +849,15 @@ footer .footer-social a:hover {
 
     .hero .content {
         position: absolute;
-        top: 10%;
+        top: -5%;
         padding: 1.5rem 9%;
         color: #fff;
     }
     .hero .content h1 {
-        font-size: 2rem;
+        font-size: 1.5rem;
     }
     .hero .content p {
-        font-size: 1rem;
+        font-size: 0.75rem;
         margin-top: 1rem;
         max-width: 60%;
         text-align: justify;
@@ -863,7 +866,7 @@ footer .footer-social a:hover {
 
     .hero .content .btn {
         padding: 0.5rem 1rem;
-        font-size: 1rem;
+        font-size: 0.5rem;
         font-family: font2;
     }
 
@@ -878,15 +881,15 @@ footer .footer-social a:hover {
     .detail-produk {
         margin-top: 2rem;
     }
-    .produk .card {
-        position: relative;
+    /* .produk .card { */
+    /* position: relative;
         max-width: 350px;
         width: 350px;
         height: auto;
         margin: 45px;
-        margin-bottom: 20px;
-        /* overflow: hidden; */
-    }
+        margin-bottom: 20px; */
+    /* overflow: hidden; */
+    /* } */
     .produk .card img {
         max-width: 100%;
         height: auto;

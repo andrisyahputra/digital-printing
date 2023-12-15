@@ -50,5 +50,13 @@ class Pesanan extends Model
         return $this->hasMany(FotoPesanan::class, 'pesanan_id');
     }
 
+    public function tranksaksi()
+    {
+        $pk = Transaksi::firstWhere('order_id', $this->order_id);
+        return (object) [
+            'url_payment' => $pk->url_payment,
+        ];
+    }
+
     // public
 }

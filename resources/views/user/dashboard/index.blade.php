@@ -14,9 +14,6 @@
                                 <th>No</th>
                                 <th>Order ID</th>
                                 <th class="d-none d-xl-table-cell">
-                                    Pembeli
-                                </th>
-                                <th class="d-none d-xl-table-cell">
                                     Jumlah Pesanan
                                 </th>
                                 <th class="d-none d-md-table-cell">
@@ -32,10 +29,6 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $index }}</td>
-                                    <td class="d-none d-xl-table-cell">
-                                        {{ $item->first()->pembeli->name }}
-                                        {{-- tes1 --}}
-                                    </td>
                                     <td class="d-none d-xl-table-cell">
                                         {{ $item->count() }}
                                         {{-- tes1 --}}
@@ -98,9 +91,6 @@
                                 <th>No</th>
                                 <th>Order ID</th>
                                 <th class="d-none d-xl-table-cell">
-                                    Pembeli
-                                </th>
-                                <th class="d-none d-xl-table-cell">
                                     Jumlah Pesanan
                                 </th>
                                 <th class="d-none d-md-table-cell">
@@ -116,10 +106,6 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $index }}</td>
-                                    <td class="d-none d-xl-table-cell">
-                                        {{ $item->first()->pembeli->name }}
-                                        {{-- tes1 --}}
-                                    </td>
                                     <td class="d-none d-xl-table-cell">
                                         {{ $item->count() }}
                                         {{-- tes1 --}}
