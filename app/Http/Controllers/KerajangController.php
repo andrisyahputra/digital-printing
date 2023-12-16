@@ -122,11 +122,11 @@ class KerajangController extends Controller
                 // $item->produk->kurangi_stok($item->kuantitas);
                 // $total_harga += $item->produk->harga * $item->kuantitas;
                 // $item->delete();
-                if ($item->foto) {
-                    // Upload foto untuk keranjang
-                    // Pindahkan foto ke folder pesanan
-                    $pesananFotoPath = $this->movePhotoToOrderFolder($item->foto, 'public/pesanan/' . $item->produk->nama);
-                }
+                // if ($item->foto) {
+                //     // Upload foto untuk keranjang
+                //     // Pindahkan foto ke folder pesanan
+                //     $pesananFotoPath = $this->movePhotoToOrderFolder($item->foto, 'public/pesanan/' . $item->produk->nama);
+                // }
 
                 if ($item->produk->stok >= $item->kuantitas) {
                     // Proceed with creating the order
@@ -146,11 +146,26 @@ class KerajangController extends Controller
                                 'keterangan' => $item->keterangan,
                                 'total' =>  floatval($item->panjang) * floatval($item->lebar) * $item->produk->harga * $item->kuantitas,
                             ]);
-                            FotoPesanan::create([
-                                'user_id' => $user_id,
-                                'pesanan_id' => $pesanan->id,
-                                'foto' => $pesananFotoPath
-                            ]);
+
+                            // FotoPesanan::create([
+                            //     'user_id' => $user_id,
+                            //     'pesanan_id' => $pesanan->id,
+                            //     'foto' => $pesananFotoPath
+                            // ]);
+                            if ($item->foto) {
+                                // Upload foto untuk keranjang
+                                // Pindahkan foto ke folder pesanan
+                                $pesananFotoPath = $this->movePhotoToOrderFolder($item->foto, 'public/pesanan/' . $item->produk->nama);
+
+                                // Hanya membuat entri FotoPesanan jika $pesananFotoPath tidak kosong
+                                if ($pesananFotoPath) {
+                                    FotoPesanan::create([
+                                        'user_id' => $user_id,
+                                        'pesanan_id' => $pesanan->id,
+                                        'foto' => $pesananFotoPath
+                                    ]);
+                                }
+                            }
                             break;
                         case 2:
                             //sapnduk
@@ -167,11 +182,20 @@ class KerajangController extends Controller
                                 'keterangan' => $item->keterangan,
                                 'total' =>  floatval($item->panjang) * floatval($item->lebar) * $item->produk->harga * $item->kuantitas,
                             ]);
-                            FotoPesanan::create([
-                                'user_id' => $user_id,
-                                'pesanan_id' => $pesanan->id,
-                                'foto' => $pesananFotoPath
-                            ]);
+                            if ($item->foto) {
+                                // Upload foto untuk keranjang
+                                // Pindahkan foto ke folder pesanan
+                                $pesananFotoPath = $this->movePhotoToOrderFolder($item->foto, 'public/pesanan/' . $item->produk->nama);
+
+                                // Hanya membuat entri FotoPesanan jika $pesananFotoPath tidak kosong
+                                if ($pesananFotoPath) {
+                                    FotoPesanan::create([
+                                        'user_id' => $user_id,
+                                        'pesanan_id' => $pesanan->id,
+                                        'foto' => $pesananFotoPath
+                                    ]);
+                                }
+                            }
                             break;
                         case 3:
                             //kartu nama
@@ -186,11 +210,20 @@ class KerajangController extends Controller
                                 'keterangan' => $item->keterangan,
                                 'total' =>   $item->produk->harga * $item->kuantitas,
                             ]);
-                            FotoPesanan::create([
-                                'user_id' => $user_id,
-                                'pesanan_id' => $pesanan->id,
-                                'foto' => $pesananFotoPath
-                            ]);
+                            if ($item->foto) {
+                                // Upload foto untuk keranjang
+                                // Pindahkan foto ke folder pesanan
+                                $pesananFotoPath = $this->movePhotoToOrderFolder($item->foto, 'public/pesanan/' . $item->produk->nama);
+
+                                // Hanya membuat entri FotoPesanan jika $pesananFotoPath tidak kosong
+                                if ($pesananFotoPath) {
+                                    FotoPesanan::create([
+                                        'user_id' => $user_id,
+                                        'pesanan_id' => $pesanan->id,
+                                        'foto' => $pesananFotoPath
+                                    ]);
+                                }
+                            }
                             break;
                         case 4:
                             //brosur
@@ -206,11 +239,20 @@ class KerajangController extends Controller
                                 'keterangan' => $item->keterangan,
                                 'total' =>   $item->produk->harga * $item->kuantitas,
                             ]);
-                            FotoPesanan::create([
-                                'user_id' => $user_id,
-                                'pesanan_id' => $pesanan->id,
-                                'foto' => $pesananFotoPath
-                            ]);
+                            if ($item->foto) {
+                                // Upload foto untuk keranjang
+                                // Pindahkan foto ke folder pesanan
+                                $pesananFotoPath = $this->movePhotoToOrderFolder($item->foto, 'public/pesanan/' . $item->produk->nama);
+
+                                // Hanya membuat entri FotoPesanan jika $pesananFotoPath tidak kosong
+                                if ($pesananFotoPath) {
+                                    FotoPesanan::create([
+                                        'user_id' => $user_id,
+                                        'pesanan_id' => $pesanan->id,
+                                        'foto' => $pesananFotoPath
+                                    ]);
+                                }
+                            }
                             break;
 
                         default:

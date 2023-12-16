@@ -12,21 +12,22 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="px-5 pb-5 pt-1">
-                                @if (session('status'))
-                                    <div class="alert alert-info mb-4">
-                                        {{ session('status') }}
-                                    </div>
-                                @endif
+
                                 <div class="text-center">
                                     <h1 class="h4 text-gray-900 mb-2">Lupa Password?</h1>
                                     <p class="mb-4">Kami mengerti, banyak hal terjadi. Cukup masukkan alamat email Anda di
                                         bawah dan kami akan mengirimkan Anda tautan untuk mengatur ulang kata sandi Anda!
                                     </p>
                                 </div>
+                                @if (session('status'))
+                                    <div class="alert alert-info mb-4">
+                                        {{ session('status') }}
+                                    </div>
+                                @endif
                                 <form action="{{ route('password.email') }}" method="post">
                                     @csrf
                                     <div class="form-group">
-                                        <input type="email"
+                                        <input name="email" type="email"
                                             class="form-control form-control-user @error('email')
                                             is-invalid
                                         @enderror"

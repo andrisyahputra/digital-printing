@@ -13,15 +13,19 @@
                         <input type="hidden" name="produk_id" id="produk_idKartuNama" value="">
                         <input type="hidden" id="hargaKartuNama" value="">
                         <input type="hidden" id="totalHargaKartuNama" value="">
-                        <div class="mb-3">
+
+                        <label for="myCheckboxKN">Foto Dari Kami</label>
+                        <input type="checkbox" id="myCheckboxKN">
+
+                        <div class="mb-3" id="fkartuNama">
                             <div class="d-flex justify-content-between">
-                                <label for="fotoKartuNama" class="form-label">Foto Sendiri</label>
+                                <label for="fotoKN" class="form-label">Foto Sendiri</label>
                             </div>
                             <input type="file"
                                 class="form-control @error('foto')
                                 is-invalid
                             @enderror"
-                                name="foto" id="fotoKartuNama" required>
+                                name="foto" id="fotoKN" required>
                             @error('foto')
                                 <div class="invalid-feedback">
                                     {{ $message }}

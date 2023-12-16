@@ -21,8 +21,8 @@
 
                                 @if (session('status') == 'verification-link-sent')
                                     <div class="mb-4 font-medium text-success text-sm text-green-600">
-                                        A new verification link has been sent to the email address you provided during
-                                        registration.
+                                        Tautan verifikasi baru telah dikirim ke alamat email yang Anda berikan saat
+                                        pendaftaran.
                                     </div>
                                 @endif
                                 <hr>

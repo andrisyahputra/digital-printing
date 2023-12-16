@@ -8,38 +8,39 @@
                     <h6 class="m-0 font-weight-bold text-primary">Pesanan Sudah Dibayar</h6>
                 </div>
                 <div class="card-body">
-                    <table class="table table-hover my-0">
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>Order ID</th>
-                                <th class="d-none d-xl-table-cell">
-                                    Jumlah Pesanan
-                                </th>
-                                <th class="d-none d-md-table-cell">
-                                    Tanggal
-                                </th>
-                                <th class="d-none d-md-table-cell">
-                                    Status
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @forelse ($pesansBayar as $index => $item)
+                    <div class="table-responsive">
+                        <table class="table table-hover my-0">
+                            <thead>
                                 <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $index }}</td>
-                                    <td class="d-none d-xl-table-cell">
-                                        {{ $item->count() }}
-                                        {{-- tes1 --}}
-                                    </td>
-                                    <td class="d-none d-xl-table-cell">
-                                        {{ $item->first()->created_at_id() }}
-                                        {{-- tes1 --}}
-                                    </td>
-                                    <td>
-                                        <span
-                                            class="badge text-white
+                                    <th>No</th>
+                                    <th>Order ID</th>
+                                    <th class="d-none d-xl-table-cell">
+                                        Jumlah Pesanan
+                                    </th>
+                                    <th class="d-none d-md-table-cell">
+                                        Tanggal
+                                    </th>
+                                    <th class="d-none d-md-table-cell">
+                                        Status
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse ($pesansBayar as $index => $item)
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $index }}</td>
+                                        <td class="d-none d-xl-table-cell">
+                                            {{ $item->count() }}
+                                            {{-- tes1 --}}
+                                        </td>
+                                        <td class="d-none d-xl-table-cell">
+                                            {{ $item->first()->created_at_id() }}
+                                            {{-- tes1 --}}
+                                        </td>
+                                        <td>
+                                            <span
+                                                class="badge text-white
                                             @switch($item->first()->status)
                         @case('pending')
                             bg-warning
@@ -66,16 +67,17 @@
                         @break
                     @endswitch
                     ">
-                                            {{ $item->first()->status }}
+                                                {{ $item->first()->status }}
 
-                                        </span>
-                                    </td>
-                                </tr>
-                            @empty
-                                <td class="text-center" colspan="5">Tidak Ada Data Kas</td>
-                            @endforelse
-                        </tbody>
-                    </table>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <td class="text-center" colspan="5">Tidak Ada Data Kas</td>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
@@ -85,38 +87,39 @@
                     <h6 class="m-0 font-weight-bold text-primary">Pesanan Belum Dibayar</h6>
                 </div>
                 <div class="card-body">
-                    <table class="table table-hover my-0">
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>Order ID</th>
-                                <th class="d-none d-xl-table-cell">
-                                    Jumlah Pesanan
-                                </th>
-                                <th class="d-none d-md-table-cell">
-                                    Tanggal
-                                </th>
-                                <th class="d-none d-md-table-cell">
-                                    Status
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @forelse ($pesansBelum as $index => $item)
+                    <div class="table-responsive">
+                        <table class="table table-hover my-0">
+                            <thead>
                                 <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $index }}</td>
-                                    <td class="d-none d-xl-table-cell">
-                                        {{ $item->count() }}
-                                        {{-- tes1 --}}
-                                    </td>
-                                    <td class="d-none d-xl-table-cell">
-                                        {{ $item->first()->created_at_id() }}
-                                        {{-- tes1 --}}
-                                    </td>
-                                    <td>
-                                        <span
-                                            class="badge text-white
+                                    <th>No</th>
+                                    <th>Order ID</th>
+                                    <th class="d-none d-xl-table-cell">
+                                        Jumlah Pesanan
+                                    </th>
+                                    <th class="d-none d-md-table-cell">
+                                        Tanggal
+                                    </th>
+                                    <th class="d-none d-md-table-cell">
+                                        Status
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse ($pesansBelum as $index => $item)
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $index }}</td>
+                                        <td class="d-none d-xl-table-cell">
+                                            {{ $item->count() }}
+                                            {{-- tes1 --}}
+                                        </td>
+                                        <td class="d-none d-xl-table-cell">
+                                            {{ $item->first()->created_at_id() }}
+                                            {{-- tes1 --}}
+                                        </td>
+                                        <td>
+                                            <span
+                                                class="badge text-white
                                             @switch($item->first()->status)
                         @case('pending')
                             bg-warning
@@ -143,16 +146,17 @@
                         @break
                     @endswitch
                     ">
-                                            {{ $item->first()->status }}
+                                                {{ $item->first()->status }}
 
-                                        </span>
-                                    </td>
-                                </tr>
-                            @empty
-                                <td class="text-center" colspan="5">Tidak Ada Data Kas</td>
-                            @endforelse
-                        </tbody>
-                    </table>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <td class="text-center" colspan="5">Tidak Ada Data Kas</td>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

@@ -11,7 +11,7 @@ class UserController extends Controller
     public function dashboard()
     {
         // return dd('admin');
-        $data['title'] = 'Selamat Datang Di Toko Online';
+        $data['title'] = 'Selamat Datang Di Printing Digital Online';
         $data['page'] = 'dashboard';
         $data['pesansBayar'] = auth()->user()->pesanans->where('status', 'success')->sortByDesc('created_at')->groupBy('order_id')->take(2);
         $data['pesansBelum'] = auth()->user()->pesanans->where('status', 'pending')->sortByDesc('created_at')->groupBy('order_id')->take(2);

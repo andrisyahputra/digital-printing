@@ -46,7 +46,10 @@
                             @enderror
                         </div>
 
-                        <div class="mb-3">
+                        <label for="myChekStiker">Foto Dari Kami</label>
+                        <input type="checkbox" id="myChekStiker">
+
+                        <div class="mb-3" id="InputFotoStiker">
                             <div class="d-flex justify-content-between">
                                 <label for="fotoStiker" class="form-label">Foto Sendiri</label>
                             </div>
@@ -106,6 +109,3 @@
         </div>
     </div>
 </div>
-
-@push('js')
-@endpush

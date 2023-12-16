@@ -154,8 +154,12 @@
                                             <td>{{ $item->panjang }} Meter</td>
                                             <td>{{ $item->lebar }} Meter</td>
                                             <td>
-                                                <img src="{{ Storage::url($item->foto) }}" alt="{{ $item->foto }}"
-                                                    width="50">
+                                                @if ($item->foto != null)
+                                                    <img src="{{ Storage::url($item->foto) }}" alt="{{ $item->foto }}"
+                                                        width="50">
+                                                @else
+                                                    Foto dari Digital Printing
+                                                @endif
                                             </td>
                                             <td>Rp {{ number_format($item->produk->harga) }}</td>
                                             <td>Rp
@@ -227,8 +231,12 @@
                                             <td>{{ $item->kuantitas }} perkotak</td>
                                             <td>{{ $item->keterangan }}</td>
                                             <td>
-                                                <img src="{{ Storage::url($item->foto) }}" alt="{{ $item->foto }}"
-                                                    width="50">
+                                                @if ($item->foto != null)
+                                                    <img src="{{ Storage::url($item->foto) }}" alt="{{ $item->foto }}"
+                                                        width="50">
+                                                @else
+                                                    Foto dari Digital Printing
+                                                @endif
                                             </td>
                                             <td>Rp {{ number_format($item->produk->harga) }}</td>
                                             <td>Rp
@@ -305,8 +313,12 @@
                                             <td>{{ $item->panjang }} Meter</td>
                                             <td>{{ $item->lebar }} Meter</td>
                                             <td>
-                                                <img src="{{ Storage::url($item->foto) }}" alt="{{ $item->foto }}"
-                                                    width="50">
+                                                @if ($item->foto != null)
+                                                    <img src="{{ Storage::url($item->foto) }}" alt="{{ $item->foto }}"
+                                                        width="50">
+                                                @else
+                                                    Foto dari Digital Printing
+                                                @endif
                                             </td>
                                             <td>Rp {{ number_format($item->produk->harga) }}</td>
                                             <td>Rp
@@ -380,8 +392,12 @@
                                             <td>{{ $item->kertas }}</td>
                                             <td>{{ $item->keterangan }}</td>
                                             <td>
-                                                <img src="{{ Storage::url($item->foto) }}" alt="{{ $item->foto }}"
-                                                    width="50">
+                                                @if ($itemfoto != null)
+                                                    <img src="{{ Storage::url($item->foto) }}" alt="{{ $item->foto }}"
+                                                        width="50">
+                                                @else
+                                                    Foto dari Digital Printing
+                                                @endif
                                             </td>
                                             <td>Rp {{ number_format($item->produk->harga) }}</td>
                                             <td>Rp

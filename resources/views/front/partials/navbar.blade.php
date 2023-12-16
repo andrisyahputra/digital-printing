@@ -97,9 +97,11 @@
                                 @case(1)
                                 @case(2)
                                     <a class="cart-img" href="#"><img src="{{ Storage::url($item->produk->foto) }}"
-                                            alt="{{ $item->produk->foto }}"></a> <a class="cart-img" href="#"><img
-                                            src="{{ Storage::url($item->foto) }}" alt="{{ $item->foto }}"
-                                            width="50"></a>
+                                            alt="{{ $item->produk->foto }}"></a>
+                                    @if ($item->foto != null)
+                                        <a class="cart-img" href="#"><img src="{{ Storage::url($item->foto) }}"
+                                                alt="{{ $item->foto }}" width="50"></a>
+                                    @endif
                                     <h4><a href="#">{{ $item->produk->nama }}</a>
                                     </h4>
 
@@ -113,9 +115,12 @@
 
                                 @case(3)
                                     <a class="cart-img" href="#"><img src="{{ Storage::url($item->produk->foto) }}"
-                                            alt="{{ $item->produk->foto }}"></a> <a class="cart-img" href="#">
-                                        <img src="{{ Storage::url($item->foto) }}" alt="{{ $item->foto }}"
-                                            width="50"></a>
+                                            alt="{{ $item->produk->foto }}"></a>
+                                    @if ($item->foto != null)
+                                        <a class="cart-img" href="#">
+                                            <img src="{{ Storage::url($item->foto) }}" alt="{{ $item->foto }}"
+                                                width="50"></a>
+                                    @endif
                                     <h4><a href="#">{{ $item->produk->nama }}</a>
                                     </h4>
                                     <p class="quantity">{{ $item->kuantitas }}x - <span class="amount">Rp
@@ -125,9 +130,12 @@
 
                                 @case(4)
                                     <a class="cart-img" href="#"><img src="{{ Storage::url($item->produk->foto) }}"
-                                            alt="{{ $item->produk->foto }}"></a> <a class="cart-img" href="#">
-                                        <img src="{{ Storage::url($item->foto) }}" alt="{{ $item->foto }}"
-                                            width="50"></a>
+                                            alt="{{ $item->produk->foto }}"></a>
+                                    @if ($item->foto != null)
+                                        <a class="cart-img" href="#">
+                                            <img src="{{ Storage::url($item->foto) }}" alt="{{ $item->foto }}"
+                                                width="50"></a>
+                                    @endif
                                     <h4><a href="#">{{ $item->produk->nama }}</a>
                                     </h4>
                                     <p class="quantity">{{ $item->kuantitas }}x - Kertas <b><u>{{ $item->kertas }}</u></b>
@@ -345,6 +353,47 @@
                 $("#contentToToggle").toggleClass("d-none");
                 $("#textareaAlamat").toggleClass("d-none");
             });
+
+
+            // Menggunakan event change pada checkbox
+            $('#myCheckboxBrosur').change(function() {
+                // Menggunakan toggleClass untuk menambah/menghapus kelas d-none
+                $('.fotoBrosur').toggleClass('d-none', this.checked);
+                if (this.checked) {
+                    $('#fotoBrosur').removeAttr('required');
+                } else {
+                    $('#fotoBrosur').attr('required', 'required');
+                }
+            });
+
+            // Menggunakan event change pada checkbox
+            $('#myCheckboxKN').change(function() {
+                // Menggunakan toggleClass untuk menambah/menghapus kelas d-none
+                $('#fkartuNama').toggleClass('d-none', this.checked);
+                if (this.checked) {
+                    $('#fotoKN').removeAttr('required');
+                } else {
+                    $('#fotoKN').attr('required', 'required');
+                }
+            });
+            $('#myChekStiker').change(function() {
+                // Menggunakan toggleClass untuk menambah/menghapus kelas d-none
+                $('#InputFotoStiker').toggleClass('d-none', this.checked);
+                if (this.checked) {
+                    $('#fotoStiker').removeAttr('required');
+                } else {
+                    $('#fotoStiker').attr('required', 'required');
+                }
+            });
+            $('#myChekSpanduk').change(function() {
+                // Menggunakan toggleClass untuk menambah/menghapus kelas d-none
+                $('#InputFotoSpanduk').toggleClass('d-none', this.checked);
+                if (this.checked) {
+                    $('#fotoSpanduk').removeAttr('required');
+                } else {
+                    $('#fotoSpanduk').attr('required', 'required');
+                }
+            });
         });
 
         function payment(url) {
@@ -360,6 +409,7 @@
                     );
                 },
                 success: function(response) {
+                    // console.log(response);
                     window.snap.pay(response);
                 },
                 error: function(response) {

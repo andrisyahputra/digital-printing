@@ -17,11 +17,16 @@
                                         class="img-fluid rounded-circle" width="132" height="132">
                                 </div>
                                 <div class="text-center">
-                                    <h1 class="h2">Selamat Datang di TokoOnline</h1>
+                                    <h1 class="h2">Selamat Datang di Digital Printing Online</h1>
                                     <p class="lead">
                                         Silakan login
                                     </p>
                                 </div>
+                                @if (session('status'))
+                                    <div class="alert alert-info mb-4">
+                                        {{ session('status') }}
+                                    </div>
+                                @endif
                                 <form method="post" class="user" action="{{ route('login') }}">
                                     @csrf
                                     <div class="form-group row">

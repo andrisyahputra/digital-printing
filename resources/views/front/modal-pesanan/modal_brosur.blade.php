@@ -25,8 +25,10 @@
                             </div>
                         </div>
 
+                        <label for="myCheckbox">Foto Dari Kami</label>
+                        <input type="checkbox" id="myCheckboxBrosur">
 
-                        <div class="mb-3">
+                        <div class="mb-3 fotoBrosur">
                             <div class="d-flex justify-content-between">
                                 <label for="fotoBrosur" class="form-label">Foto Sendiri</label>
                             </div>
@@ -41,6 +43,8 @@
                                 </div>
                             @enderror
                         </div>
+
+
                         <div class="mb-3">
                             <div class="d-flex justify-content-between">
                                 <label for="keteranganBrosur" class="form-label">Keterangan</label>

@@ -35,6 +35,7 @@ class PaymentController extends Controller
                     'message' => 'Pembayaran Sudah Di Lakukan'
                 ], 400);
             }
+
             function trx_update($order_id, $status)
             {
                 $trx = Transaksi::firstWhere('order_id', $order_id);
@@ -78,6 +79,10 @@ class PaymentController extends Controller
             } else if ($transaction == 'cancel') {
                 trx_update($order_id, 'cancel');
             }
+            return response()->json([
+                'status' => true,
+                'message' => 'Notification processed successfully'
+            ], 200);
         } catch (\Throwable $th) {
             //throw $th;
             Log::error($th);

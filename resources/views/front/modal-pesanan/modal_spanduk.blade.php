@@ -44,7 +44,11 @@
                             @enderror
                         </div>
 
-                        <div class="mb-3">
+
+                        <label for="myChekSpanduk">Foto Dari Kami</label>
+                        <input type="checkbox" id="myChekSpanduk">
+
+                        <div class="mb-3" id="InputFotoSpanduk">
                             <div class="d-flex justify-content-between">
                                 <label for="fotoSpanduk" class="form-label">Foto Sendiri</label>
                             </div>
