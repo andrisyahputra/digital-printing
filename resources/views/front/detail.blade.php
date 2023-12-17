@@ -3,7 +3,7 @@
 @section('content')
     <section class="page-produk">
         <ul class="breadcrumb">
-            <li><a href="index.php">Beranda</a></li>
+            <li><a href="/">Beranda</a></li>
             <li>Detail Produk</li>
         </ul>
 
@@ -397,8 +397,7 @@
                                             @csrf
                                             <input type="hidden" name="produk_id" id="produk_idProduk"
                                                 value="{{ $produk->id }}">
-                                            <input type="hidden" name="produk_id" id="DhargaProduk"
-                                                value="{{ $produk->harga }}">
+                                            <input type="hidden" id="DhargaProduk" value="{{ $produk->harga }}">
                                             <h3>{{ $produk->nama }}</h3>
 
                                             <div class="form-group row">

@@ -81,7 +81,10 @@
 
                     <!-- Topbar Search -->
                     <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search"
-                        action="{{ route('pesanan.cari') }}" method="get">
+                        @if (auth()->user()->hasRole('Admin')) action="/admin/pesanan/cari"
+                @else
+action="/user/pesanan/cari" @endif
+                        method="get">
                         <div class="input-group">
                             <input type="text" name="order_id" class="form-control bg-light border-0 small"
                                 placeholder="Cari Order ID..." value="{{ request()->input('order_id') }}"

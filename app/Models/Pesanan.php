@@ -54,7 +54,7 @@ class Pesanan extends Model
     {
         $pk = Transaksi::firstWhere('order_id', $this->order_id);
         return (object) [
-            'url_payment' => $pk->url_payment,
+            'snap_token' => $pk->snap_token,
         ];
     }
 

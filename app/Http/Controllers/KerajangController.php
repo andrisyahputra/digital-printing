@@ -98,11 +98,23 @@ class KerajangController extends Controller
             return redirect()->route('produk')->with('error', 'Keranjang Kosong, Silakan Belanja');
         }
         try {
-            Config::$serverKey = env('MIDTRANS_API_KEY');
-            Config::$isProduction = env('IS_PRODUCTION');
+            Config::$serverKey = config('midtrans.server_key');
+            Config::$isProduction = config('midtrans.is_production');
             Config::$isSanitized = true;
             Config::$is3ds = true;
-            Config::$overrideNotifUrl = route('payment.notify');
+            // Config::$overrideNotifUrl = route('payment.notify');
+            // Config::$serverKey = env('MIDTRANS_API_KEY');
+            // Config::$isProduction = env('IS_PRODUCTION');
+            // Config::$isProduction = env('IS_PRODUCTION');
+            //    $serverKey = config('midtrans.server_key');
+            //    $isProduction = config('midtrans.is_production');
+            //    $isSanitized = true;
+            //    $is3ds = true;
+            //    $overrideNotifUrl = route('payment.notify');
+            // $isProduction = config('midtrans.is_production');
+            // $isSanitized = true;
+            // $is3ds = true;
+            // $overrideNotifUrl = route('payment.notify');
 
             $order_id = 'TRX-' . time();
             $user_id = auth()->user()->id;
@@ -305,23 +317,32 @@ class KerajangController extends Controller
 
 
 
+
             $params = [
                 'transaction_details' => [
                     'order_id' => $order_id,
                     'gross_amount' => $total_harga,
-                ]
+                ],
+                'customer_details' => [
+                    'first_name' => auth()->user()->name,
+                    'last_name' => '',
+                    'phone' => auth()->user()->nowa,
+                ],
             ];
+            // $params['hash'] = $hash;
 
+            // $response = \Midtrans\Snap::createTransaction($params);
+            $snapToken = \Midtrans\Snap::getSnapToken($params);
 
-            $response = \Midtrans\Snap::createTransaction($params);
             Transaksi::create([
                 'order_id' => $order_id,
                 'pembeli' => auth()->user()->name,
                 'harga' => $total_harga,
-                'url_payment' => $response->redirect_url
+                'snap_token' => $snapToken
             ]);
             // return redirect($response->redirect_url);
-            return $response->token;
+            // return $response->token;
+            return $snapToken;
         } catch (\Exception $e) {
             Log::error($e->getMessage());
             return redirect()->back()->with('error', 'Terjadi Masalah.');

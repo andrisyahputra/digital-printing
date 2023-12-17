@@ -91,7 +91,7 @@ Route::get('/dashboard', function () {
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'verified', 'role:Admin']], function () {
     Route::post('/cek-ongkir', [AdminController::class, 'cekOngkir']);
     Route::get('dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
-    Route::get('/pesanan/cari', [PesananController::class, 'show'])->name('pesanan.cari');
+    Route::get('/pesanan/cari', [PesananController::class, 'show']);
     // Route::get('/pesanan', [PesananController::class, 'index'])->name('pesanan.index');
 
     Route::resources([
@@ -107,7 +107,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'verified', 'role:Ad
 });
 
 Route::group(['prefix' => 'user', 'middleware' => ['auth', 'verified', 'role:User']], function () {
-    Route::get('/pesanan/cari', [UserController::class, 'show'])->name('pesanan.cari');
+    Route::get('/pesanan/cari', [UserController::class, 'show']);
     Route::get('pesanan-saya/{order_id}', [UserController::class, 'show'])->name('pesanan-saya.show');
     Route::get('dashboard', [UserController::class, 'dashboard'])->name('user.dashboard');
     Route::get('pesanan-saya', [UserController::class, 'index'])->name('pesanan-saya.index');

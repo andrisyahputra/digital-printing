@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('transaksis', function (Blueprint $table) {
             //
-            $table->text('url_payment')->after('order_id');
+            $table->text('snap_token')->after('order_id');
         });
     }
 
@@ -24,7 +24,7 @@ return new class extends Migration
     {
         Schema::table('transaksis', function (Blueprint $table) {
             //
-            $table->dropColumn('url_payment');
+            $table->dropColumn('snap_token');
         });
     }
 };

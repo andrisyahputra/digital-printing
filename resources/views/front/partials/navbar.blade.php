@@ -410,7 +410,33 @@
                 },
                 success: function(response) {
                     // console.log(response);
-                    window.snap.pay(response);
+                    // window.snap.pay(response);
+                    window.snap.pay(response, {
+                        onSuccess: function(result) {
+                            /* You may add your own implementation here */
+                            window.location.href = "/"
+                            alert("payment success!");
+                            alertify.success('Berhasil Transaksi')
+                            // console.log(result);
+                        },
+                        onPending: function(result) {
+                            /* You may add your own implementation here */
+                            alert("wating your payment!");
+                            // console.log(result);
+                        },
+                        onError: function(result) {
+                            /* You may add your own implementation here */
+                            alert("payment failed!");
+                            alertify.error('Transaksi Gagal');
+                            // console.log(result);
+                        },
+                        onClose: function() {
+                            /* You may add your own implementation here */
+                            // alert('you closed the popup without finishing the payment');
+                            window.location.href = "/"
+                            alertify.warning('Transaksi Disimpan di Pesanan');
+                        }
+                    })
                 },
                 error: function(response) {
                     console.log(response);

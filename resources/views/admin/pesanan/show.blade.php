@@ -333,7 +333,7 @@
                                 <div class="text-right">
                                     <button class="btn btn-danger m-1"
                                         onclick="tolak_pesanan('{{ route('pesanan.tolak', ['order_id' => $pesans->first()->order_id]) }}')">Tolak</button>
-                                        <a href="{{$pesans->first()->tranksaksi()->url_payment}}" class="btn btn-success m-1">Bayar</a>
+                                    <button class="btn btn-success m-1" id="pay-button">Bayar</button>
                                     <br>
 
                                     {{-- @dd($pesans->first()->tranksaksi()->token_payment) --}}
@@ -464,6 +464,32 @@
 
 @push('js')
     <script>
+        var payButton = document.getElementById('pay-button');
+        payButton.addEventListener('click', function() {
+            // Trigger snap popup. @TODO: Replace TRANSACTION_TOKEN_HERE with your transaction token
+            window.snap.pay('{{ $pesans->first()->tranksaksi()->snap_token }}', {
+                onSuccess: function(result) {
+                    /* You may add your own implementation here */
+                    window.location.reload();
+                    alert("payment success!");
+                    console.log(result);
+                },
+                onPending: function(result) {
+                    /* You may add your own implementation here */
+                    alert("wating your payment!");
+                    console.log(result);
+                },
+                onError: function(result) {
+                    /* You may add your own implementation here */
+                    alert("payment failed!");
+                    console.log(result);
+                },
+                onClose: function() {
+                    /* You may add your own implementation here */
+                    alert('Pembayaran Belum Dilakukan');
+                }
+            })
+        });
 
         $(document).ready(function() {
             $('#photoModal').on('show.bs.modal', function(event) {

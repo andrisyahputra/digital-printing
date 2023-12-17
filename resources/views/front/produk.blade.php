@@ -4,7 +4,7 @@
     <section class="page-produk">
         <div class="container">
             <ul class="breadcrumb">
-                <li><a href="index.php">Beranda</a></li>
+                <li><a href="/">Beranda</a></li>
                 <li>Produk</li>
                 {{-- <php if (isset($keyword)) : ?>
                     <li><= $keyword ?></li>
