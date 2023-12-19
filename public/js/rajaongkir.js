@@ -7,11 +7,13 @@ function modal(form) {
 }
 var dataProvinsiUrl = document
     .getElementById("dataProvinsiUrl")
-    .getAttribute("data-url");
+    .getAttribute("data-url")
+    .replace("http://", "https://");
 
 var dataDistrikUrl = document
     .getElementById("dataDistrikUrl")
-    .getAttribute("data-url");
+    .getAttribute("data-url")
+    .replace("http://", "https://");
 
 // var dataPaketUrl = document
 //     .getElementById("dataPaketUrl")

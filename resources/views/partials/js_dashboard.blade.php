@@ -46,6 +46,8 @@
     <script src="{{ asset('achart/css/apexcharts.min.css') }}"></script>
     <script src="{{ asset('sbadmin2/js/rajaongkir.js') }}"></script>
     {{--  --}}
+    <!-- Tambahkan baris ini di bagian head file HTML Anda raja ongkir -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     {{-- summernote --}}
     <link href="{{ asset('sm') }}/summernote-bs4.css" rel="stylesheet">
@@ -53,8 +55,7 @@
     {{-- summernote --}}
 
 
-    <!-- Tambahkan baris ini di bagian head file HTML Anda raja ongkir -->
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
 
     {{--  --}}
     @stack('js')

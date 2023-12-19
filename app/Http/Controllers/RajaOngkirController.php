@@ -99,6 +99,7 @@ class RajaOngkirController extends Controller
     public function getDataPaket(Request $request)
     {
         $keyApi = env('RAJAONGKIR_API_KEY');
+        $dari = '501';
         $ekspedisi = $request->input('ekspedisi');
         $distrik = $request->input('distrik');
         $berat = $request->input('berat');
@@ -106,11 +107,33 @@ class RajaOngkirController extends Controller
         $responseCost = Http::withHeaders([
             'key' => $keyApi,
         ])->post('https://api.rajaongkir.com/starter/cost', [
-            'origin' => '501',
+            'origin' => $dari,
             'destination' => $distrik,
             'weight' => $berat,
             'courier' => $ekspedisi,
         ]);
+
+        // $curl = curl_init();
+
+        // curl_setopt_array($curl, array(
+        //     CURLOPT_URL => "https://api.rajaongkir.com/starter/cost",
+        //     CURLOPT_RETURNTRANSFER => true,
+        //     CURLOPT_ENCODING => "",
+        //     CURLOPT_MAXREDIRS => 10,
+        //     CURLOPT_TIMEOUT => 30,
+        //     CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        //     CURLOPT_CUSTOMREQUEST => "POST",
+        //     CURLOPT_POSTFIELDS => "origin=" . $dari . "&destination=" . $distrik . "&weight=" . $berat . "&courier=" . $ekspedisi . "",
+        //     CURLOPT_HTTPHEADER => array(
+        //         "content-type: application/x-www-form-urlencoded",
+        //         "$keyApi"
+        //     ),
+        // ));
+
+        // $response = curl_exec($curl);
+        // $err = curl_error($curl);
+
+        // curl_close($curl);
 
         $array_response = json_decode($responseCost->body(), true);
         $data_paket = $array_response["rajaongkir"]["results"][0]["costs"];
@@ -128,6 +151,31 @@ class RajaOngkirController extends Controller
             $options .= $value["cost"][0]["etd"] . " ";
             $options .= "</option>";
         }
+        // if ($err) {
+        //     echo "cURL Error #:" . $err;
+        // } else {
+        //     // echo $response;
+        //     $array_response = json_decode($response, true);
+        //     $data_paket = $array_response["rajaongkir"]["results"][0]["costs"];
+        //     // echo "<pre>";
+        //     // print_r($data_paket);
+        //     // echo "</pre>";
+
+        //     $options = '<option selected disabled>Pilih Paket</option>';
+
+        //     foreach ($data_paket as $key => $value) {
+        //         $options .= "<option
+        //         paket='" . $value["service"] . "'
+        //         ongkir='" . $value["cost"][0]["value"] . "'
+        //         etd='" . $value["cost"][0]["etd"] . "'
+        //         >";
+        //         $options .= $value["service"] . " ";
+        //         $options .= number_format($value["cost"][0]["value"]) . " ";
+        //         $options .= $value["cost"][0]["etd"] . " ";
+        //         $options .= "</option>";
+        //     }
+        // }
+
 
         return response()->json(['data_paket' => $options]);
     }

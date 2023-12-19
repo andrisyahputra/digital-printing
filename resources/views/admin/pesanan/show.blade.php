@@ -414,7 +414,29 @@
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
+                        <hr>
+                        <h5>Dari Barang YG Dikirim</h5>
+                        {{-- <div class="mb-3">
+                            <label for="provinsi" class="form-label">Provinsi</label>
 
+                            <div id="dataProvinsiUrl" data-url="{{ route('data.provinsi') }}"></div>
+                            <select name="provinsi" id="provinsi" class="form-control" required>
+                            </select>
+                            @error('provinsi')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label for="distrik" class="form-label">distrik</label>
+
+                            <div id="dataDistrikUrl" data-url="{{ route('data.distrik') }}"></div>
+                            <select name="distrik" id="distrik" class="form-control" required>
+                            </select>
+                            @error('distrik')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div> --}}
+                        <hr>
                         <div class="mb-3">
                             <label for="expedisi" class="form-label">Expedisi</label>
 
@@ -464,33 +486,6 @@
 
 @push('js')
     <script>
-        var payButton = document.getElementById('pay-button');
-        payButton.addEventListener('click', function() {
-            // Trigger snap popup. @TODO: Replace TRANSACTION_TOKEN_HERE with your transaction token
-            window.snap.pay('{{ $pesans->first()->tranksaksi()->snap_token }}', {
-                onSuccess: function(result) {
-                    /* You may add your own implementation here */
-                    window.location.reload();
-                    alert("payment success!");
-                    console.log(result);
-                },
-                onPending: function(result) {
-                    /* You may add your own implementation here */
-                    alert("wating your payment!");
-                    console.log(result);
-                },
-                onError: function(result) {
-                    /* You may add your own implementation here */
-                    alert("payment failed!");
-                    console.log(result);
-                },
-                onClose: function() {
-                    /* You may add your own implementation here */
-                    alert('Pembayaran Belum Dilakukan');
-                }
-            })
-        });
-
         $(document).ready(function() {
             $('#photoModal').on('show.bs.modal', function(event) {
                 var button = $(event.relatedTarget);
@@ -499,6 +494,10 @@
                 modal.find('#modalPhoto').attr('src', photoUrl);
             });
         });
+
+
+
+
 
         function tolak_pesanan(tolak_url) {
             Swal.fire({

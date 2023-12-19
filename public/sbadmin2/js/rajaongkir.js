@@ -16,10 +16,12 @@
 var dataPaketUrl = document
     .getElementById("dataPaketUrl")
     .getAttribute("data-url");
+// .replace("http://", "https://");
 
 var dataEkspedisiUrl = document
     .getElementById("dataEkspedisiUrl")
     .getAttribute("data-url");
+// .replace("http://", "https://");
 
 $(document).ready(function () {
     // console.log("URL: {{ route('data.provinsi') }}");
@@ -54,6 +56,7 @@ $(document).ready(function () {
 
     $("select[name=expedisi]").on("change", function () {
         var nama_ekspedisi = $("select[name=expedisi]").val();
+        // var form = $("#rajaongkir");
         // var data_distrik = $("option:selected", "select[name=distrik]").attr(
         //     "id_distrik"
         // );
@@ -70,8 +73,19 @@ $(document).ready(function () {
                 $("input[name=nama_ekspedisi]").val(nama_ekspedisi);
             })
             .catch(function (error) {
-                console.error(error);
+                console.error("Error response:", error.response);
             });
+        // let data = new FormData(form[0]);
+        // console.log(data);
+        // $.ajax({
+        //     type: "post",
+        //     url: dataPaketUrl,
+        //     data: data,
+        //     success: function (data_paket) {
+        //         $("select[name=paket]").html(data_paket);
+        //         $("input[name=nama_ekspedisi]").val(nama_ekspedisi);
+        //     },
+        // });
     });
 
     // $("select[name=distrik]").on("change", function () {
@@ -92,4 +106,31 @@ $(document).ready(function () {
     //     $("input[name=ongkir]").val(ongkir);
     //     $("input[name=etd]").val(etd);
     // });
+});
+
+var payButton = document.getElementById("pay-button");
+payButton.addEventListener("click", function () {
+    // Trigger snap popup. @TODO: Replace TRANSACTION_TOKEN_HERE with your transaction token
+    window.snap.pay("{{ $pesans->first()->tranksaksi()->snap_token }}", {
+        onSuccess: function (result) {
+            /* You may add your own implementation here */
+            window.location.reload();
+            alert("payment success!");
+            console.log(result);
+        },
+        onPending: function (result) {
+            /* You may add your own implementation here */
+            alert("wating your payment!");
+            console.log(result);
+        },
+        onError: function (result) {
+            /* You may add your own implementation here */
+            alert("payment failed!");
+            console.log(result);
+        },
+        onClose: function () {
+            /* You may add your own implementation here */
+            alert("Pembayaran Belum Dilakukan");
+        },
+    });
 });

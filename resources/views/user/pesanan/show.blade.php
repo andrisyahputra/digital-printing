@@ -441,6 +441,14 @@
 
 @push('js')
     <script>
+        $(document).ready(function() {
+            $('#photoModal').on('show.bs.modal', function(event) {
+                var button = $(event.relatedTarget);
+                var photoUrl = button.data('photo');
+                var modal = $(this);
+                modal.find('#modalPhoto').attr('src', photoUrl);
+            });
+        });
         // For example trigger on button clicked, or any time you need
         var payButton = document.getElementById('pay-button');
         payButton.addEventListener('click', function() {
@@ -469,14 +477,7 @@
             })
         });
         // tampilkan modal foto
-        $(document).ready(function() {
-            $('#photoModal').on('show.bs.modal', function(event) {
-                var button = $(event.relatedTarget);
-                var photoUrl = button.data('photo');
-                var modal = $(this);
-                modal.find('#modalPhoto').attr('src', photoUrl);
-            });
-        });
+
         // akhir modal foto
         function tolak_pesanan(tolak_url) {
             Swal.fire({
