@@ -201,5 +201,5 @@
         {{-- </div> --}}
         {!! Form::close() !!}
     </div>
-    </form>
+    {{-- </form> --}}
 @endsection

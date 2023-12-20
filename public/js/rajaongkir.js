@@ -8,12 +8,12 @@ function modal(form) {
 var dataProvinsiUrl = document
     .getElementById("dataProvinsiUrl")
     .getAttribute("data-url")
-    .replace("http://", "https://");
+    // .replace("http://", "https://");
 
 var dataDistrikUrl = document
     .getElementById("dataDistrikUrl")
     .getAttribute("data-url")
-    .replace("http://", "https://");
+    // .replace("http://", "https://");
 
 // var dataPaketUrl = document
 //     .getElementById("dataPaketUrl")

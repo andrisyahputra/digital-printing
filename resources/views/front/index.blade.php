@@ -6,41 +6,57 @@
         <div id="owl-nav"> </div>
         <div class="owl-carousel owl-theme">
 
-            <div class="item">
-                <img src="asset/foto/slider/slider1.jpg" alt="slider1.jpg">
-                <main class="content">
-                    <h1>{{ config('app.name', 'Laravel') }} <span>Online</span></h1>
-                    <p>
-                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odio, ad repudiandae. At ullam
-                        odio voluptates.
-                    </p>
-                    <a href="#" class="btn btn-primary">Beli Sekarang</a>
-                </main>
-            </div>
+            @if ($slider == null)
+                <div class="item">
+                    <img src="asset/foto/slider/slider1.jpg" alt="slider1.jpg">
+                    <main class="content">
+                        <h1>{{ config('app.name', 'Laravel') }} <span>Online</span></h1>
+                        <p>
+                            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odio, ad repudiandae. At ullam
+                            odio voluptates.
+                        </p>
+                        <a href="#" class="btn btn-primary">Beli Sekarang</a>
+                    </main>
+                </div>
 
-            <div class="item">
-                <img src="asset/foto/slider/slider2.jpg" alt="slider2.jpg">
-                <main class="content">
-                    <h1>{{ config('app.name', 'Laravel') }} <span>Online</span></h1>
-                    <p>
-                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odio, ad repudiandae. At ullam
-                        odio voluptates.
-                    </p>
-                    <a href="#" class="btn btn-primary">Beli Sekarang</a>
-                </main>
-            </div>
+                <div class="item">
+                    <img src="asset/foto/slider/slider2.jpg" alt="slider2.jpg">
+                    <main class="content">
+                        <h1>{{ config('app.name', 'Laravel') }} <span>Online</span></h1>
+                        <p>
+                            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odio, ad repudiandae. At ullam
+                            odio voluptates.
+                        </p>
+                        <a href="#" class="btn btn-primary">Beli Sekarang</a>
+                    </main>
+                </div>
 
-            <div class="item">
-                <img src="asset/foto/slider/slider3.jpg" alt="slider3.jpg">
-                <main class="content">
-                    <h1>{{ config('app.name', 'Laravel') }} <span>Online</span></h1>
-                    <p>
-                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odio, ad repudiandae. At ullam
-                        odio voluptates.
-                    </p>
-                    <a href="#" class="btn btn-primary">Beli Sekarang</a>
-                </main>
-            </div>
+                <div class="item">
+                    <img src="asset/foto/slider/slider3.jpg" alt="slider3.jpg">
+                    <main class="content">
+                        <h1>{{ config('app.name', 'Laravel') }} <span>Online</span></h1>
+                        <p>
+                            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odio, ad repudiandae. At ullam
+                            odio voluptates.
+                        </p>
+                        <a href="#" class="btn btn-primary">Beli Sekarang</a>
+                    </main>
+                </div>
+            @else
+                @foreach ($slider as $item)
+                    <div class="item">
+                        <img src="{{ Storage::url($item->gambar_slider) }}" alt="{{ $item->gambar_slider }}" class="w-100">
+                        <main class="content">
+                            <h1>{{ config('app.name', 'Laravel') }} <span>Online</span></h1>
+                            <p>
+                                {{ $item->ket_slider }}
+                            </p>
+                            <a href="{{ route('produk.kategori', $item->kategori_id) }}" class="btn btn-primary">Beli
+                                Ketegori {{ $item->kategori->nama }}</a>
+                        </main>
+                    </div>
+                @endforeach
+            @endif
 
         </div>
     </section>
@@ -50,17 +66,27 @@
     <div class="about">
         <div class="row">
             <div class="col-md-6 about-img">
-                <img src="asset/foto/slider/slider1.jpg" alt="slider1.jpg">
+                @if ($setting->gambar_depan == null)
+                    <img src="asset/foto/slider/slider1.jpg" alt="slider1.jpg">
+                @else
+                    <img style="height: 350px;" class="w-100" alt="{{ $setting->gambar_depan }}"
+                        src="{{ Storage::url($setting->gambar_depan) }}">
+                @endif
             </div>
             <div class="col-md-6 content">
-                <h3>Kenapa Memilih Produk Kami</h3>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Neque error facere totam magnam sequi
-                    minus.
-                </p>
-                <p>
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolorem, sed.
-                </p>
+                @if ($setting->gdepan_ket == null)
+                    <h3>Kenapa Memilih Produk Kami</h3>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Neque error facere totam magnam sequi
+                        minus.
+                    </p>
+                    <p>
+                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolorem, sed.
+                    </p>
+                @else
+                    {!! $setting->gdepan_ket !!}
+                @endif
+
             </div>
         </div>
     </div>
@@ -122,8 +148,13 @@
         <div class="row">
             <div class="col-md-6 kontak-map">
                 <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d63709.55260437139!2d98.46000389159218!3d3.6224091779540846!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3030d60114970f8d%3A0x3039d80b220cbd0!2sBinjai%2C%20Kota%20Binjai%2C%20Sumatera%20Utara!5e0!3m2!1sid!2sid!4v1691080784795!5m2!1sid!2sid"
+                    src="
+                    @if ($setting->maps == null) https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d63709.55260437139!2d98.46000389159218!3d3.6224091779540846!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3030d60114970f8d%3A0x3039d80b220cbd0!2sBinjai%2C%20Kota%20Binjai%2C%20Sumatera%20Utara!5e0!3m2!1sid!2sid!4v1691080784795!5m2!1sid!2sid
+                    @else
+            {{ $setting->maps }} @endif
+                "
                     allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                {{-- ksong --}}
             </div>
             <div class="col-md-6 kontak-form">
                 <form method="post" action="{{ route('pesan-kontak.store') }}">

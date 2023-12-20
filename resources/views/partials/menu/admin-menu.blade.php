@@ -43,8 +43,19 @@
         <span>Pesan Pelanggan</span></a>
 </li>
 
-{{-- <li class="nav-item ">
-    <a class="nav-link" href="$">
-        <i class="fas fa-fw fa-tachometer-alt"></i>
-        <span>Pengaturan</span></a>
-</li> --}}
+<li class="nav-item @activeMenu('admin.*') @activeMenu('footer.*') @activeMenu('slider.*') @activeMenu('medsos.*')">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo2" aria-expanded="true"
+        aria-controls="collapseTwo2">
+        <i class="fas fa-fw fa-cog"></i>
+        <span>Pengaturan</span>
+    </a>
+
+    <div id="collapseTwo2" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="{{ route('admin.setting') }}">Pengaturan</a>
+            <a class="collapse-item" href="{{ route('slider.index') }}">Slider</a>
+            <a class="collapse-item" href="{{ route('footer.index') }}">Footer</a>
+            <a class="collapse-item" href="{{ route('medsos.index') }}">Media Sosial</a>
+        </div>
+    </div>
+</li>

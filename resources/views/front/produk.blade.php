@@ -22,10 +22,14 @@
 
                     <div class="card box">
                         <div class="card-body">
-                            <h2>Produk Kami</h2>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur impedit at dolor
-                                similique ut quibusdam distinctio, expedita sequi corporis nihil? Dolorem, architecto.
-                                Tempora dolorem nobis facere quo eveniet laborum maxime!</p>
+                            @if ($setting->produk_kami == null)
+                                <h2>Produk Kami</h2>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur impedit at dolor
+                                    similique ut quibusdam distinctio, expedita sequi corporis nihil? Dolorem, architecto.
+                                    Tempora dolorem nobis facere quo eveniet laborum maxime!</p>
+                            @else
+                                {!! $setting->produk_kami !!}
+                            @endif
                         </div>
                     </div>
 

@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\AlamatUser;
+use App\Models\Footer;
 use App\Models\Kontak;
 use App\Models\Produk;
+use App\Models\Slider;
+use App\Models\Setting;
 use App\Models\Kategori;
+use App\Models\AlamatUser;
+use App\Models\MediaSosial;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -33,6 +37,16 @@ class indexController extends Controller
         $data['produks'] = Produk::all();
         $data['kerajangs'] = null;
 
+        $data['setting'] = Setting::firstOrNew();
+        $data['setting'] = $data['setting'] ?? null;
+
+        $data['footer'] = Footer::firstOrNew();
+        $data['footer'] = $data['footer'] ?? null;
+
+        $data['medsos'] = MediaSosial::firstOrNew();
+        $data['medsos'] = $data['medsos'] ?? null;
+        $data['slider'] = Slider::all() ?? null;
+
         if (Auth::check()) {
             $data['kerajangs'] = auth()->user()->kerajangs;
             $data['alamatUser'] = auth()->user()->alamat;
@@ -47,11 +61,18 @@ class indexController extends Controller
         $data['title'] = env('APP_NAME');
         $data['kerajangs'] = null;
 
+        $data['setting'] = Setting::firstOrNew();
+        $data['setting'] = $data['setting'] ?? null;
+
         if (Auth::check()) {
             $data['kerajangs'] = auth()->user()->kerajangs;
             $data['alamatUser'] = auth()->user()->alamat;
         }
 
+        $data['footer'] = Footer::firstOrNew();
+        $data['footer'] = $data['footer'] ?? null;
+        $data['medsos'] = MediaSosial::firstOrNew();
+        $data['medsos'] = $data['medsos'] ?? null;
 
         return view('front.kontak', $data);
     }
@@ -61,11 +82,19 @@ class indexController extends Controller
         $data['kategoris'] = Kategori::all();
         // if()
 
+        $data['setting'] = Setting::firstOrNew();
+        $data['setting'] = $data['setting'] ?? null;
+
+        $data['medsos'] = MediaSosial::firstOrNew();
+        $data['medsos'] = $data['medsos'] ?? null;
+
         $data['produks'] = Produk::all();
         $data['produks'] = DB::table('produks')->when($request->input('search'), function ($query, $search) {
             $query->where('nama', 'like', '%' . $search . '%');
         })->get();
         $data['kerajangs'] = null;
+        $data['footer'] = Footer::firstOrNew();
+        $data['footer'] = $data['footer'] ?? null;
 
         if (Auth::check()) {
             $data['kerajangs'] = auth()->user()->kerajangs;
@@ -86,6 +115,12 @@ class indexController extends Controller
         $data['produks'] = Produk::where('kategori_id', $kategori)->get();
         // dd($data['produks']);
         $data['kerajangs'] = null;
+        $data['setting'] = Setting::firstOrNew();
+        $data['setting'] = $data['setting'] ?? null;
+        $data['footer'] = Footer::firstOrNew();
+        $data['footer'] = $data['footer'] ?? null;
+        $data['medsos'] = MediaSosial::firstOrNew();
+        $data['medsos'] = $data['medsos'] ?? null;
 
         if (Auth::check()) {
             $data['kerajangs'] = auth()->user()->kerajangs;

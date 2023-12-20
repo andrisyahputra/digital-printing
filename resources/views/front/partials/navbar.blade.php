@@ -96,11 +96,12 @@
                             @switch($item->kategori_id)
                                 @case(1)
                                 @case(2)
-                                    <a class="cart-img" href="#"><img src="{{ Storage::url($item->produk->foto) }}"
-                                            alt="{{ $item->produk->foto }}"></a>
+                                    <a class="cart-img" href="{{ Storage::url($item->produk->foto) }}" target="_blank"><img
+                                            src="{{ Storage::url($item->produk->foto) }}" alt="{{ $item->produk->foto }}"></a>
                                     @if ($item->foto != null)
-                                        <a class="cart-img" href="#"><img src="{{ Storage::url($item->foto) }}"
-                                                alt="{{ $item->foto }}" width="50"></a>
+                                        <a class="cart-img" href="{{ Storage::url($item->foto) }}" target="_blank"><img
+                                                src="{{ Storage::url($item->foto) }}" alt="{{ $item->foto }}"
+                                                width="50"></a>
                                     @endif
                                     <h4><a href="#">{{ $item->produk->nama }}</a>
                                     </h4>
@@ -114,10 +115,10 @@
                                 @break
 
                                 @case(3)
-                                    <a class="cart-img" href="#"><img src="{{ Storage::url($item->produk->foto) }}"
-                                            alt="{{ $item->produk->foto }}"></a>
+                                    <a class="cart-img" href="{{ Storage::url($item->produk->foto) }}" target="_blank"><img
+                                            src="{{ Storage::url($item->produk->foto) }}" alt="{{ $item->produk->foto }}"></a>
                                     @if ($item->foto != null)
-                                        <a class="cart-img" href="#">
+                                        <a class="cart-img" href="{{ Storage::url($item->foto) }}" target="_blank">
                                             <img src="{{ Storage::url($item->foto) }}" alt="{{ $item->foto }}"
                                                 width="50"></a>
                                     @endif
@@ -129,10 +130,10 @@
                                 @break
 
                                 @case(4)
-                                    <a class="cart-img" href="#"><img src="{{ Storage::url($item->produk->foto) }}"
-                                            alt="{{ $item->produk->foto }}"></a>
+                                    <a class="cart-img" href="{{ Storage::url($item->produk->foto) }}" target="_blank"><img
+                                            src="{{ Storage::url($item->produk->foto) }}" alt="{{ $item->produk->foto }}"></a>
                                     @if ($item->foto != null)
-                                        <a class="cart-img" href="#">
+                                        <a class="cart-img" href="{{ Storage::url($item->foto) }}" target="_blank">
                                             <img src="{{ Storage::url($item->foto) }}" alt="{{ $item->foto }}"
                                                 width="50"></a>
                                     @endif
@@ -147,8 +148,8 @@
                                 @break
 
                                 @default
-                                    <a class="cart-img" href="#"><img src="{{ Storage::url($item->produk->foto) }}"
-                                            alt="{{ $item->produk->foto }}"></a>
+                                    <a class="cart-img" href="{{ Storage::url($item->produk->foto) }}" target="_blank"><img
+                                            src="{{ Storage::url($item->produk->foto) }}" alt="{{ $item->produk->foto }}"></a>
                                     <h4><a href="#">{{ $item->produk->nama }}</a>
                                     </h4>
                                     <p class="quantity">{{ $item->kuantitas }}x - <span class="amount">Rp

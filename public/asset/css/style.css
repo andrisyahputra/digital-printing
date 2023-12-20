@@ -410,6 +410,10 @@ body {
     background-size: cover;
     background-position: center;
 }
+.hero img {
+    height: 500px;
+    width: 500px;
+}
 
 .hero #owl-nav .owl-prev,
 .hero #owl-nav .owl-next {
@@ -442,7 +446,7 @@ body {
 
 .hero .content {
     position: absolute;
-    top: 20%;
+    top: 3%;
     padding: 1.4rem 7%;
     max-width: 60rem;
     color: #fff;
@@ -849,15 +853,15 @@ footer .footer-social a:hover {
 
     .hero .content {
         position: absolute;
-        top: -5%;
+        top: -1%;
         padding: 1.5rem 9%;
         color: #fff;
     }
     .hero .content h1 {
-        font-size: 1.5rem;
+        font-size: 2.5rem;
     }
     .hero .content p {
-        font-size: 0.75rem;
+        font-size: 1rem;
         margin-top: 1rem;
         max-width: 60%;
         text-align: justify;
@@ -866,7 +870,7 @@ footer .footer-social a:hover {
 
     .hero .content .btn {
         padding: 0.5rem 1rem;
-        font-size: 0.5rem;
+        font-size: 1rem;
         font-family: font2;
     }
 
@@ -880,6 +884,10 @@ footer .footer-social a:hover {
     /* detail-produk */
     .detail-produk {
         margin-top: 2rem;
+    }
+
+    .hero img {
+        height: 250px;
     }
     /* .produk .card { */
     /* position: relative;

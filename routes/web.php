@@ -1,13 +1,16 @@
 <?php
 
+use App\Http\Controllers\MediaSosialController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\indexController;
+use App\Http\Controllers\FooterController;
 use App\Http\Controllers\KontakController;
 use App\Http\Controllers\ProdukController;
+use App\Http\Controllers\SliderController;
 use App\Http\Controllers\PesananController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\KategoriController;
@@ -91,6 +94,12 @@ Route::get('/dashboard', function () {
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'verified', 'role:Admin']], function () {
     Route::post('/cek-ongkir', [AdminController::class, 'cekOngkir']);
     Route::get('dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+    Route::get('setting', [AdminController::class, 'setting'])->name('admin.setting');
+    Route::post('setting', [AdminController::class, 'store'])->name('setting.store');
+    Route::get('footer', [FooterController::class, 'index'])->name('footer.index');
+    Route::post('footer', [FooterController::class, 'store'])->name('footer.store');
+    Route::get('medsos', [MediaSosialController::class, 'index'])->name('medsos.index');
+    Route::post('medsos', [MediaSosialController::class, 'store'])->name('medsos.store');
     Route::get('/pesanan/cari', [PesananController::class, 'show']);
     // Route::get('/pesanan', [PesananController::class, 'index'])->name('pesanan.index');
 
@@ -100,7 +109,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'verified', 'role:Ad
         'pesanan' => PesananController::class,
         'pesanan-dikirim' => PesananDikirimController::class,
         'transaksi' => TransaksiController::class,
-        'kontak' => KontakController::class
+        'kontak' => KontakController::class,
+        'slider' => SliderController::class
     ]);
     Route::get('/tolak-pesanan', [PesananController::class, 'tolak'])->name('pesanan.tolak');
     Route::get('/terima-pesanan', [PesananController::class, 'terima'])->name('pesanan.terima');

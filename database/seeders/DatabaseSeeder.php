@@ -21,6 +21,8 @@ class DatabaseSeeder extends Seeder
 
         // $this->call(UserSender::class);
         $this->call([
+            FooterSeeder::class,
+            SettingSeeder::class,
             RoleSeeder::class,
             UserSender::class,
             KategoriSeeder::class,

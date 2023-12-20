@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use Midtrans\Config;
+use App\Models\Footer;
 use App\Models\Produk;
 use App\Models\Pesanan;
 use App\Models\kerajang;
 use App\Models\Transaksi;
 use App\Models\FotoPesanan;
+use App\Models\MediaSosial;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -30,6 +32,10 @@ class KerajangController extends Controller
         $data['title'] = env('APP_NAME');
         $data['kerajangs'] = auth()->user()->kerajangs;
         $data['alamatUser'] = auth()->user()->alamat;
+        $data['footer'] = Footer::firstOrNew();
+        $data['footer'] = $data['footer'] ?? null;
+        $data['medsos'] = MediaSosial::firstOrNew();
+        $data['medsos'] = $data['medsos'] ?? null;
 
         $data['kerajangsStiker'] = auth()->user()->kerajangs->where('kategori_id', 1);
         $data['kerajangsSpanduk'] = auth()->user()->kerajangs->where('kategori_id', 2);

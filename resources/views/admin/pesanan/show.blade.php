@@ -56,14 +56,14 @@
 
                                     @foreach ($pesansProduk as $item)
                                         @php
-                                            $totalBerat += floatval($item->panjang) * floatval($item->lebar) * $item->kuantitas * $item->produk->weight;
+                                            $totalBerat += $item->kuantitas * $item->produk->weight;
                                         @endphp
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $item->nama }}</td>
                                             <td>{{ number_format($item->harga) }}</td>
                                             <td>{{ $item->kuantitas }}</td>
-                                            <td>{{ floatval($item->panjang) * floatval($item->lebar) * $item->kuantitas * $item->produk->weight }}
+                                            <td>{{ $item->kuantitas * $item->produk->weight }} Gram
                                             </td>
                                             <td>{{ number_format($item->total) }}</td>
                                             <td class="text-center">
@@ -126,6 +126,7 @@
                                                 @endforeach
                                             </td>
                                             <td>{{ floatval($item->panjang) * floatval($item->lebar) * $item->kuantitas * $item->produk->weight }}
+                                                Gram
                                             </td>
                                             <td>{{ number_format($item->total) }}</td>
                                             <td class="text-center">
@@ -188,6 +189,7 @@
                                                 @endforeach
                                             </td>
                                             <td>{{ floatval($item->panjang) * floatval($item->lebar) * $item->kuantitas * $item->produk->weight }}
+                                                Gram
                                             </td>
                                             <td>{{ number_format($item->total) }}</td>
                                             <td class="text-center">
@@ -246,6 +248,7 @@
                                                 @endforeach
                                             </td>
                                             <td>{{ floatval($item->panjang) * floatval($item->lebar) * $item->kuantitas * $item->produk->weight }}
+                                                Gram
                                             </td>
                                             <td>{{ number_format($item->total) }}</td>
                                             <td class="text-center">
@@ -306,6 +309,7 @@
                                                 @endforeach
                                             </td>
                                             <td>{{ floatval($item->panjang) * floatval($item->lebar) * $item->kuantitas * $item->produk->weight }}
+                                                Gram
                                             </td>
                                             <td>{{ number_format($item->total) }}</td>
                                             <td class="text-center">
@@ -323,9 +327,11 @@
                         @endif
 
                     </div>
-                    <div class="d-flex justify-content-end mt-3">
-                        {{-- <h4>Sub Berat {{ $totalBerat }}</h4> --}}
-                        <h4>Sub Total : Rp {{ number_format($subtotal) }}</h4>
+                    <div class="text-right">
+                        <h4>Total Harga Keseluruhan : Rp {{ number_format($subtotal) }}</h4>
+                        <small>Batal Berat Di Kirim 30000</small>
+                        <br>
+                        <h4>Total Berat Keseluruhan {{ $totalBerat }} Gram</h4>
                     </div>
                     <div class="d-flex justify-content-end mt-3 gap-3">
                         @switch($pesans->first()->status)
@@ -393,7 +399,7 @@
     <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
     <div class="modal fade" id="kirim_modal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
         role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="modalTitleId">Kirim Pesanan</h5>
@@ -413,49 +419,33 @@
                             @error('resi')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
-                        </div>
-                        <hr>
-                        <h5>Dari Barang YG Dikirim</h5>
-                        {{-- <div class="mb-3">
-                            <label for="provinsi" class="form-label">Provinsi</label>
+                            <label for="myCheckbox">Melalui Lainya</label>
+                            <input type="checkbox" id="lainnya">
 
-                            <div id="dataProvinsiUrl" data-url="{{ route('data.provinsi') }}"></div>
-                            <select name="provinsi" id="provinsi" class="form-control" required>
-                            </select>
-                            @error('provinsi')
-                                <div class="text-danger">{{ $message }}</div>
-                            @enderror
-                        </div>
-                        <div class="mb-3">
-                            <label for="distrik" class="form-label">distrik</label>
-
-                            <div id="dataDistrikUrl" data-url="{{ route('data.distrik') }}"></div>
-                            <select name="distrik" id="distrik" class="form-control" required>
-                            </select>
-                            @error('distrik')
-                                <div class="text-danger">{{ $message }}</div>
-                            @enderror
-                        </div> --}}
-                        <hr>
-                        <div class="mb-3">
-                            <label for="expedisi" class="form-label">Expedisi</label>
-
-                            <div id="dataEkspedisiUrl" data-url="{{ route('data.ekspedisi') }}"></div>
-                            <select name="expedisi" id="ekspedisi" class="form-control" required>
-                            </select>
-                            @error('expedisi')
-                                <div class="text-danger">{{ $message }}</div>
-                            @enderror
                         </div>
 
-                        <div class="mb-3">
-                            <label for="paket" class="form-label">Paket</label>
-                            <div id="dataPaketUrl" data-url="{{ route('data.paket') }}"></div>
-                            <select name="paket" id="paket" class="form-control" required>
-                            </select>
-                            @error('paket')
-                                <div class="text-danger">{{ $message }}</div>
-                            @enderror
+                        <div class="paket">
+                            <div class="mb-3">
+                                <label for="expedisi" class="form-label">Expedisi</label>
+
+                                <div id="dataEkspedisiUrl" data-url="{{ route('data.ekspedisi') }}"></div>
+                                <select name="expedisi" id="ekspedisi" class="form-control" required>
+                                </select>
+                                @error('expedisi')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="mb-3">
+
+                                <label for="paket" class="form-label">Paket</label>
+                                <div id="dataPaketUrl" data-url="{{ route('data.paket') }}"></div>
+                                <select name="paket" id="paket" class="form-control" required>
+                                </select>
+                                @error('paket')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
                         </div>
                 </div>
                 <div class="modal-footer">
@@ -493,8 +483,23 @@
                 var modal = $(this);
                 modal.find('#modalPhoto').attr('src', photoUrl);
             });
-        });
 
+            let originalHtml = $('.paket').html();
+
+            $('#lainnya').change(function() {
+                // Menggunakan toggleClass untuk menambah/menghapus kelas d-none
+                if (this.checked) {
+                    $('.paket').html(
+                        "<input type='text' name='expedisi' class='form-control mt-1' placeholder='Masukkan Expedisi Seperti apa'> <input type='text' name='paket' class='form-control mt-1' placeholder='Masukkan Berapa Sekira Berapa hari atau pesan'>"
+                    );
+                } else {
+                    $('.paket').html(originalHtml);
+                }
+            });
+
+
+        });
+        //
 
 
 
@@ -522,6 +527,10 @@
         //         window.location.href = tolak_url
         //     }
         // }
+        // function lainnya() {
+
+        // }
+
         function terima_pesanan(terima_url) {
             Swal.fire({
                 title: 'Pesanan?',

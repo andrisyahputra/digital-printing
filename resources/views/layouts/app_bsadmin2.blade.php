@@ -22,6 +22,8 @@
 
     @include('partials.css_dashboard')
 
+    @stack('css')
+
 </head>
 
 <body id="page-top">

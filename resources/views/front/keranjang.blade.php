@@ -74,8 +74,10 @@
                                         <tr class="">
                                             <td width="25px">{{ $loop->iteration }}</td>
                                             <td>
-                                                <img src="{{ Storage::url($item->produk->foto) }}"
-                                                    alt="{{ $item->produk->foto }}" width="50">
+                                                <a href="{{ Storage::url($item->produk->foto) }}" target="_blank">
+                                                    <img src="{{ Storage::url($item->produk->foto) }}"
+                                                        alt="{{ $item->produk->foto }}" width="50">
+                                                </a>
                                             </td>
                                             <td>{{ $item->produk->nama }}</td>
                                             <td>{{ $item->kuantitas }}x</td>
@@ -145,8 +147,10 @@
                                         <tr class="">
                                             <td width="25px">{{ $loop->iteration }}</td>
                                             <td>
-                                                <img src="{{ Storage::url($item->produk->foto) }}"
-                                                    alt="{{ $item->produk->foto }}" width="50">
+                                                <a href="{{ Storage::url($item->produk->foto) }}" target="_blank">
+                                                    <img src="{{ Storage::url($item->produk->foto) }}"
+                                                        alt="{{ $item->produk->foto }}" width="50">
+                                                </a>
                                             </td>
                                             <td>{{ $item->produk->nama }}</td>
                                             <td>{{ $item->kuantitas }}x</td>
@@ -155,8 +159,10 @@
                                             <td>{{ $item->lebar }} Meter</td>
                                             <td>
                                                 @if ($item->foto != null)
-                                                    <img src="{{ Storage::url($item->foto) }}" alt="{{ $item->foto }}"
-                                                        width="50">
+                                                    <a href="{{ Storage::url($item->foto) }}" target="_blank">
+                                                        <img src="{{ Storage::url($item->foto) }}"
+                                                            alt="{{ $item->foto }}" width="50">
+                                                    </a>
                                                 @else
                                                     Foto dari Digital Printing
                                                 @endif
@@ -224,16 +230,20 @@
                                         <tr class="">
                                             <td width="25px">{{ $loop->iteration }}</td>
                                             <td>
-                                                <img src="{{ Storage::url($item->produk->foto) }}"
-                                                    alt="{{ $item->produk->foto }}" width="50">
+                                                <a href="{{ Storage::url($item->produk->foto) }}" target="_blank">
+                                                    <img src="{{ Storage::url($item->produk->foto) }}"
+                                                        alt="{{ $item->produk->foto }}" width="50">
+                                                </a>
                                             </td>
                                             <td>{{ $item->produk->nama }}</td>
                                             <td>{{ $item->kuantitas }} perkotak</td>
                                             <td>{{ $item->keterangan }}</td>
                                             <td>
                                                 @if ($item->foto != null)
-                                                    <img src="{{ Storage::url($item->foto) }}" alt="{{ $item->foto }}"
-                                                        width="50">
+                                                    <a href="{{ Storage::url($item->foto) }}" target="_blank">
+                                                        <img src="{{ Storage::url($item->foto) }}"
+                                                            alt="{{ $item->foto }}" width="50">
+                                                    </a>
                                                 @else
                                                     Foto dari Digital Printing
                                                 @endif
@@ -304,8 +314,10 @@
                                         <tr class="">
                                             <td width="25px">{{ $loop->iteration }}</td>
                                             <td>
-                                                <img src="{{ Storage::url($item->produk->foto) }}"
-                                                    alt="{{ $item->produk->foto }}" width="50">
+                                                <a href="{{ Storage::url($item->produk->foto) }}" target="_blank">
+                                                    <img src="{{ Storage::url($item->produk->foto) }}"
+                                                        alt="{{ $item->produk->foto }}" width="50">
+                                                </a>
                                             </td>
                                             <td>{{ $item->produk->nama }}</td>
                                             <td>{{ $item->kuantitas }}x</td>
@@ -314,8 +326,10 @@
                                             <td>{{ $item->lebar }} Meter</td>
                                             <td>
                                                 @if ($item->foto != null)
-                                                    <img src="{{ Storage::url($item->foto) }}" alt="{{ $item->foto }}"
-                                                        width="50">
+                                                    <a href="{{ Storage::url($item->foto) }}" target="_blank">
+                                                        <img src="{{ Storage::url($item->foto) }}"
+                                                            alt="{{ $item->foto }}" width="50">
+                                                    </a>
                                                 @else
                                                     Foto dari Digital Printing
                                                 @endif
@@ -324,7 +338,8 @@
                                             <td>Rp
                                                 {{ number_format($totalSekarang) }}</td>
                                             <td>
-                                                <form action="{{ route('keranjang.destroy', $item->id) }}" method="post">
+                                                <form action="{{ route('keranjang.destroy', $item->id) }}"
+                                                    method="post">
                                                     @csrf
                                                     @method('delete')
                                                     <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i>
@@ -384,8 +399,10 @@
                                         <tr class="">
                                             <td width="25px">{{ $loop->iteration }}</td>
                                             <td>
-                                                <img src="{{ Storage::url($item->produk->foto) }}"
-                                                    alt="{{ $item->produk->foto }}" width="50">
+                                                <a href="{{ Storage::url($item->produk->foto) }}" target="_blank">
+                                                    <img src="{{ Storage::url($item->produk->foto) }}"
+                                                        alt="{{ $item->produk->foto }}" width="50">
+                                                </a>
                                             </td>
                                             <td>{{ $item->produk->nama }}</td>
                                             <td>{{ $item->kuantitas }} Per Rim</td>
@@ -393,8 +410,10 @@
                                             <td>{{ $item->keterangan }}</td>
                                             <td>
                                                 @if ($itemfoto != null)
-                                                    <img src="{{ Storage::url($item->foto) }}" alt="{{ $item->foto }}"
-                                                        width="50">
+                                                    <a href="{{ Storage::url($item->foto) }}" target="_blank">
+                                                        <img src="{{ Storage::url($item->foto) }}"
+                                                            alt="{{ $item->foto }}" width="50">
+                                                    </a>
                                                 @else
                                                     Foto dari Digital Printing
                                                 @endif
