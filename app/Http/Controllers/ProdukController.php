@@ -176,28 +176,16 @@ class ProdukController extends Controller
             $data = $validator->validate();
             $data['harga'] = str_replace(',', '', $request->harga);
             if ($request->hasFile('foto')) {
-                // if ($produk->foto && Storage::exists($produk->foto)) {
-                //     Storage::delete($produk->foto);
-                // }
-                // $file = $request->file('foto');
-                // $ext = $file->getClientOriginalExtension();
-                // $filename = time() . '.' . $ext;
-                // $path = $file->storeAs('public/produk', $filename);
-                // $data['foto'] = $path;
                 $data['foto'] = $this->uploadPhoto($request, 'foto', 'public/produk/' . $kategori->nama, $produk->foto);
             } else {
                 unset($data['foto']);
             }
             if ($request->has('deskripsi')) {
-                // Get the original content before the update
                 $originalContent = $produk->deskripsi;
-
-                // Update the record
                 $data['deskripsi'] = $this->convertBase64ImagesToUrls($data['deskripsi'], $kategori->nama);
-                $produk->update($data);
-
-                // Remove old images
-                $this->removeOldImages($originalContent);
+                // if ($originalContent != $data['deskripsi']) {
+                //     $this->removeOldImages($originalContent);
+                // }
             } else {
                 unset($data['deskripsi']);
             }

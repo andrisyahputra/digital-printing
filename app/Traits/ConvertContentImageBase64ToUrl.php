@@ -56,4 +56,13 @@ trait ConvertContentImageBase64ToUrl
             Storage::disk('public')->delete($oldImageUrl);
         }
     }
+
+
+    private function extractImageUrls($content)
+    {
+        $pattern = '/<img[^>]+src="([^">]+)"/';
+        preg_match_all($pattern, $content, $matches);
+
+        return $matches[1];
+    }
 }

@@ -37,16 +37,19 @@
                                 </td>
                                 <td width="150">
                                     <div class="d-flex justify-content-between">
-
                                         <a class="btn btn-warning mr-1"
                                             href="{{ route('produk.edit', $item->id) }}">Edit</a>
-                                        <form action="{{ route('produk.destroy', $item->id) }}" method="post"
-                                            id="dalete_form{{ $item->id }}">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="button" class="btn btn-danger"
-                                                onclick="hapus_data('#dalete_form{{ $item->id }}')">Hapus</button>
-                                        </form>
+                                        @if ($item->id >= 5)
+                                            <form action="{{ route('produk.destroy', $item->id) }}" method="post"
+                                                id="dalete_form{{ $item->id }}">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="button" class="btn btn-danger"
+                                                    onclick="hapus_data('#dalete_form{{ $item->id }}')">Hapus</button>
+                                            </form>
+                                        @else
+                                            Tidak Bisa Di Hapus
+                                        @endif
                                     </div>
                             </tr>
                         @endforeach
