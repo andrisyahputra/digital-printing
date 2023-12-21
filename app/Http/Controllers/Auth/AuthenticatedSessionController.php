@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Auth\LoginRequest;
-use App\Providers\RouteServiceProvider;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Models\Footer;
 use Illuminate\View\View;
+use App\Models\MediaSosial;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\RedirectResponse;
+use App\Providers\RouteServiceProvider;
+use App\Http\Requests\Auth\LoginRequest;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -18,6 +20,11 @@ class AuthenticatedSessionController extends Controller
     public function create(): View
     {
         $data['kerajangs'] = null;
+        $data['footer'] = Footer::firstOrNew();
+        $data['footer'] = $data['footer'] ?? null;
+
+        $data['medsos'] = MediaSosial::firstOrNew();
+        $data['medsos'] = $data['medsos'] ?? null;
         return view('auth.login_onlineshop', $data);
     }
 

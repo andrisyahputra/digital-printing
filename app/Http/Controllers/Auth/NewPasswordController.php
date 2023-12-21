@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Models\Footer;
 use Illuminate\View\View;
+use App\Models\MediaSosial;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rules;
@@ -21,6 +23,11 @@ class NewPasswordController extends Controller
     public function create(Request $request): View
     {
         $data['kerajangs'] = null;
+        $data['footer'] = Footer::firstOrNew();
+        $data['footer'] = $data['footer'] ?? null;
+
+        $data['medsos'] = MediaSosial::firstOrNew();
+        $data['medsos'] = $data['medsos'] ?? null;
         $data['request'] = $request;
         if (Auth::check()) {
             $data['kerajangs'] = auth()->user()->kerajangs;

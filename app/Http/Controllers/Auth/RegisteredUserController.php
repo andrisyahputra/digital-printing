@@ -2,17 +2,19 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
 use App\Models\User;
-use App\Providers\RouteServiceProvider;
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Http\RedirectResponse;
+use App\Models\Footer;
+use Illuminate\View\View;
+use App\Models\MediaSosial;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rules;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rules;
-use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
 // use App\Traits\PhotoTrait;
+use Illuminate\Auth\Events\Registered;
+use App\Providers\RouteServiceProvider;
 use App\Http\Controllers\Auth\uploadPhoto;
 
 class RegisteredUserController extends Controller
@@ -24,6 +26,11 @@ class RegisteredUserController extends Controller
     public function create(): View
     {
         $data['kerajangs'] = null;
+        $data['footer'] = Footer::firstOrNew();
+        $data['footer'] = $data['footer'] ?? null;
+
+        $data['medsos'] = MediaSosial::firstOrNew();
+        $data['medsos'] = $data['medsos'] ?? null;
         // return view('auth.register_onlineshop', $data);
         return view('auth.register_onlineshop', $data);
     }

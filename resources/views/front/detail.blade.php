@@ -73,20 +73,32 @@
                                                     @enderror
                                                 </div>
                                             </div>
-                                            <div class="form-group row">
 
-                                                <label for="DfotoStiker" class="col-md-3 col-form-label">Foto Sendiri :</label>
+                                            <div class="form-group row">
+                                                <label class="form-check-label col-md-3" for="myCheckboxStiker"> Gambar Dari Toko
+                                                </label>
                                                 <div class="col-md-9">
-                                                    <input type="file" id="DfotoStiker" required
-                                                        class="form-control @error('foto')
+                                                    <input class="form-check-input" type="checkbox" id="myCheckboxStiker" />
+
+                                                </div>
+                                            </div>
+
+                                            <div id="fotoSendiriStiker">
+                                                <div class="form-group row">
+
+                                                    <label for="DfotoStiker" class="col-md-3 col-form-label">Foto Sendiri :</label>
+                                                    <div class="col-md-9">
+                                                        <input type="file" id="DfotoStiker" required
+                                                            class="form-control @error('foto')
                                                 is-invalid
                                             @enderror"
-                                                        name="foto">
-                                                    @error('foto')
-                                                        <div class="invalid-feedback">
-                                                            {{ $message }}
-                                                        </div>
-                                                    @enderror
+                                                            name="foto">
+                                                        @error('foto')
+                                                            <div class="invalid-feedback">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
@@ -176,20 +188,33 @@
                                                     @enderror
                                                 </div>
                                             </div>
-                                            <div class="form-group row">
 
-                                                <label for="DfotoSpanduk" class="col-md-3 col-form-label">Foto Sendiri :</label>
+                                            <div class="form-group row">
+                                                <label class="form-check-label col-md-3" for="myCheckboxSpanduk"> Gambar Dari Toko
+                                                </label>
                                                 <div class="col-md-9">
-                                                    <input type="file" id="DfotoSpanduk" required
-                                                        class="form-control @error('foto')
+                                                    <input class="form-check-input" type="checkbox" id="myCheckboxSpanduk" />
+
+                                                </div>
+                                            </div>
+
+                                            <div id="fotoSendiriSpanduk">
+                                                <div class="form-group row">
+
+                                                    <label for="DfotoSpanduk" class="col-md-3 col-form-label">Foto Sendiri
+                                                        :</label>
+                                                    <div class="col-md-9">
+                                                        <input type="file" id="DfotoSpanduk" required
+                                                            class="form-control @error('foto')
                                                 is-invalid
                                             @enderror"
-                                                        name="foto">
-                                                    @error('foto')
-                                                        <div class="invalid-feedback">
-                                                            {{ $message }}
-                                                        </div>
-                                                    @enderror
+                                                            name="foto">
+                                                        @error('foto')
+                                                            <div class="invalid-feedback">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
@@ -245,21 +270,33 @@
                                             <input type="hidden" id="DhargaKartuNama" value="{{ $produk->harga }}">
                                             {{-- <input type="hidden" id="totalHargaDKartuNama" value=""> --}}
 
-
                                             <div class="form-group row">
-
-                                                <label for="DfotoKartuNama" class="col-md-3 col-form-label">Foto Sendiri :</label>
+                                                <label class="form-check-label col-md-3" for="myCheckboxKartuNama"> Gambar Dari
+                                                    Toko
+                                                </label>
                                                 <div class="col-md-9">
-                                                    <input type="file" id="DfotoKartuNama" required
-                                                        class="form-control @error('foto')
+                                                    <input class="form-check-input" type="checkbox" id="myCheckboxKartuNama" />
+
+                                                </div>
+                                            </div>
+
+                                            <div id="fotoSendiriKartuNama">
+                                                <div class="form-group row">
+
+                                                    <label for="DfotoKartuNama" class="col-md-3 col-form-label">Foto Sendiri
+                                                        :</label>
+                                                    <div class="col-md-9">
+                                                        <input type="file" id="DfotoKartuNama" required
+                                                            class="form-control @error('foto')
                                                 is-invalid
                                             @enderror"
-                                                        name="foto">
-                                                    @error('foto')
-                                                        <div class="invalid-feedback">
-                                                            {{ $message }}
-                                                        </div>
-                                                    @enderror
+                                                            name="foto">
+                                                        @error('foto')
+                                                            <div class="invalid-feedback">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
@@ -332,19 +369,31 @@
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-
-                                                <label for="DfotoBrosur" class="col-md-3 col-form-label">Foto Sendiri :</label>
+                                                <label class="form-check-label col-md-3" for="myCheckboxBrosur"> Gambar Dari Toko
+                                                </label>
                                                 <div class="col-md-9">
-                                                    <input type="file" id="DfotoBrosur" required
-                                                        class="form-control @error('foto')
+                                                    <input class="form-check-input" type="checkbox" id="myCheckboxBrosur" />
+
+                                                </div>
+                                            </div>
+
+                                            <div id="fotoSendiriBrosur">
+                                                <div class="form-group row">
+
+                                                    <label for="DfotoBrosur" class="col-md-3 col-form-label">Foto Sendiri
+                                                        :</label>
+                                                    <div class="col-md-9">
+                                                        <input type="file" id="DfotoBrosur" required
+                                                            class="form-control @error('foto')
                                                 is-invalid
                                             @enderror"
-                                                        name="foto">
-                                                    @error('foto')
-                                                        <div class="invalid-feedback">
-                                                            {{ $message }}
-                                                        </div>
-                                                    @enderror
+                                                            name="foto">
+                                                        @error('foto')
+                                                            <div class="invalid-feedback">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
@@ -449,6 +498,51 @@
 @endsection
 @push('js')
     <script>
+        $(document).ready(function() {
+
+            $('#myCheckboxSpanduk').change(function() {
+                // Menggunakan toggleClass untuk menambah/menghapus kelas d-none
+                $('#fotoSendiriSpanduk').toggleClass('d-none', this.checked);
+                if (this.checked) {
+                    $('#DfotoSpanduk').removeAttr('required');
+                } else {
+                    $('#DfotoSpanduk').attr('required', 'required');
+                }
+            });
+
+            $('#myCheckboxStiker').change(function() {
+                // Menggunakan toggleClass untuk menambah/menghapus kelas d-none
+                $('#fotoSendiriStiker').toggleClass('d-none', this.checked);
+                if (this.checked) {
+                    $('#DfotoStiker').removeAttr('required');
+                } else {
+                    $('#DfotoStiker').attr('required', 'required');
+                }
+            });
+
+            $('#myCheckboxKartuNama').change(function() {
+                // Menggunakan toggleClass untuk menambah/menghapus kelas d-none
+                $('#fotoSendiriKartuNama').toggleClass('d-none', this.checked);
+                if (this.checked) {
+                    $('#DfotoKartuNama').removeAttr('required');
+                } else {
+                    $('#DfotoKartuNama').attr('required', 'required');
+                }
+            });
+
+            $('#myCheckboxBrosur').change(function() {
+                // Menggunakan toggleClass untuk menambah/menghapus kelas d-none
+                $('#fotoSendiriBrosur').toggleClass('d-none', this.checked);
+                if (this.checked) {
+                    $('#DfotoBrosur').removeAttr('required');
+                } else {
+                    $('#DfotoBrosur').attr('required', 'required');
+                }
+            });
+
+
+        });
+
         function DshowTotalStiker() {
             var panjang = $('#DpanjangStiker').val();
             var lebar = $('#DlebarStiker').val();

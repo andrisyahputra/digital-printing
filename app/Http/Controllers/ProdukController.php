@@ -3,14 +3,16 @@
 namespace App\Http\Controllers;
 
 use Directory;
+use App\Models\Footer;
 use App\Models\Kontak;
 use App\Models\Produk;
 use App\Models\Pesanan;
 use App\Models\Kategori;
 use App\Models\Transaksi;
+use App\Models\MediaSosial;
+// use App\Http\Controllers\Auth\PhotoTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-// use App\Http\Controllers\Auth\PhotoTrait;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -111,6 +113,11 @@ class ProdukController extends Controller
     public function show(Produk $produk)
     {
         //
+        $data['footer'] = Footer::firstOrNew();
+        $data['footer'] = $data['footer'] ?? null;
+
+        $data['medsos'] = MediaSosial::firstOrNew();
+        $data['medsos'] = $data['medsos'] ?? null;
         $data['pesanans'] = Kontak::latest()->take(2)->get();
         $data['totalPesanan'] = Kontak::count();
         $data['transaksi'] = Pesanan::orderBy('created_at', 'desc')->get()->groupBy('order_id')->take(2);

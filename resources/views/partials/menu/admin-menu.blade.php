@@ -43,7 +43,7 @@
         <span>Pesan Pelanggan</span></a>
 </li>
 
-<li class="nav-item @activeMenu('admin.*') @activeMenu('footer.*') @activeMenu('slider.*') @activeMenu('medsos.*')">
+<li class="nav-item @activeMenu('admin.seeting') @activeMenu('footer.*') @activeMenu('slider.*') @activeMenu('medsos.*')">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo2" aria-expanded="true"
         aria-controls="collapseTwo2">
         <i class="fas fa-fw fa-cog"></i>

@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Models\Footer;
+use Illuminate\View\View;
+use App\Models\MediaSosial;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
-use Illuminate\View\View;
 
 class PasswordResetLinkController extends Controller
 {
@@ -17,6 +19,11 @@ class PasswordResetLinkController extends Controller
     {
         // return view('auth.forgot-password');
         $data['kerajangs'] = null;
+        $data['footer'] = Footer::firstOrNew();
+        $data['footer'] = $data['footer'] ?? null;
+
+        $data['medsos'] = MediaSosial::firstOrNew();
+        $data['medsos'] = $data['medsos'] ?? null;
         return view('auth.forgotpassword_onlineshop', $data);
     }
 

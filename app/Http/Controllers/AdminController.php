@@ -29,7 +29,7 @@ class AdminController extends Controller
             $dataBulan[] = ubahAngkaToBulan($i);
             $dataTotalBulan[] = $totalInfak;
         }
-
+        $data['dataPertahun'] = Transaksi::whereYear('created_at', $tahun)->where('status', 'success')->sum('harga');
         $data['dataBulan'] = $dataBulan;
         $data['dataTotalBulan'] = $dataTotalBulan;
         $data['pendapatanHariIni'] = Transaksi::whereDate('created_at', now()->format('Y-m-d'))->where('status', 'success')->sum('harga');

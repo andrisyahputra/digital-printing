@@ -60,6 +60,24 @@
             <div class="w-100">
                 <div class="row">
                     <div class="col-sm-12">
+
+
+                        <div class="card border-left-success shadow  mb-3">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                            Pendapatan Hari ini</div>
+                                        <div class="h3 mb-0 font-weight-bold text-gray-800">
+                                            {{ FormatRupiah($pendapatanHariIni, true) }}</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="card border-left-primary shadow  mb-3">
                             <div class="card-body">
                                 <div class="row no-gutters align-items-center">
@@ -77,14 +95,14 @@
                             </div>
                         </div>
 
-                        <div class="card border-left-success shadow  mb-3">
+                        <div class="card border-left-warning shadow  mb-3">
                             <div class="card-body">
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
                                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                            Pendapatan Hari ini</div>
+                                            Pendapatan Pertahun</div>
                                         <div class="h3 mb-0 font-weight-bold text-gray-800">
-                                            {{ FormatRupiah($pendapatanHariIni, true) }}</div>
+                                            {{ FormatRupiah($dataPertahun, true) }}</div>
                                     </div>
                                     <div class="col-auto">
                                         <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
