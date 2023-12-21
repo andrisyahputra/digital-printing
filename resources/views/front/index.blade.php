@@ -6,46 +6,47 @@
         <div id="owl-nav"> </div>
         <div class="owl-carousel owl-theme">
 
-            @if ($slider == null)
+            @if ($slider->count() == 0)
                 <div class="item">
-                    <img src="asset/foto/slider/slider1.jpg" alt="slider1.jpg">
+                    <img src="{{ asset('asset/slider/1703132967.jpg') }}" alt="slider1.jpg">
                     <main class="content">
                         <h1>{{ config('app.name', 'Laravel') }} <span>Online</span></h1>
                         <p>
                             Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odio, ad repudiandae. At ullam
                             odio voluptates.
                         </p>
-                        <a href="#" class="btn btn-primary">Beli Sekarang</a>
+                        <a href="{{ url('produk') }}" class="btn btn-primary">Beli Sekarang</a>
                     </main>
                 </div>
 
                 <div class="item">
-                    <img src="asset/foto/slider/slider2.jpg" alt="slider2.jpg">
+                    <img src="{{ asset('asset/slider/1703133067.jpg') }}" alt="slider2.jpg">
                     <main class="content">
                         <h1>{{ config('app.name', 'Laravel') }} <span>Online</span></h1>
                         <p>
                             Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odio, ad repudiandae. At ullam
                             odio voluptates.
                         </p>
-                        <a href="#" class="btn btn-primary">Beli Sekarang</a>
+                        <a href="{{ url('produk') }}" class="btn btn-primary">Beli Sekarang</a>
                     </main>
                 </div>
 
                 <div class="item">
-                    <img src="asset/foto/slider/slider3.jpg" alt="slider3.jpg">
+                    <img src="{{ asset('asset/slider/1703132894.jpg') }}" alt="slider3.jpg">
                     <main class="content">
                         <h1>{{ config('app.name', 'Laravel') }} <span>Online</span></h1>
                         <p>
                             Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odio, ad repudiandae. At ullam
                             odio voluptates.
                         </p>
-                        <a href="#" class="btn btn-primary">Beli Sekarang</a>
+                        <a href="{{ url('produk') }}" class="btn btn-primary">Beli Sekarang</a>
                     </main>
                 </div>
             @else
                 @foreach ($slider as $item)
                     <div class="item">
-                        <img src="{{ Storage::url($item->gambar_slider) }}" alt="{{ $item->gambar_slider }}" class="w-100">
+                        <img src="{{ Storage::url($item->gambar_slider) }}" alt="{{ $item->gambar_slider }}"
+                            class="w-100">
                         <main class="content">
                             <h1>{{ config('app.name', 'Laravel') }} <span>Online</span></h1>
                             <p>
@@ -67,7 +68,7 @@
         <div class="row">
             <div class="col-md-6 about-img">
                 @if ($setting->gambar_depan == null)
-                    <img src="asset/foto/slider/slider1.jpg" alt="slider1.jpg">
+                    <img src="{{ asset('asset/fotodepan/1703132935.jpg') }}" alt="slider1.jpg">
                 @else
                     <img style="height: 350px;" class="w-100" alt="{{ $setting->gambar_depan }}"
                         src="{{ Storage::url($setting->gambar_depan) }}">

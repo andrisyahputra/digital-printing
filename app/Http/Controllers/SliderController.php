@@ -56,8 +56,8 @@ class SliderController extends Controller
         try {
             DB::beginTransaction();
             $validator = Validator::make($request->all(), [
-                'gambar_slider' => ['required', 'image', 'mimes:png,jpg', 'max:1000'],
-                'ket_slider' => ['required', 'string', 'max:20'],
+                'gambar_slider' => ['required', 'image', 'mimes:png,jpg', 'max:6000'],
+                'ket_slider' => ['required', 'string', 'max:100'],
                 'kategori_id' => ['required', 'numeric']
             ]);
             if ($validator->fails()) {
@@ -112,8 +112,8 @@ class SliderController extends Controller
         try {
             DB::beginTransaction();
             $validator = Validator::make($request->all(), [
-                'gambar_slider' => ['required', 'image', 'mimes:png,jpg', 'max:1000'],
-                'ket_slider' => ['required', 'string', 'max:20'],
+                'gambar_slider' => ['nullable', 'image', 'mimes:png,jpg', 'max:6000'],
+                'ket_slider' => ['required', 'string', 'max:100'],
                 'kategori_id' => ['required', 'numeric']
             ]);
             if ($validator->fails()) {

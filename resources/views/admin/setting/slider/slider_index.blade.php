@@ -4,55 +4,55 @@
     <style>
         /* hero section */
         /* .hero {
-                                    position: relative;
-                                    display: flex;
-                                    align-items: center;
-                                    background-repeat: no-repeat;
-                                    background-size: cover;
-                                    background-position: center;
-                                }
+                                        position: relative;
+                                        display: flex;
+                                        align-items: center;
+                                        background-repeat: no-repeat;
+                                        background-size: cover;
+                                        background-position: center;
+                                    }
 
-                                .hero .item img {
-                                    width: 500px;
-                                    height: 500px;
-                                }
+                                    .hero .item img {
+                                        width: 500px;
+                                        height: 500px;
+                                    }
 
 
-                                .hero .content {
-                                    position: absolute;
-                                    top: 20%;
-                                    padding: 1.4rem 7%;
-                                    max-width: 60rem;
-                                    color: #fff;
-                                }
+                                    .hero .content {
+                                        position: absolute;
+                                        top: 20%;
+                                        padding: 1.4rem 7%;
+                                        max-width: 60rem;
+                                        color: #fff;
+                                    }
 
-                                .hero .content h1 {
-                                    font-size: 4rem;
-                                    color: #fff;
-                                    font-family: font3;
-                                    text-shadow: 0px 1px 5px rgba(0, 0, 0, 0.5);
-                                }
+                                    .hero .content h1 {
+                                        font-size: 4rem;
+                                        color: #fff;
+                                        font-family: font3;
+                                        text-shadow: 0px 1px 5px rgba(0, 0, 0, 0.5);
+                                    }
 
-                                .hero .content h1 span {
-                                    color: #800000;
-                                }
+                                    .hero .content h1 span {
+                                        color: #800000;
+                                    }
 
-                                .hero .content p {
-                                    font-size: 1.6rem;
-                                    margin-top: 1rem;
-                                    font-family: font2;
-                                    color: #fff;
-                                    text-align: justify;
-                                    max-width: 70%;
-                                    text-shadow: 0px 1px 5px rgba(0, 0, 0, 0.5);
-                                }
+                                    .hero .content p {
+                                        font-size: 1.6rem;
+                                        margin-top: 1rem;
+                                        font-family: font2;
+                                        color: #fff;
+                                        text-align: justify;
+                                        max-width: 70%;
+                                        text-shadow: 0px 1px 5px rgba(0, 0, 0, 0.5);
+                                    }
 
-                                .hero .content .btn {
-                                    padding: 0.5rem 2rem;
-                                    font-size: 1.2rem;
-                                    font-family: font2;
-                                    text-shadow: 0px 1px 5px rgba(0, 0, 0, 0.5);
-                                } */
+                                    .hero .content .btn {
+                                        padding: 0.5rem 2rem;
+                                        font-size: 1.2rem;
+                                        font-family: font2;
+                                        text-shadow: 0px 1px 5px rgba(0, 0, 0, 0.5);
+                                    } */
 
         #tombol {
             position: relative;
@@ -82,7 +82,7 @@
                                 {{ $item->ket_slider }}
                             </p>
                             <a href="{{ route('produk.kategori', $item->kategori_id) }}" class="btn btn-primary">Beli
-                                Sekarang</a>
+                                Ketegori {{ $item->kategori->nama }}</a>
                         </main>
                     </div>
                 </div>

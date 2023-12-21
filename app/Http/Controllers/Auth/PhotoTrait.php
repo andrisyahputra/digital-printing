@@ -11,7 +11,7 @@ trait PhotoTrait
         // Get the file from the request
         // Validate the request
         $request->validate([
-            $fieldName => 'image|mimes:jpeg,png,jpg|max:2048',
+            $fieldName => 'image|mimes:jpeg,png,jpg',
         ]);
         // $user = auth()->user();
         // dd($user);

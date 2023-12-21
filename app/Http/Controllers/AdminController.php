@@ -67,7 +67,7 @@ class AdminController extends Controller
         try {
             DB::beginTransaction();
             $validator = Validator::make($request->all(), [
-                'gambar_depan' => ['nullable', 'image', 'mimes:png,jpg', 'max:1000'],
+                'gambar_depan' => ['nullable', 'image', 'mimes:png,jpg', 'max:5000'],
                 'gdepan_ket' => ['required'],
                 'maps' => ['required'],
                 'produk_kami' => ['required'],

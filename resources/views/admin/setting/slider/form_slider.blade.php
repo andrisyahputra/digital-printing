@@ -24,7 +24,6 @@
                     {!! Form::file('gambar_slider', [
                         'class' => 'form-control',
                         'id' => 'gambar_slider',
-                        'required',
                     ]) !!}
                     <small>Foto Ukuran 1900 X 700</small>
 
