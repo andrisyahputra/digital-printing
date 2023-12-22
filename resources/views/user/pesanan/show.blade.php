@@ -356,6 +356,7 @@
                                     <h4 class="text-success">Pesanan Dikirim !</h4>
                                     <h5>NO Resi : {{ $pesanans->first()->dikirim()->resi }}</h5>
                                     <h5>Expedisi : {{ ucfirst($pesanans->first()->dikirim()->expedisi) }}</h5>
+                                    <h5>Expedisi : {{ ucfirst($pesanans->first()->dikirim()->paket) }}</h5>
                                 </div>
                             @break
 
