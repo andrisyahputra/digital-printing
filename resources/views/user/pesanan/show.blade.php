@@ -216,7 +216,7 @@
                                 <tbody>
                                     {{-- @dd($pesanans) --}}
 
-                                    @foreach ($pesanansSpanduk as $item)
+                                    @foreach ($pesanansKartuNama as $item)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $item->nama }}</td>
@@ -274,7 +274,7 @@
                                 <tbody>
                                     {{-- @dd($pesanans) --}}
 
-                                    @foreach ($pesanansSpanduk as $item)
+                                    @foreach ($pesanansBrosur as $item)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $item->nama }}</td>
