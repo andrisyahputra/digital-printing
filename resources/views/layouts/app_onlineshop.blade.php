@@ -6,26 +6,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ config('app.name', 'Laravel') }}</title>
     <!-- Custom fonts for this template-->
-    <link href="{{ URL::asset('asset') }}/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="{{ URL::asset('vendor') }}/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 
     <!-- Custom styles for this template-->
     <link href="{{ URL::asset('asset') }}/css/sb-admin-2.min.css" rel="stylesheet">
 
     <!-- Custom styles for this page -->
-    <link href="{{ URL::asset('asset') }}/vendor/datatables/dataTables.bootstrap4.min.css">
+    <link href="{{ URL::asset('vendor') }}/datatables/dataTables.bootstrap4.min.css">
 
     <link rel="stylesheet" href="{{ URL::asset('asset') }}/css/owl.carousel.min.css">
     <link rel="stylesheet" href="{{ URL::asset('asset') }}/css/owl.theme.default.min.css">
     <link rel="stylesheet" href="{{ URL::asset('asset') }}/css/style.css">
 
     <!-- CSS -->
-    <link rel="stylesheet" href="{{ URL::asset('asset/alertifyjs') }}/css/alertify.min.css" />
+    <link rel="stylesheet" href="{{ URL::asset('vendor/alertifyjs') }}/css/alertify.min.css" />
     <!-- Default theme -->
-    <link rel="stylesheet" href="{{ URL::asset('asset/alertifyjs') }}/css/themes/default.min.css" />
+    <link rel="stylesheet" href="{{ URL::asset('vendor/alertifyjs') }}/css/themes/default.min.css" />
     <!-- Semantic UI theme -->
-    <link rel="stylesheet" href="{{ URL::asset('asset/alertifyjs') }}/css/themes/semantic.min.css" />
+    <link rel="stylesheet" href="{{ URL::asset('vendor/alertifyjs') }}/css/themes/semantic.min.css" />
     <!-- Bootstrap theme -->
-    <link rel="stylesheet" href="{{ URL::asset('asset/alertifyjs') }}/css/themes/bootstrap.min.css" />
+    <link rel="stylesheet" href="{{ URL::asset('vendor/alertifyjs') }}/css/themes/bootstrap.min.css" />
 
     <link rel="stylesheet" href="{{ URL::asset('asset') }}/css/loader.css" />
 
@@ -78,18 +78,18 @@
 
 
     <!-- Bootstrap core JavaScript-->
-    <script src="{{ URL::asset('asset') }}/vendor/jquery/jquery.min.js"></script>
-    <script src="{{ URL::asset('asset') }}/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ URL::asset('vendor') }}/jquery/jquery.min.js"></script>
+    <script src="{{ URL::asset('vendor') }}/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
-    <script src="{{ URL::asset('asset') }}/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="{{ URL::asset('vendor') }}/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
     <script src="{{ URL::asset('asset') }}/js/sb-admin-2.min.js"></script>
 
     <!-- Page level plugins -->
-    <script src="{{ URL::asset('asset') }}/vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="{{ URL::asset('asset') }}/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+    <script src="{{ URL::asset('vendor') }}/datatables/jquery.dataTables.min.js"></script>
+    <script src="{{ URL::asset('vendor') }}/datatables/dataTables.bootstrap4.min.js"></script>
 
     <script src="{{ URL::asset('asset') }}/js/owl.carousel.min.js"></script>
     <!-- buat js ketika tombol btn menu -->
@@ -97,7 +97,7 @@
 
 
     <!-- JavaScript -->
-    <script src="{{ URL::asset('asset/alertifyjs') }}/alertify.min.js"></script>
+    <script src="{{ URL::asset('vendor/alertifyjs') }}/alertify.min.js"></script>
     <script src="{{ URL::asset('asset') }}/js/loader.js"></script>
 
 

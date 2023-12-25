@@ -1,9 +1,9 @@
 <?php
 
-use App\Http\Controllers\MediaSosialController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\indexController;
@@ -18,6 +18,7 @@ use App\Http\Controllers\KerajangController;
 use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\AlamatUserController;
 use App\Http\Controllers\RajaOngkirController;
+use App\Http\Controllers\MediaSosialController;
 use App\Http\Middleware\EnsureAuthDataKeranjang;
 use App\Http\Controllers\PesananDikirimController;
 use App\Http\Controllers\PesananDiterimaController;
@@ -33,6 +34,11 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+Route::get('/linkstorage', function () {
+    Artisan::call('storage:link');
+});
+
 
 Route::get('logout', function () {
     Auth::logout();
