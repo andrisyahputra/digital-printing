@@ -28,16 +28,6 @@ trait PhotoProdukTrait
         // Store the file in the specified storage path
         $path = $file->storeAs($storagePath, $filename);
 
-        $folderPath = dirname($path);
-        $this->setFolderPermissions($folderPath);
         return $path;
-    }
-    private function setFolderPermissions($folderPath)
-    {
-        // Set the desired permissions for the folder
-        $permissions = 0755; // Adjust as needed
-
-        // Use chmod to set folder permissions
-        chmod(storage_path('app/public/' . $folderPath), $permissions);
     }
 }
